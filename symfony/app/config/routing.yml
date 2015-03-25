@@ -1,3 +1,7 @@
+athwela_login:
+    resource: "@AthwelaLoginBundle/Resources/config/routing.xml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
