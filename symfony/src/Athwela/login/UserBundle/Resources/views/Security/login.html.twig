@@ -1,0 +1,40 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{%block css%}
+    <link href="{{asset('css/customLogin.css')}}" rel="stylesheet">
+{%endblock css%}
+{% block fos_user_content %}
+    {% if error %}
+        <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+    {% endif %}
+
+    <form action="{{ path("fos_user_security_check") }}" class="navbar-form navbar-right" method="post">
+        <div class="form-group">
+            <input type="hidden" name="_csrf_token" class="form-control" value="{{ csrf_token }}" />
+
+            <label for="username" style="color: #ffffff">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+            <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" required="required" />
+
+            <label for="password" style="color: #ffffff">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+            <input type="password" id="password" class="form-control" name="_password" required="required" />
+
+            <input type="submit" id="_submit" name="_submit" class="btn btn-default form-control" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+        </div>
+
+        <div >
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            <label for="remember_me" style="color: #ffffff">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+        </div>
+
+
+    </form>
+{% endblock fos_user_content %}
+
+{%block container%}
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-8">
+
+        </div>
+    </div>
+
+{%endblock container%}

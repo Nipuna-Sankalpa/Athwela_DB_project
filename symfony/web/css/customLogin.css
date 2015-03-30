@@ -1,0 +1,22 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 30, 2015, 3:43:57 AM
+    Author     : Yellow Flash
+*/
+body{
+    background-attachment: fixed;
+    background-image: url('../img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.navbar-inverse {
+  background-color: rgba(0,0,0,0.5);
+  border-color: #080808;
+ 
+}

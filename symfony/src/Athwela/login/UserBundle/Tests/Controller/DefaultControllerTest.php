@@ -1,6 +1,6 @@
 <?php
 
-namespace AthwelaLoginBundle\Tests\Controller;
+namespace Athwela\login\UserBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
