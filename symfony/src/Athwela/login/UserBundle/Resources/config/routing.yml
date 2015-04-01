@@ -1,3 +1,4 @@
 athwelalogin_user_homepage:
     path:     /
-    defaults: { _controller: AthwelaloginUserBundle:Default:index }
+    defaults: { _controller: FOSUserBundle:Security:login }
+

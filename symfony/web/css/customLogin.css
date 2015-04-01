@@ -12,11 +12,34 @@ body{
     background-image: url('../img/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    
+
 }
 
 .navbar-inverse {
-  background-color: rgba(0,0,0,0.5);
-  border-color: #080808;
- 
+    background-color: rgba(0,0,0,0.5);
+    border-color: #080808;
+
+}
+@font-face {
+    font-family: myFirstFont;
+    src:url(../fonts/KaushanScript-Regular-webfont.ttf);
+
+}
+
+.site-title {
+    font-family: myFirstFont;
+    font-size: 30pt;
+    font-weight: normal;
+    margin-top: 5px;
+    /*text-transform: uppercase;*/
+    /*text-transform: capitalize;*/
+}
+
+.signUpForm{
+    background-color: rgba(0,0,0,0.5);
+    box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
+    color: #DADADA;
+    padding: 1.5em;
+    margin-top: 1em;
 }
