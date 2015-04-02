@@ -13,12 +13,13 @@
 
         <!-- Bootstrap Core CSS -->
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{asset('css/customLogin.css')}}" rel="stylesheet">
+        
     {%block css%}{% endblock css%}
     <!-- Custom CSS -->
     <style>
         body {
             padding-top: 70px;
+        {% block Background%}{%endblock Background%}
             /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
         }
     </style>
