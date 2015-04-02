@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Athwela\login\UserBundle\Form\Type;
+namespace Athwela\ProfileSettings\UserBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -53,6 +53,6 @@ class ChangePasswordFormType extends AbstractType
 
     public function getName()
     {
-        return 'fos_user_change_password';
+        return 'athwela_profile_setting_change_password';
     }
 }

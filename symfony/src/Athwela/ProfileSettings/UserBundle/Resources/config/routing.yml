@@ -1,0 +1,3 @@
+athwela_profile_settings:
+    path:     /ProfileSettings/{id}
+    defaults: { _controller: AthwelaProfileSettingsUserBundle:Settings:settings}

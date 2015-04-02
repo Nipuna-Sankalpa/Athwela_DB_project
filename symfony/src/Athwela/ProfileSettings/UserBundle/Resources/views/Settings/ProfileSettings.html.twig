@@ -1,0 +1,286 @@
+{% extends '::base.html.twig'%}
+{%block css%}
+    <link href="{{asset('css/formValidation.min.css')}}" rel="stylesheet">
+{%endblock css%}
+
+{%block container%}
+
+    <div class="row">
+        <div class="col-md-12">
+            <form action = "#" id = "form" class="form-horizontal" method="post" >
+                <fieldset>
+                    <legend class="text-center header">Edit profile settings</legend>
+                    <div class = "mymargin15"> </div>
+
+                    <div class="col-md-4">
+
+                        <fieldset >   
+                            <legend class="text-center">Edit Profile Picture</legend>
+                            <div class="form-group ">
+                                <div class= "col-md-10 col-md-offset-1 ">
+                                    <img src="http://fc06.deviantart.net/fs71/f/2012/275/d/f/profile_picture_by_bosch91-d5gks3i.jpg" class="avatar img-responsive img-thumbnail center-block" alt="avatar">
+                                </div>
+                                <div class = "col-md-12">    
+                                    <h6>Upload a different photo...</h6>
+                                </div>    
+                                <div class = "col-md-12">
+                                    <input name="file" type="file" class="form-control">   
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <fieldset >
+                            <legend class="text-center">Password reset</legend>
+
+                            <div class="form-group ">
+                                <label class="col-md-12">Old password</label>
+                                <div class = "col-md-12">
+                                    <input type="password" class="form-control" name="oldpassword" /> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">New password</label>
+                                <div class="col-md-12" >
+                                    <input type="password" class="form-control" name="newpassword" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Retype new password</label>
+                                <div class="col-md-12" >
+                                    <input type="password" class="form-control" name="confirmPassword" />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-8">  
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">First name:</label>
+                            <div class="col-md-3">
+                                <input class="form-control" name="first_name" type="text" value="Jane">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Last name:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" name="last_name" type="text" value="Jane">
+                            </div>
+                        </div>  
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Birthday</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="birthday" data-fv-date="false" data-fv-date-format="YYYY/MM/DD" data-fv-date-message="The birthday is not valid" /> (YYYY/MM/DD)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Gender</label>
+                            <div class="col-md-8">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="gender" value="male" /> Male
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="gender" value="female" /> Female
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Mobile Phone:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" name="phone" type="text" value="0712345678">
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Interested Areas</label>
+                            <div class="col-md-8">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="net" /> .Net
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="java" /> Java
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="c" /> C/C++
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="php" /> PHP
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="perl" /> Perl
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="ruby" /> Ruby
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="python" /> Python
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="javascript" /> Javascript
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" col-md-8 col-md-offset-4 left">
+                                <button type ="submit" name = "contact" class="btn btn-default pull-right" >Update</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset> 
+
+            </form>
+        </div>
+    </div>
+
+
+    <style>
+        .header {
+            color: #006600;
+            font-size: 27px;
+            font-weight:bold ;
+            padding: 10px;
+        }
+
+        .bigicon {
+            font-size: 35px;
+            color: #006600;
+        }
+    </style>
+{%endblock container%}
+
+
+
+{% block js%}
+    <script src={{asset('js/jquery-1.11.2.min.js')}}></script>
+    <script src={{asset('js/formValidation.min.js')}}></script>
+    <script src={{asset('js/framework/bootstrap.min.js')}}></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#form').formValidation({
+                message: 'This value is not valid',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    first_name: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The first name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    last_name: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The last name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    email: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The emai address is required and cannot be empty'
+                            },
+                            emailAddress: {
+                                message: 'The input is not a valid email address'
+                            }
+                        }
+                    },
+                    confirmPassword: {
+                        validators: {
+                            identical: {
+                                field: 'newpassword',
+                                message: 'The password and its confirm are not the same'
+                            }
+                        }
+                    },
+                    phone: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The phone number is required and cannot be empty'
+                            },
+                            stringLength: {
+                                max: 10,
+                                message: 'The phone number must be 10 characters long'
+                            },
+                            digits: {
+                                message: 'The phone number can only consist of numbers'
+                            }
+                        }
+                    },
+                    gender: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The gender is required'
+                            }
+                        }
+                    },
+                    birthday: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The date of birth is required'
+                            },
+                            date: {
+                                format: 'YYYY/MM/DD',
+                                message: 'The date of birth is not valid'
+                            }
+                        }
+                    },
+                    file: {
+                        validators: {
+                            file: {
+                                extension: 'jpg',
+                                type: 'image/jpg',
+                                message: 'Please choose a jpg file.'
+                            }
+                        }
+                    },
+                    message: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The message is required and cannot be empty'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock js%}
+
+
+
+
+
+

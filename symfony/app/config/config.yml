@@ -76,10 +76,8 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Athwela\login\UserBundle\Entity\User
-    
     registration:
         form:
             type: athwela_user_registration
-    changePassword:
         form:
             type: athwela_user_change_password

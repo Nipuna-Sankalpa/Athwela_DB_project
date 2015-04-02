@@ -7,7 +7,3 @@ services:
         tags:
             - { name: form.type, alias: athwela_user_registration }
             
-    athwela_login_user.changePassword.form.type:
-        class: Athwela\login\UserBundle\Form\Type\ChangePasswordFormType
-        tags:
-            - { name: form.type, alias: athwela_user_change_password }

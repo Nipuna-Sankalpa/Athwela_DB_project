@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Athwela\login\UserBundle\Controller;
+namespace Athwela\ProfileSettings\UserBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -45,7 +45,7 @@ class ChangePasswordController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse(
-            'FOSUserBundle:ChangePassword:changePassword.html.'.$this->container->getParameter('fos_user.template.engine'),
+            'AthwelaProfileSettingsUserBundle:Settings:ProfileSettings.html.'.$this->container->getParameter('fos_user.template.engine'),
             array('form' => $form->createView())
         );
     }
