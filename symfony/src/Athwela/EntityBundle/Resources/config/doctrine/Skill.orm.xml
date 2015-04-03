@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Athwela\EntityBundle\Entity\Skill" table="skill">
+    <id name="id" type="integer" column="ID">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="15" nullable="false"/>
+    <field name="description" type="text" column="description" nullable="false"/>
+    <many-to-many field="v" target-entity="Volunteer" mapped-by="s"/>
+    <many-to-many field="p" target-entity="Project" mapped-by="s"/>
+  </entity>
+</doctrine-mapping>

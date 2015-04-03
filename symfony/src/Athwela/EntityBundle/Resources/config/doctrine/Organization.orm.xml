@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Athwela\EntityBundle\Entity\Organization" table="organization">
+    <indexes>
+      <index name="a_ID" columns="a_ID"/>
+    </indexes>
+    <id name="id" type="integer" column="ID">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="20" nullable="false"/>
+    <field name="description" type="text" column="description" nullable="false"/>
+    <field name="street" type="string" column="street" length="20" nullable="false"/>
+    <field name="city" type="string" column="city" length="15" nullable="false"/>
+    <field name="country" type="string" column="country" length="15" nullable="false"/>
+    <many-to-one field="a" target-entity="Admin">
+      <join-columns>
+        <join-column name="a_ID" referenced-column-name="ID"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
