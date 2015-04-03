@@ -1,0 +1,107 @@
+{% extends "::base.html.twig" %}
+
+{% block styleSheet %}
+    <link href="{{asset('css/timeline.css')}}" rel="stylesheet">
+    <link href="{{asset('css/profileCustom.css')}}" rel="stylesheet">
+{% endblock %}
+{# Setting UP profile Link #}
+{% block linkProfile%}
+    {{path('friends_profile_homepage',{'email':email})}}
+{% endblock%}
+
+
+
+
+{% block body %}
+
+
+    <div class="col-md-3">
+        <div id="image">
+
+            <img src="{{path('friends_profile_image',{'email': profile.email})}}" alt="Profile Picture" class="profilePicFrame img-rounded" style="width:227px ;height: 277px;">
+
+        </div>
+
+        <div id="navBox" style="margin-top: 1em;">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                View Profile
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul>
+                                <li><a href="{{ path('friends_timeline_homepage', { 'email': profile.email }) }}">My Posts</li>
+                                <li><a href="{{ path('profile', { 'email': profile.email }) }}">Friends</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Setup Profile
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <ul>
+                                <li><a href="{{ path('profile_edit', { 'email': profile.email }) }}">Edit profile</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-8">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h2 class="panel-title">Let your friends know...</h2>
+            </div>
+
+            <div class="panel-body">
+                {{ form_start(form) }}
+
+                <div class="input-group">
+                    {{ form_widget(form.content, { 'attr' : { 'class' : 'form-control' } }) }}
+
+                    <span class="input-group-btn">
+                        {{ form_widget(form.post, { 'attr' : { 'class' : 'btn btn-success'}}) }}
+                        {#<button type="submit" id="form_post" name="form[post]" class="btn btn-success"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>#}
+                    </span>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+        {% for post in posts %}
+
+            <div class="panel panel-primary box-shadow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6"><h2 class="panel-title">{{ post.userEmail.firstName ~ " " ~ post.userEmail.lastName  }}</h2></div>
+                        <div class="col-md-6"><p class="pull-right">{{ post.timestamp|date('Y-m-d H:i:s') }}</p></div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <p>{{ post.content }}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+    <div class="col-md-1"></div>
+{% endblock %}

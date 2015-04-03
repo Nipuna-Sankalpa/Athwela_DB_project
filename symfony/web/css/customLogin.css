@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 body{
     background-attachment: fixed;
-    
+    background-image: url('../img/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 
