@@ -1,3 +1,7 @@
+vol_profile:
+    resource: "@VolProfileBundle/Resources/config/routing.yml"
+    prefix:   /
+
 athwela_entity:
     resource: "@AthwelaEntityBundle/Resources/config/routing.xml"
     prefix:   /
