@@ -1,6 +1,6 @@
 athwela_profile_settings_user:
     resource: "@AthwelaProfileSettingsUserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /profile-settings
 
 athwelalogin_user:
     resource: "@AthwelaloginUserBundle/Resources/config/routing.yml"

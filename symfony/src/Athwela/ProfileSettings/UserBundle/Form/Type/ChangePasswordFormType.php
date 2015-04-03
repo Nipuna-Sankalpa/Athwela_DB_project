@@ -17,10 +17,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Security\Core\Validator\Constraint\UserPassword as OldUserPassword;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
+
 class ChangePasswordFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+       
         if (class_exists('Symfony\Component\Security\Core\Validator\Constraints\UserPassword')) {
             $constraint = new UserPassword();
         } else {
@@ -51,6 +53,10 @@ class ChangePasswordFormType extends AbstractType
         ));
     }
 
+    public function getParent() {
+        return 'fos_user_change_password';
+    }
+    
     public function getName()
     {
         return 'athwela_profile_setting_change_password';
