@@ -1,3 +1,7 @@
+athwela_entity:
+    resource: "@AthwelaEntityBundle/Resources/config/routing.xml"
+    prefix:   /
+
 athwela_profile_settings_user:
     resource: "@AthwelaProfileSettingsUserBundle/Resources/config/routing.yml"
     prefix:   /

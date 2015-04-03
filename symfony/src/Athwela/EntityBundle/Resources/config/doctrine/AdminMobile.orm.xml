@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Athwela\EntityBundle\Entity\AdminMobile" table="admin_mobile">
+    <indexes>
+      <index name="IDX_61BB121995345732" columns="a_ID"/>
+    </indexes>
+    <id name="mobileNumber" type="string" column="mobile_number" length="20"/>
+    <id name="a" association-key="true"/>
+    <one-to-one field="a" target-entity="Admin">
+      <join-columns>
+        <join-column name="a_ID" referenced-column-name="ID"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>
