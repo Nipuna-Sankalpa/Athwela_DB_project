@@ -5,16 +5,14 @@
 
 {%block container%}
 
-
     <div class="row">
         <div class="col-md-12">
-            <form action = "#" id = "form" class="form-horizontal" method="post" >
-                <fieldset>
-                    <legend class="text-center header">Edit profile settings</legend>
-                    <div class = "mymargin15"> </div>
+            <fieldset>
+                <legend class="text-center header">Edit profile settings</legend>
+                <div class = "mymargin15"> </div>                 
+                <div class="col-md-4">
 
-                    <div class="col-md-4">
-
+                    <form action = "#" id = "form1" class="form-horizontal" enctype="{{ form_enctype(form) }}" method="post" >
                         <fieldset >   
                             <legend class="text-center">Edit Profile Picture</legend>
                             <div class="form-group ">
@@ -33,33 +31,49 @@
                         <br>
                         <br>
                         <br>
-
+{# set password reset form action into path('athwela_profile_settings'){place this portion on the action method in form}#}
                         <fieldset >
                             <legend class="text-center">Password reset</legend>
 
                             <div class="form-group ">
-                                <label class="col-md-12">Old password</label>
+
                                 <div class = "col-md-12">
-                                    <input type="password" class="form-control" name="oldpassword" /> 
+                                    {{form_row(form._token)}}
+                                    <label class="control-label">Current Password</label>
+                                    {{form_widget(form.current_password,{'attr':{'class':'form-control','placeholder':'Enter Current password'}})}}
+
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-12">New password</label>
+
                                 <div class="col-md-12" >
-                                    <input type="password" class="form-control" name="newpassword" />
+                                    <label class="control-label">New Password</label>
+                                    {{form_widget(form.new.first,{'attr':{'class':'form-control','placeholder':'Enter New password'}})}}
+
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-12">Retype new password</label>
+
                                 <div class="col-md-12" >
-                                    <input type="password" class="form-control" name="confirmPassword" />
+                                    <label class="control-label">Re-type new Password</label>
+                                    {{form_widget(form.new.second,{'attr':{'class':'form-control','placeholder':'Re-Enter New password'}})}}
+
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-12" >
+                                    <button type ="submit" name = "contact" class="btn btn-default pull-left" >Update</button>
+                                </div>
+                            </div>    
 
                         </fieldset>
-                    </div>
-                    <div class="col-md-8">  
+                    </form>
 
+                </div>
+
+
+                <div class="col-md-8">  
+                    <form action = "php/FormToMail.php" id = "form2" class="form-horizontal" method="post" >  
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">First name:</label>
@@ -155,13 +169,12 @@
                                 <button type ="submit" name = "contact" class="btn btn-default pull-right" >Update</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                </div>
+
+            </fieldset> 
 
 
-                </fieldset> 
-
-
-            </form>
         </div>
     </div>
 
@@ -188,9 +201,8 @@
     <script src={{asset('js/formValidation.min.js')}}></script>
     <script src={{asset('js/framework/bootstrap.min.js')}}></script>
     <script type="text/javascript">
-<<<<<<< HEAD
         $(document).ready(function() {
-            $('#form').formValidation({
+            $('#form2').formValidation({
                 message: 'This value is not valid',
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
@@ -282,5 +294,10 @@
             });
         });
     </script>
-
 {% endblock js%}
+
+
+
+
+
+

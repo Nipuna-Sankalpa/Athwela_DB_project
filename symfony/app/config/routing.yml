@@ -1,5 +1,8 @@
 athwela_timeline:
     resource: "@AthwelaTimelineBundle/Resources/config/routing.xml"
+
+vol_profile:
+    resource: "@VolProfileBundle/Resources/config/routing.yml"
     prefix:   /
 
 athwela_entity:
@@ -8,7 +11,7 @@ athwela_entity:
 
 athwela_profile_settings_user:
     resource: "@AthwelaProfileSettingsUserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /profile-settings
 
 athwelalogin_user:
     resource: "@AthwelaloginUserBundle/Resources/config/routing.yml"

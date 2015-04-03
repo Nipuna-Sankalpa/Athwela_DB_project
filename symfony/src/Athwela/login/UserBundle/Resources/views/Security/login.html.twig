@@ -44,7 +44,7 @@
             <form id="sign_up_form" class="navbar-form navbar-right" method="post" enctype="{{ form_enctype(form) }}" action="{{path('fos_user_registration_register')}}">
                 <div class="form-group signUpForm">
                     <h4 style="font-size: 25px">Sign Up</h4>
-                    {{ form_row(form._token) }}
+                    {{ form_row(form._token)}}
                     <div>{{form_errors(form.username,{'attr':{'class':'alert alert-danger'}})}}</div>
                     <div>{{form_widget(form.username,{'attr':{'class':'form-control','placeholder':'Enter User Name'}})}}</div><br />
                     <div>{{form_errors(form.email,{'attr':{'class':'alert alert-danger'}})}}</div>

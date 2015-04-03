@@ -20,8 +20,6 @@ class User extends BaseUser {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    
     protected $status;
 
     public function getstatus() {
@@ -31,7 +29,7 @@ class User extends BaseUser {
     public function setstatus($status) {
         echo $status;
         if ($status == 'ROLE_ORG') {
-            
+
             $this->setRoles(array('ROLE_ORG'));
         } else if ($status == 'ROLE_VOL') {
             $this->setRoles(array('ROLE_VOL'));
