@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Volunteer
  */
-class Volunteer
-{
+class Volunteer {
+
     /**
      * @var string
      */
@@ -18,6 +18,10 @@ class Volunteer
      * @var string
      */
     private $lastName;
+
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     /**
      * @var \DateTime
@@ -59,10 +63,17 @@ class Volunteer
      */
     private $id;
 
+    public function getA_ID() {
+        return $this->a_ID;
+    }
+    public function setA_ID($a_ID) {
+        return $this->a_ID=$a_ID;
+    }
+
     /**
      * @var \Athwela\EntityBundle\Entity\Admin
      */
-    private $a;
+    private $a_ID;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -87,8 +98,7 @@ class Volunteer
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->s = new \Doctrine\Common\Collections\ArrayCollection();
         $this->p = new \Doctrine\Common\Collections\ArrayCollection();
         $this->t = new \Doctrine\Common\Collections\ArrayCollection();
@@ -101,8 +111,7 @@ class Volunteer
      * @param string $firstName
      * @return Volunteer
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
 
         return $this;
@@ -113,8 +122,7 @@ class Volunteer
      *
      * @return string 
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -124,8 +132,7 @@ class Volunteer
      * @param string $lastName
      * @return Volunteer
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
 
         return $this;
@@ -136,8 +143,7 @@ class Volunteer
      *
      * @return string 
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -147,8 +153,7 @@ class Volunteer
      * @param \DateTime $dob
      * @return Volunteer
      */
-    public function setDob($dob)
-    {
+    public function setDob($dob) {
         $this->dob = $dob;
 
         return $this;
@@ -159,8 +164,7 @@ class Volunteer
      *
      * @return \DateTime 
      */
-    public function getDob()
-    {
+    public function getDob() {
         return $this->dob;
     }
 
@@ -170,8 +174,7 @@ class Volunteer
      * @param string $street
      * @return Volunteer
      */
-    public function setStreet($street)
-    {
+    public function setStreet($street) {
         $this->street = $street;
 
         return $this;
@@ -182,8 +185,7 @@ class Volunteer
      *
      * @return string 
      */
-    public function getStreet()
-    {
+    public function getStreet() {
         return $this->street;
     }
 
@@ -193,8 +195,7 @@ class Volunteer
      * @param string $city
      * @return Volunteer
      */
-    public function setCity($city)
-    {
+    public function setCity($city) {
         $this->city = $city;
 
         return $this;
@@ -205,8 +206,7 @@ class Volunteer
      *
      * @return string 
      */
-    public function getCity()
-    {
+    public function getCity() {
         return $this->city;
     }
 
@@ -216,8 +216,7 @@ class Volunteer
      * @param string $country
      * @return Volunteer
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
 
         return $this;
@@ -228,8 +227,7 @@ class Volunteer
      *
      * @return string 
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -239,8 +237,7 @@ class Volunteer
      * @param string $email
      * @return Volunteer
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -251,8 +248,7 @@ class Volunteer
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -262,8 +258,7 @@ class Volunteer
      * @param boolean $gender
      * @return Volunteer
      */
-    public function setGender($gender)
-    {
+    public function setGender($gender) {
         $this->gender = $gender;
 
         return $this;
@@ -274,8 +269,7 @@ class Volunteer
      *
      * @return boolean 
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -285,8 +279,7 @@ class Volunteer
      * @param integer $availability
      * @return Volunteer
      */
-    public function setAvailability($availability)
-    {
+    public function setAvailability($availability) {
         $this->availability = $availability;
 
         return $this;
@@ -297,8 +290,7 @@ class Volunteer
      *
      * @return integer 
      */
-    public function getAvailability()
-    {
+    public function getAvailability() {
         return $this->availability;
     }
 
@@ -307,8 +299,7 @@ class Volunteer
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -318,8 +309,7 @@ class Volunteer
      * @param \Athwela\EntityBundle\Entity\Admin $a
      * @return Volunteer
      */
-    public function setA(\Athwela\EntityBundle\Entity\Admin $a = null)
-    {
+    public function setA(\Athwela\EntityBundle\Entity\Admin $a = null) {
         $this->a = $a;
 
         return $this;
@@ -330,8 +320,7 @@ class Volunteer
      *
      * @return \Athwela\EntityBundle\Entity\Admin 
      */
-    public function getA()
-    {
+    public function getA() {
         return $this->a;
     }
 
@@ -341,8 +330,7 @@ class Volunteer
      * @param \Athwela\EntityBundle\Entity\Skill $s
      * @return Volunteer
      */
-    public function add(\Athwela\EntityBundle\Entity\Skill $s)
-    {
+    public function add(\Athwela\EntityBundle\Entity\Skill $s) {
         $this->s[] = $s;
 
         return $this;
@@ -353,8 +341,7 @@ class Volunteer
      *
      * @param \Athwela\EntityBundle\Entity\Skill $s
      */
-    public function remove(\Athwela\EntityBundle\Entity\Skill $s)
-    {
+    public function remove(\Athwela\EntityBundle\Entity\Skill $s) {
         $this->s->removeElement($s);
     }
 
@@ -363,8 +350,7 @@ class Volunteer
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getS()
-    {
+    public function getS() {
         return $this->s;
     }
 
@@ -374,8 +360,7 @@ class Volunteer
      * @param \Athwela\EntityBundle\Entity\Project $p
      * @return Volunteer
      */
-    public function addP(\Athwela\EntityBundle\Entity\Project $p)
-    {
+    public function addP(\Athwela\EntityBundle\Entity\Project $p) {
         $this->p[] = $p;
 
         return $this;
@@ -386,8 +371,7 @@ class Volunteer
      *
      * @param \Athwela\EntityBundle\Entity\Project $p
      */
-    public function removeP(\Athwela\EntityBundle\Entity\Project $p)
-    {
+    public function removeP(\Athwela\EntityBundle\Entity\Project $p) {
         $this->p->removeElement($p);
     }
 
@@ -396,8 +380,7 @@ class Volunteer
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getP()
-    {
+    public function getP() {
         return $this->p;
     }
 
@@ -407,8 +390,7 @@ class Volunteer
      * @param \Athwela\EntityBundle\Entity\Type $t
      * @return Volunteer
      */
-    public function addT(\Athwela\EntityBundle\Entity\Type $t)
-    {
+    public function addT(\Athwela\EntityBundle\Entity\Type $t) {
         $this->t[] = $t;
 
         return $this;
@@ -419,8 +401,7 @@ class Volunteer
      *
      * @param \Athwela\EntityBundle\Entity\Type $t
      */
-    public function removeT(\Athwela\EntityBundle\Entity\Type $t)
-    {
+    public function removeT(\Athwela\EntityBundle\Entity\Type $t) {
         $this->t->removeElement($t);
     }
 
@@ -429,8 +410,7 @@ class Volunteer
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getT()
-    {
+    public function getT() {
         return $this->t;
     }
 
@@ -440,8 +420,7 @@ class Volunteer
      * @param \Athwela\EntityBundle\Entity\Institute $i
      * @return Volunteer
      */
-    public function addI(\Athwela\EntityBundle\Entity\Institute $i)
-    {
+    public function addI(\Athwela\EntityBundle\Entity\Institute $i) {
         $this->i[] = $i;
 
         return $this;
@@ -452,8 +431,7 @@ class Volunteer
      *
      * @param \Athwela\EntityBundle\Entity\Institute $i
      */
-    public function removeI(\Athwela\EntityBundle\Entity\Institute $i)
-    {
+    public function removeI(\Athwela\EntityBundle\Entity\Institute $i) {
         $this->i->removeElement($i);
     }
 
@@ -462,8 +440,8 @@ class Volunteer
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getI()
-    {
+    public function getI() {
         return $this->i;
     }
+
 }

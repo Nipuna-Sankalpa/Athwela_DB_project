@@ -28,8 +28,31 @@ class Project
      * @var \DateTime
      */
     private $startDate;
+    public function getO_ID() {
+        return $this->o_ID;
+    }
 
-    /**
+    public function getA_ID() {
+        return $this->a_ID;
+    }
+
+    public function getT_ID() {
+        return $this->t_ID;
+    }
+
+    public function setO_ID($o_ID) {
+        $this->o_ID = $o_ID;
+    }
+
+    public function setA_ID($a_ID) {
+        $this->a_ID = $a_ID;
+    }
+
+    public function setT_ID($t_ID) {
+        $this->t_ID = $t_ID;
+    }
+
+        /**
      * @var \DateTime
      */
     private $endDate;
@@ -57,17 +80,17 @@ class Project
     /**
      * @var \Athwela\EntityBundle\Entity\Organization
      */
-    private $o;
+    private $o_ID;
 
     /**
      * @var \Athwela\EntityBundle\Entity\Admin
      */
-    private $a;
+    private $a_ID;
 
     /**
      * @var \Athwela\EntityBundle\Entity\Type
      */
-    private $t;
+    private $t_ID;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -290,7 +313,7 @@ class Project
      */
     public function setO(\Athwela\EntityBundle\Entity\Organization $o = null)
     {
-        $this->o = $o;
+        $this->o_ID = $o;
 
         return $this;
     }
@@ -302,7 +325,7 @@ class Project
      */
     public function getO()
     {
-        return $this->o;
+        return $this->o_ID;
     }
 
     /**
@@ -313,7 +336,7 @@ class Project
      */
     public function setA(\Athwela\EntityBundle\Entity\Admin $a = null)
     {
-        $this->a = $a;
+        $this->a_ID = $a;
 
         return $this;
     }
@@ -325,7 +348,7 @@ class Project
      */
     public function getA()
     {
-        return $this->a;
+        return $this->a_ID;
     }
 
     /**
@@ -336,7 +359,7 @@ class Project
      */
     public function setT(\Athwela\EntityBundle\Entity\Type $t = null)
     {
-        $this->t = $t;
+        $this->t_ID = $t;
 
         return $this;
     }
@@ -348,7 +371,7 @@ class Project
      */
     public function getT()
     {
-        return $this->t;
+        return $this->t_ID;
     }
 
     /**

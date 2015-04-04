@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Admin
  */
-class Admin
-{
+class Admin {
+
     /**
      * @var string
      */
@@ -42,18 +42,7 @@ class Admin
     /**
      * @var integer
      */
-    private $accessLevel;
-
-    /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @var integer
-     */
     private $id;
-
 
     /**
      * Set firstName
@@ -61,8 +50,7 @@ class Admin
      * @param string $firstName
      * @return Admin
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
 
         return $this;
@@ -73,8 +61,7 @@ class Admin
      *
      * @return string 
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -84,8 +71,7 @@ class Admin
      * @param string $lastName
      * @return Admin
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
 
         return $this;
@@ -96,8 +82,7 @@ class Admin
      *
      * @return string 
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -107,8 +92,7 @@ class Admin
      * @param string $street
      * @return Admin
      */
-    public function setStreet($street)
-    {
+    public function setStreet($street) {
         $this->street = $street;
 
         return $this;
@@ -119,8 +103,7 @@ class Admin
      *
      * @return string 
      */
-    public function getStreet()
-    {
+    public function getStreet() {
         return $this->street;
     }
 
@@ -130,8 +113,7 @@ class Admin
      * @param string $city
      * @return Admin
      */
-    public function setCity($city)
-    {
+    public function setCity($city) {
         $this->city = $city;
 
         return $this;
@@ -142,8 +124,7 @@ class Admin
      *
      * @return string 
      */
-    public function getCity()
-    {
+    public function getCity() {
         return $this->city;
     }
 
@@ -153,8 +134,7 @@ class Admin
      * @param string $country
      * @return Admin
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
 
         return $this;
@@ -165,8 +145,7 @@ class Admin
      *
      * @return string 
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -176,8 +155,7 @@ class Admin
      * @param string $email
      * @return Admin
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -188,55 +166,8 @@ class Admin
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
-    }
-
-    /**
-     * Set accessLevel
-     *
-     * @param integer $accessLevel
-     * @return Admin
-     */
-    public function setAccessLevel($accessLevel)
-    {
-        $this->accessLevel = $accessLevel;
-
-        return $this;
-    }
-
-    /**
-     * Get accessLevel
-     *
-     * @return integer 
-     */
-    public function getAccessLevel()
-    {
-        return $this->accessLevel;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Admin
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     /**
@@ -244,8 +175,12 @@ class Admin
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
 }

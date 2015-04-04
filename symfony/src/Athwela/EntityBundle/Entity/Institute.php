@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Institute
  */
-class Institute
-{
+class Institute {
+
     /**
      * @var string
      */
@@ -29,6 +29,10 @@ class Institute
      */
     private $id;
 
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -37,8 +41,7 @@ class Institute
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->v = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -48,8 +51,7 @@ class Institute
      * @param string $name
      * @return Institute
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -60,8 +62,7 @@ class Institute
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -71,8 +72,7 @@ class Institute
      * @param string $city
      * @return Institute
      */
-    public function setCity($city)
-    {
+    public function setCity($city) {
         $this->city = $city;
 
         return $this;
@@ -83,8 +83,7 @@ class Institute
      *
      * @return string 
      */
-    public function getCity()
-    {
+    public function getCity() {
         return $this->city;
     }
 
@@ -94,8 +93,7 @@ class Institute
      * @param string $country
      * @return Institute
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
 
         return $this;
@@ -106,8 +104,7 @@ class Institute
      *
      * @return string 
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -116,8 +113,7 @@ class Institute
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -127,8 +123,7 @@ class Institute
      * @param \Athwela\EntityBundle\Entity\Volunteer $v
      * @return Institute
      */
-    public function addV(\Athwela\EntityBundle\Entity\Volunteer $v)
-    {
+    public function addV(\Athwela\EntityBundle\Entity\Volunteer $v) {
         $this->v[] = $v;
 
         return $this;
@@ -139,8 +134,7 @@ class Institute
      *
      * @param \Athwela\EntityBundle\Entity\Volunteer $v
      */
-    public function removeV(\Athwela\EntityBundle\Entity\Volunteer $v)
-    {
+    public function removeV(\Athwela\EntityBundle\Entity\Volunteer $v) {
         $this->v->removeElement($v);
     }
 
@@ -149,8 +143,8 @@ class Institute
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getV()
-    {
+    public function getV() {
         return $this->v;
     }
+
 }

@@ -2,4 +2,6 @@ athwelalogin_user_homepage:
     path:     /
     defaults: { _controller: FOSUserBundle:Security:login }
 
-
+data_base:
+    path:     /dataBase
+    defaults: { _controller: AthwelaloginUserBundle:DataBase:dataBase }

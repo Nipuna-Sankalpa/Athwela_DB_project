@@ -7,12 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Type
  */
-class Type
-{
+class Type {
+
     /**
      * @var string
      */
     private $name;
+
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     /**
      * @var string
@@ -32,8 +36,7 @@ class Type
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->v = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -43,8 +46,7 @@ class Type
      * @param string $name
      * @return Type
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -55,8 +57,7 @@ class Type
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -66,8 +67,7 @@ class Type
      * @param string $description
      * @return Type
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -78,8 +78,7 @@ class Type
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -88,8 +87,7 @@ class Type
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -99,8 +97,7 @@ class Type
      * @param \Athwela\EntityBundle\Entity\Volunteer $v
      * @return Type
      */
-    public function addV(\Athwela\EntityBundle\Entity\Volunteer $v)
-    {
+    public function addV(\Athwela\EntityBundle\Entity\Volunteer $v) {
         $this->v[] = $v;
 
         return $this;
@@ -111,8 +108,7 @@ class Type
      *
      * @param \Athwela\EntityBundle\Entity\Volunteer $v
      */
-    public function removeV(\Athwela\EntityBundle\Entity\Volunteer $v)
-    {
+    public function removeV(\Athwela\EntityBundle\Entity\Volunteer $v) {
         $this->v->removeElement($v);
     }
 
@@ -121,8 +117,8 @@ class Type
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getV()
-    {
+    public function getV() {
         return $this->v;
     }
+
 }

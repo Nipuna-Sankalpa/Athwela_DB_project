@@ -7,10 +7,10 @@
  */
 
 /**
- * Description of UserProfile
+ * Description of ProjectSkillDA
  *
  * @author Yellow Flash
  */
-class UserProfile {
+class ProjectSkillDA {
     //put your code here
 }
