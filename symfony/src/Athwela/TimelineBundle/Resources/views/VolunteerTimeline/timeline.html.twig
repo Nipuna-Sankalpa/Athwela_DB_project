@@ -2,20 +2,17 @@
 
 {% block styleSheet %}
     <link href="{{asset('css/timeline.css')}}" rel="stylesheet">
-    <link href="{{asset('css/profileCustom.css')}}" rel="stylesheet">
 {% endblock %}
 {# Setting UP profile Link #}
-{% block linkProfile%}
+{#{% block linkProfile%}
     {{path('friends_profile_homepage',{'email':email})}}
-{% endblock%}
+{% endblock %}#}
 
 
 
 
-{% block body %}
-
-
-    <div class="col-md-3">
+{% block container %}
+    {#<div class="col-md-3">
         <div id="image">
 
             <img src="{{path('friends_profile_image',{'email': profile.email})}}" alt="Profile Picture" class="profilePicFrame img-rounded" style="width:227px ;height: 277px;">
@@ -62,46 +59,27 @@
 
         </div>
 
-    </div>
-
+    </div>#}
+    <div class="col-md-2"></div>
+    
     <div class="col-md-8">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h2 class="panel-title">Let your friends know...</h2>
-            </div>
-
-            <div class="panel-body">
-                {{ form_start(form) }}
-
-                <div class="input-group">
-                    {{ form_widget(form.content, { 'attr' : { 'class' : 'form-control' } }) }}
-
-                    <span class="input-group-btn">
-                        {{ form_widget(form.post, { 'attr' : { 'class' : 'btn btn-success'}}) }}
-                        {#<button type="submit" id="form_post" name="form[post]" class="btn btn-success"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>#}
-                    </span>
-                </div>
-                {{ form_end(form) }}
-            </div>
-        </div>
-
-        {% for post in posts %}
+{#        {% for post in posts %}#}
 
             <div class="panel panel-primary box-shadow">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-6"><h2 class="panel-title">{{ post.userEmail.firstName ~ " " ~ post.userEmail.lastName  }}</h2></div>
-                        <div class="col-md-6"><p class="pull-right">{{ post.timestamp|date('Y-m-d H:i:s') }}</p></div>
+                        <div class="col-md-6"><h2 class="panel-title">First Name Last Name</h2></div>
+                        <div class="col-md-6"><p class="pull-right">Timestamp</p></div>
                     </div>
                 </div>
 
                 <div class="panel-body">
-                    <p>{{ post.content }}</p>
+                    <p>Sample Content</p>
                 </div>
             </div>
 
-        {% endfor %}
+{#        {% endfor %}#}
     </div>
 
-    <div class="col-md-1"></div>
+    <div class="col-md-2"></div>
 {% endblock %}
