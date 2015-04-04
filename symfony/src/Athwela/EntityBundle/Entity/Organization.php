@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Organization
  */
-class Organization
-{
+class Organization {
+
     /**
      * @var string
      */
@@ -19,15 +19,27 @@ class Organization
      */
     private $description;
 
-    /**
-     * @var string
-     */
-    private $street;
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     /**
      * @var string
      */
-    private $city;
+    private $a_ID; 
+    private $street;
+
+    /**
+     * @var string
+     */public function getA_ID() {
+        return $this->a_ID;
+    }
+
+    public function setA_ID($a_ID) {
+        $this->a_ID = $a_ID;
+    }
+
+        private $city;
 
     /**
      * @var string
@@ -44,15 +56,13 @@ class Organization
      */
     private $a;
 
-
     /**
      * Set name
      *
      * @param string $name
      * @return Organization
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -63,8 +73,7 @@ class Organization
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -74,8 +83,7 @@ class Organization
      * @param string $description
      * @return Organization
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -86,8 +94,7 @@ class Organization
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -97,8 +104,7 @@ class Organization
      * @param string $street
      * @return Organization
      */
-    public function setStreet($street)
-    {
+    public function setStreet($street) {
         $this->street = $street;
 
         return $this;
@@ -109,8 +115,7 @@ class Organization
      *
      * @return string 
      */
-    public function getStreet()
-    {
+    public function getStreet() {
         return $this->street;
     }
 
@@ -120,8 +125,7 @@ class Organization
      * @param string $city
      * @return Organization
      */
-    public function setCity($city)
-    {
+    public function setCity($city) {
         $this->city = $city;
 
         return $this;
@@ -132,8 +136,7 @@ class Organization
      *
      * @return string 
      */
-    public function getCity()
-    {
+    public function getCity() {
         return $this->city;
     }
 
@@ -143,8 +146,7 @@ class Organization
      * @param string $country
      * @return Organization
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
 
         return $this;
@@ -155,8 +157,7 @@ class Organization
      *
      * @return string 
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -165,8 +166,7 @@ class Organization
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -176,8 +176,7 @@ class Organization
      * @param \Athwela\EntityBundle\Entity\Admin $a
      * @return Organization
      */
-    public function setA(\Athwela\EntityBundle\Entity\Admin $a = null)
-    {
+    public function setA( $a = null) {
         $this->a = $a;
 
         return $this;
@@ -188,8 +187,8 @@ class Organization
      *
      * @return \Athwela\EntityBundle\Entity\Admin 
      */
-    public function getA()
-    {
+    public function getA() {
         return $this->a;
     }
+
 }

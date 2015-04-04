@@ -10,7 +10,6 @@
     <field name="city" type="string" column="city" length="15" nullable="false"/>
     <field name="country" type="string" column="country" length="15" nullable="false"/>
     <field name="email" type="string" column="email" length="25" nullable="false"/>
-    <field name="accessLevel" type="integer" column="access_level" nullable="false"/>
-    <field name="password" type="text" column="password" nullable="false"/>
+    
   </entity>
 </doctrine-mapping>

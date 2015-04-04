@@ -2,5 +2,8 @@ vol_profile_homepage:
     path:     /hello/{name}
     defaults: { _controller: VolProfileBundle:Default:index }
 vol_profile_index:
-    path:     /profile
+    path:     /volprofile
     defaults: {_controller: VolProfileBundle:VolProfile:index }
+vol_profile_show:
+    path:     /{id}/show
+    defaults: {_controller: VolProfileBundle:VolProfile:show }

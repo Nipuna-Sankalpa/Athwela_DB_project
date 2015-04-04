@@ -36,9 +36,17 @@ class DBConnection {
         
     }
 
-    public function connection($host, $username, $password) {
-        $connection = mysqli_connect($host, $username, $password,$database);
+//open a connection with athwela dataBase
+
+    public function openConnection($host, $username, $password, $database) {
+        $connection = mysqli_connect($host, $username, $password, $database);
         return $connection;
+    }
+
+//close dataBase connection
+    
+    public function closeConnection($conn) {
+        $conn->close();
     }
 
 }

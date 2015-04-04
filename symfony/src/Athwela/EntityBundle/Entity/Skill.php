@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Skill
  */
-class Skill
-{
+class Skill {
+
     /**
      * @var string
      */
@@ -18,6 +18,10 @@ class Skill
      * @var string
      */
     private $description;
+
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     /**
      * @var integer
@@ -37,8 +41,7 @@ class Skill
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->v = new \Doctrine\Common\Collections\ArrayCollection();
         $this->p = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -49,8 +52,7 @@ class Skill
      * @param string $name
      * @return Skill
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -61,8 +63,7 @@ class Skill
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -72,8 +73,7 @@ class Skill
      * @param string $description
      * @return Skill
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -84,8 +84,7 @@ class Skill
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -94,8 +93,7 @@ class Skill
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -105,8 +103,7 @@ class Skill
      * @param \Athwela\EntityBundle\Entity\Volunteer $v
      * @return Skill
      */
-    public function addV(\Athwela\EntityBundle\Entity\Volunteer $v)
-    {
+    public function addV(\Athwela\EntityBundle\Entity\Volunteer $v) {
         $this->v[] = $v;
 
         return $this;
@@ -117,8 +114,7 @@ class Skill
      *
      * @param \Athwela\EntityBundle\Entity\Volunteer $v
      */
-    public function removeV(\Athwela\EntityBundle\Entity\Volunteer $v)
-    {
+    public function removeV(\Athwela\EntityBundle\Entity\Volunteer $v) {
         $this->v->removeElement($v);
     }
 
@@ -127,8 +123,7 @@ class Skill
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getV()
-    {
+    public function getV() {
         return $this->v;
     }
 
@@ -138,8 +133,7 @@ class Skill
      * @param \Athwela\EntityBundle\Entity\Project $p
      * @return Skill
      */
-    public function addP(\Athwela\EntityBundle\Entity\Project $p)
-    {
+    public function addP(\Athwela\EntityBundle\Entity\Project $p) {
         $this->p[] = $p;
 
         return $this;
@@ -150,8 +144,7 @@ class Skill
      *
      * @param \Athwela\EntityBundle\Entity\Project $p
      */
-    public function removeP(\Athwela\EntityBundle\Entity\Project $p)
-    {
+    public function removeP(\Athwela\EntityBundle\Entity\Project $p) {
         $this->p->removeElement($p);
     }
 
@@ -160,8 +153,8 @@ class Skill
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getP()
-    {
+    public function getP() {
         return $this->p;
     }
+
 }
