@@ -129,6 +129,7 @@ class Read {
             $volunteer->setemail($row[7]);
             $volunteer->setGender($row[8]);
             $volunteer->setAvailability($row[9]);
+            $volunteer->setDob($row[10]);
 
             return $volunteer;
         }
