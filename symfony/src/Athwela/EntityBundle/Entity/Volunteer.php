@@ -444,4 +444,10 @@ class Volunteer {
         return $this->i;
     }
 
+    /**
+     * @var \Athwela\EntityBundle\Entity\Admin
+     */
+    private $a;
+
+
 }
