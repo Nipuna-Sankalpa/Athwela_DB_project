@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Athwela\ProfileSettings\UserBundle\AthwelaProfileSettingsUserBundle(),
             new Athwela\login\UserBundle\AthwelaloginUserBundle(),
             new Athwela\EntityBundle\AthwelaEntityBundle(),
+            new Athwela\TimelineBundle\AthwelaTimelineBundle(),
             new Athwela\VolProfileBundle\VolProfileBundle(),
         );
 

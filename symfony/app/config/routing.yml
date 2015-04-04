@@ -1,3 +1,6 @@
+athwela_timeline:
+    resource: "@AthwelaTimelineBundle/Resources/config/routing.xml"
+
 vol_profile:
     resource: "@VolProfileBundle/Resources/config/routing.yml"
     prefix:   /
