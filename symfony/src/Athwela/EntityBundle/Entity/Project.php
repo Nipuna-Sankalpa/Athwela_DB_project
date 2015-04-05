@@ -439,4 +439,20 @@ class Project
     {
         return $this->s;
     }
+    /**
+     * @var \Athwela\EntityBundle\Entity\Organization
+     */
+    private $o;
+
+    /**
+     * @var \Athwela\EntityBundle\Entity\Admin
+     */
+    private $a;
+
+    /**
+     * @var \Athwela\EntityBundle\Entity\Type
+     */
+    private $t;
+
+
 }
