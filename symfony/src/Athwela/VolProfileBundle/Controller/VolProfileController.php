@@ -27,7 +27,7 @@ class VolProfileController extends Controller {
     }
 
     public function showAction($email) {
-        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
+        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', '0713899213', 'athwela1');
         $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
         $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');        
         $edu = $this->getEdu($conn, $entity);

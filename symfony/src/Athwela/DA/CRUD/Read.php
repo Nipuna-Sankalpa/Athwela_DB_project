@@ -8,7 +8,6 @@
 
 namespace Athwela\DA\CRUD;
 
-
 /**
  * Description of Read
  *
@@ -34,10 +33,11 @@ class Read {
         $query = "SELECT * FROM $table WHERE $index " . "=" . "'" . "$value" . "'";
 
         $result = $conn->query($query);
-
+        
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {
                 $object = $this->entityAssign($row, get_class($entity), $entity);
+                echo $object->getId();
             }
             return $object;
         } else {
@@ -137,9 +137,8 @@ class Read {
         }
     }
 
-    
 //  read multi values pass connection variable, ID column name, ID value, table name 
-    
+
     public function readMul($conn, $indexCol, $indexVal, $table) {
 
         $query = "SELECT * FROM $table WHERE $indexCol" . "=" . "'" . $indexVal . "';";
