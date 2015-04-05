@@ -8,13 +8,6 @@
 
 namespace Athwela\DA\CRUD;
 
-use Athwela\EntityBundle\Entity\Admin;
-use Athwela\EntityBundle\Entity\Institute;
-use Athwela\EntityBundle\Entity\Organization;
-use Athwela\EntityBundle\Entity\Project;
-use Athwela\EntityBundle\Entity\Skill;
-use Athwela\EntityBundle\Entity\Volunteer;
-use Athwela\EntityBundle\Entity\Type;
 
 /**
  * Description of Read
