@@ -1,0 +1,4 @@
+services:
+#    athwela_administrator.example:
+#        class: Athwela\AdministratorBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
