@@ -37,7 +37,7 @@ class Read {
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {
                 $object = $this->entityAssign($row, get_class($entity), $entity);
-                echo $object->getId();
+                
             }
             return $object;
         } else {
