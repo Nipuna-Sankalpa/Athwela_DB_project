@@ -39,7 +39,7 @@
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
                                 <ul>
-                                    <li><a href="#">Edit</a></li>
+                                    <li><a href="{{path('vol_profile_edit', { 'email': 'dilini@gmail.com' })}}">Edit</a></li>
                                     <li><a href="#">Delete</a></li>
                                 </ul>
                             </div>
@@ -52,6 +52,7 @@
             <form class="form-signin" method="POST" action="#" data-validate="parsley">
                 <div class="col-md-8">
                     <h2 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif;">{{entity.firstName}} {{entity.lastName}}</h2>            
+                    <p>Approved by: {{admin}}</p>
                     <div class="panel-body">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#personalSection">Personal and Contact</a></li>
@@ -79,6 +80,8 @@
                                     <dd>{{entity.country}}</dd><br/>  
                                     <dt><span class="glyphicon glyphicon-envelope"></span> E-mail :</dt>
                                     <dd>{{entity.email}}</dd><br/>
+                                    <dt><span class="glyphicon glyphicon-home"></span> Adress :</dt>
+                                    <dd>{{entity.street}}, {{entity.city}}, {{entity.country}}</dd><br/>
                                     {%for i in 0..((entitymobile|length)-1)%}
                                         <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
                                         <dd>{{entitymobile[i]}}</dd><br/>

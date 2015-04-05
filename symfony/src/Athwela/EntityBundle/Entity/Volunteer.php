@@ -449,5 +449,31 @@ class Volunteer {
      */
     private $a;
 
+    private $blog;
+    private $linkedin;
+    private $facebook;
+    
+    function getBlog() {
+        return $this->blog;
+    }
 
+    function getLinkedin() {
+        return $this->linkedin;
+    }
+
+    function getFacebook() {
+        return $this->facebook;
+    }
+
+    function setBlog($blog) {
+        $this->blog = $blog;
+    }
+
+    function setLinkedin($linkedin) {
+        $this->linkedin = $linkedin;
+    }
+
+    function setFacebook($facebook) {
+        $this->facebook = $facebook;
+    }
 }

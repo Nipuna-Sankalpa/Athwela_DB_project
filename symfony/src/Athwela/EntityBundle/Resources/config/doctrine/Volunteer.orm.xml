@@ -16,6 +16,9 @@
     <field name="email" type="string" column="email" length="25" nullable="false"/>
     <field name="gender" type="boolean" column="gender" nullable="false"/>
     <field name="availability" type="integer" column="availability" nullable="false"/>
+    <field name="blog" type="string" column="blog" nullable="true"/>    
+    <field name="linkedin" type="string" column="linkedin" nullable="true"/>
+    <field name="facebook" type="string" column="facebook" nullable="true"/>
     <many-to-one field="a" target-entity="Admin">
       <join-columns>
         <join-column name="a_ID" referenced-column-name="ID"/>

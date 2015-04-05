@@ -29,19 +29,22 @@ class VolProfileController extends Controller {
     public function showAction($email) {
         $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
         $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
-        $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');        
+        $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
         $edu = $this->getEdu($conn, $entity);
         $skill = $this->getSkills($conn, $entity);
         $interest = $this->getInterestedAreas($conn, $entity);
+        $admin = $this->getAdmin($conn, $entity);
         return $this->render('VolProfileBundle:VolProfile:show.html.twig', array(
                     'entity' => $entity,
                     'entitymobile' => $entitymobile,
                     'edu' => $edu,
                     'skills' => $skill,
-                    'interests' => $interest
+                    'interests' => $interest,
+                    'admin' => $admin
         ));
     }
-    public function getSkills($conn, $entity){
+
+    public function getSkills($conn, $entity) {
         $j = 0;
         $skills = CustomQuery::getInstance()->customQuery($conn, 'Select s.name, s.description from skill as s, volunteer_skill as vs where s.ID = vs.s_ID and vs.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($skills)) {
@@ -51,8 +54,8 @@ class VolProfileController extends Controller {
         }
         return $temp;
     }
-    
-    public function getEdu($conn, $entity){
+
+    public function getEdu($conn, $entity) {
         $i = 0;
         $entityedu = CustomQuery::getInstance()->customQuery($conn, 'Select i.name, vi.degree, vi.start_date, vi.end_date, i.city, i.country from institute as i, volunteer_education as vi where i.ID = vi.i_ID and vi.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($entityedu)) {
@@ -62,8 +65,8 @@ class VolProfileController extends Controller {
         }
         return $temp;
     }
-    
-    public function getInterestedAreas($conn, $entity){
+
+    public function getInterestedAreas($conn, $entity) {
         $i = 0;
         $intareas = CustomQuery::getInstance()->customQuery($conn, 'select t.name, t.description from type as t, volunteer_interested_area as via where t.ID = via.t_ID and via.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($intareas)) {
@@ -73,4 +76,34 @@ class VolProfileController extends Controller {
         }
         return $temp;
     }
+
+    public function getAdmin($conn, $entity) {
+        $admin = CustomQuery::getInstance()->customQuery($conn, 'SELECT a.first_name, a.last_name FROM `admin` as a, volunteer as v where a.ID = v.a_ID and v.ID = ' . $entity->getId());
+        $temp = '';
+        while ($row = mysqli_fetch_row($admin)) {
+            $temp = $row[0] . ' ' . $row[1];
+        }
+        return $temp;
+    }
+
+    public function editAction($email) {
+        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
+        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
+        $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
+        $edu = $this->getEdu($conn, $entity);
+        return $this->render('VolProfileBundle:VolProfile:edit.html.twig', array(
+                    'entity' => $entity,
+                    'entitymobile' => $entitymobile,
+                    'edu' => $edu
+        ));
+    }
+
+    public function updateAction(Request $request, $email) {
+        if ($request->getMethod() == "POST") {
+            $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
+            $updatedValues;
+        }
+        return $this->redirect($this->generateUrl('vol_profile_edit', array('email' => $email)));
+    }
+
 }
