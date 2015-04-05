@@ -121,9 +121,11 @@ class Read {
             $volunteer->setCountry($row[6]);
             $volunteer->setemail($row[7]);
             $volunteer->setGender($row[8]);
-            $volunteer->setAvailability($row[9]);
+            $volunteer->setAvailability($row[9]);            
             $volunteer->setDob($row[10]);
-
+            $volunteer->setBlog($row[11]);
+            $volunteer->setLinkedin($row[12]);
+            $volunteer->setFacebook($row[13]);
             return $volunteer;
         }
         if ($temp[sizeof($temp) - 1] == 'Skill') {
