@@ -41,7 +41,7 @@ class VolProfileController extends ContainerAware {
             $email = $user->getEmail();
         }
         
-        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', '0713899213', 'athwela1');
+        $conn = DBConnection::getInstance()->getConnection();
         $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
         $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
         $edu = $this->getEdu($conn, $entity);
@@ -61,7 +61,7 @@ class VolProfileController extends ContainerAware {
 
     public function getSkills($conn, $entity) {
         $j = 0;
-        $skills = CustomQuery::getInstance()->customQuery($conn, 'Select s.name, s.description from skill as s, volunteer_skill as vs where s.ID = vs.s_ID and vs.v_ID = ' . $entity->getId());
+        $skills = CustomQuery::getInstance()->customQuery('Select s.name, s.description from skill as s, volunteer_skill as vs where s.ID = vs.s_ID and vs.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($skills)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$j][$index] = $row[$index];
@@ -72,7 +72,7 @@ class VolProfileController extends ContainerAware {
 
     public function getEdu($conn, $entity) {
         $i = 0;
-        $entityedu = CustomQuery::getInstance()->customQuery($conn, 'Select i.name, vi.degree, vi.start_date, vi.end_date, i.city, i.country from institute as i, volunteer_education as vi where i.ID = vi.i_ID and vi.v_ID = ' . $entity->getId());
+        $entityedu = CustomQuery::getInstance()->customQuery('Select i.name, vi.degree, vi.start_date, vi.end_date, i.city, i.country from institute as i, volunteer_education as vi where i.ID = vi.i_ID and vi.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($entityedu)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
@@ -83,7 +83,7 @@ class VolProfileController extends ContainerAware {
 
     public function getInterestedAreas($conn, $entity) {
         $i = 0;
-        $intareas = CustomQuery::getInstance()->customQuery($conn, 'select t.name, t.description from type as t, volunteer_interested_area as via where t.ID = via.t_ID and via.v_ID = ' . $entity->getId());
+        $intareas = CustomQuery::getInstance()->customQuery('select t.name, t.description from type as t, volunteer_interested_area as via where t.ID = via.t_ID and via.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($intareas)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
@@ -93,7 +93,7 @@ class VolProfileController extends ContainerAware {
     }
 
     public function getAdmin($conn, $entity) {
-        $admin = CustomQuery::getInstance()->customQuery($conn, 'SELECT a.first_name, a.last_name FROM `admin` as a, volunteer as v where a.ID = v.a_ID and v.ID = ' . $entity->getId());
+        $admin = CustomQuery::getInstance()->customQuery('SELECT a.first_name, a.last_name FROM `admin` as a, volunteer as v where a.ID = v.a_ID and v.ID = ' . $entity->getId());
         $temp = '';
         while ($row = mysqli_fetch_row($admin)) {
             $temp = $row[0] . ' ' . $row[1];
