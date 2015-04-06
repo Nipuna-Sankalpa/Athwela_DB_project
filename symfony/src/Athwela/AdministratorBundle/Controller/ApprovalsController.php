@@ -16,7 +16,7 @@ class ApprovalsController extends ContainerAware {
         $email = $user->getEmail();
         $userName = $user->getUsername();
 
-        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', '0713899213', 'athwela');
+        $conn = DBConnection::getInstance()->openConnection();
         $object = Read::getInstance()->read($conn, new Admin(), 'admin', 'email', $email);
         if ($object === NULL) {
             die($conn->error);

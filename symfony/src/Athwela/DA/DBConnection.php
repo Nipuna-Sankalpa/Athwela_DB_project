@@ -38,8 +38,8 @@ class DBConnection {
 
 //open a connection with athwela dataBase
 
-    public function openConnection($host, $username, $password, $database) {
-        $connection = mysqli_connect($host, $username, $password, $database);
+    public function openConnection() {
+        $connection = mysqli_connect('localhost', 'root', '0713899213', 'athwela');
         return $connection;
     }
 
