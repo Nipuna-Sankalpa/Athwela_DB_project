@@ -31,13 +31,12 @@ class Read {
     //index used to impose conditions
     public function read($conn, $entity, $table, $index, $value) {
         $query = "SELECT * FROM $table WHERE $index " . "=" . "'" . "$value" . "'";
-
+        $object = null;
         $result = $conn->query($query);
-        
+
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {
                 $object = $this->entityAssign($row, get_class($entity), $entity);
-                
             }
             return $object;
         } else {
@@ -121,7 +120,7 @@ class Read {
             $volunteer->setCountry($row[6]);
             $volunteer->setemail($row[7]);
             $volunteer->setGender($row[8]);
-            $volunteer->setAvailability($row[9]);            
+            $volunteer->setAvailability($row[9]);
             $volunteer->setDob($row[10]);
             $volunteer->setBlog($row[11]);
             $volunteer->setLinkedin($row[12]);

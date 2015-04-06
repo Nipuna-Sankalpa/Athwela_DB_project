@@ -10,4 +10,7 @@ class AdminSettingsController extends Controller
         return $this->render('AthwelaAdministratorBundle:Administrator:adminSettings.html.twig');
         
     }
+    
+    
+    
 }
