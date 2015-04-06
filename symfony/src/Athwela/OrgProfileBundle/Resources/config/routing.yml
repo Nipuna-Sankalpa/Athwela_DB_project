@@ -1,0 +1,6 @@
+org_profile_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: OrgProfileBundle:Default:index }
+org_profile_show:
+    path:     /{id}/orgshow
+    defaults: {_controller: OrgProfileBundle:OrgProfile:show }

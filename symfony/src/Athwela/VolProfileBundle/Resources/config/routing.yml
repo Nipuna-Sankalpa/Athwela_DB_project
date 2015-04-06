@@ -7,10 +7,3 @@ vol_profile_index:
 vol_profile_show:
     path:     /{email}/show
     defaults: {_controller: VolProfileBundle:VolProfile:show }
-vol_profile_edit:
-    path:     /{email}/edit
-    defaults: {_controller: VolProfileBundle:VolProfile:edit }
-vol_profile_update:
-    path:     /{email}/update
-    defaults: { _controller: "ProfileBundle:Profile:update" }
-    requirements: { _method: post|put }

@@ -1,3 +1,7 @@
+org_profile:
+    resource: "@OrgProfileBundle/Resources/config/routing.yml"
+    prefix:   /orgProfile
+
 athwela_administrator:
     resource: "@AthwelaAdministratorBundle/Resources/config/routing.yml"
     prefix:   /admin
@@ -7,7 +11,7 @@ athwela_timeline:
 
 vol_profile:
     resource: "@VolProfileBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /volProfile
 
 athwela_entity:
     resource: "@AthwelaEntityBundle/Resources/config/routing.xml"

@@ -34,6 +34,7 @@ class VolProfileController extends Controller {
         $skill = $this->getSkills($conn, $entity);
         $interest = $this->getInterestedAreas($conn, $entity);
         $admin = $this->getAdmin($conn, $entity);
+        DBConnection::getInstance()->closeConnection($conn);
         return $this->render('VolProfileBundle:VolProfile:show.html.twig', array(
                     'entity' => $entity,
                     'entitymobile' => $entitymobile,
@@ -85,25 +86,4 @@ class VolProfileController extends Controller {
         }
         return $temp;
     }
-
-    public function editAction($email) {
-        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
-        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
-        $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
-        $edu = $this->getEdu($conn, $entity);
-        return $this->render('VolProfileBundle:VolProfile:edit.html.twig', array(
-                    'entity' => $entity,
-                    'entitymobile' => $entitymobile,
-                    'edu' => $edu
-        ));
-    }
-
-    public function updateAction(Request $request, $email) {
-        if ($request->getMethod() == "POST") {
-            $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
-            $updatedValues;
-        }
-        return $this->redirect($this->generateUrl('vol_profile_edit', array('email' => $email)));
-    }
-
 }
