@@ -1,3 +1,27 @@
-athwela_administrator_homepage:
-    path:     /dash
-    defaults: { _controller: AthwelaAdministratorBundle:Default:index }
+athwela_administrator_admin:
+    path:     /admin
+    defaults: { _controller: AthwelaAdministratorBundle:Default:Admin }
+    
+athwela_administrator_message:
+    path:     /message
+    defaults: { _controller: AthwelaAdministratorBundle:Default:Messages }
+    
+athwela_administrator_organization:
+    path:     /organization
+    defaults: { _controller: AthwelaAdministratorBundle:Default:Organization }
+    
+athwela_administrator_project:
+    path:     /project
+    defaults: { _controller: AthwelaAdministratorBundle:Default:Project }
+    
+athwela_administrator_volunteer:
+    path:     /volunteer
+    defaults: { _controller: AthwelaAdministratorBundle:Default:Volunteers }
+    
+athwela_administrator_adminDash:
+    path:     /adminDash
+    defaults: { _controller: AthwelaAdministratorBundle:Approvals:adminDash }
+    
+athwela_administrator_adminSet:
+    path:     /adminSettings
+    defaults: { _controller: AthwelaAdministratorBundle:Default:adminSettings }
