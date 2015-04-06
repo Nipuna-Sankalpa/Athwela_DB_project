@@ -4,4 +4,4 @@ athwelalogin_user_homepage:
 
 data_base:
     path:     /dataBase
-    defaults: { _controller: AthwelaloginUserBundle:DataBase:dataBase }
+    defaults: { _controller: AthwelaloginUserBundle:Default:index }

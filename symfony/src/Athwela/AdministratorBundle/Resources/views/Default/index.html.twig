@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin 2 - Bootstrap Admin Theme</title>
+        <title>{%block title%}Athwela{% endblock title%}</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="{{asset('AdminDashBoardComponents/bower_components/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -19,6 +19,7 @@
 
         <!-- Custom CSS -->
         <link href="{{asset('AdminDashBoardComponents/dist/css/sb-admin-2.css')}}" rel="stylesheet">
+        {%block customCss%}{%endblock customCss%}
 
         <!-- Custom Fonts -->
         <link href="{{asset('AdminDashBoardComponents/bower_components/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">

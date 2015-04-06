@@ -143,7 +143,7 @@ class Volunteer {
      *
      * @return string 
      */
-    public function getLastName() {
+        public function getLastName() {
         return $this->lastName;
     }
 
