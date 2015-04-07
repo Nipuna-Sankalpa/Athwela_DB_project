@@ -46,8 +46,6 @@ class Read {
 
     private function entityAssign($row, $class, $entity) {
         $temp = explode("\\", $class);
-
-
         if ($temp[sizeof($temp) - 1] == 'Admin') {
             $admin = $entity;
             $admin->setId($row[0]);

@@ -1,4 +1,28 @@
 {%extends "::base.html.twig"%}
+{%block items%}
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#">Services</a>
+        </li>
+        <li>
+            <a href="{{path('fos_user_security_logout')}}">Logout</a>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Profile Settings</a></li>
+                <li><a href="#">Change Password</a></li>
+                <li><a href="{{path('vol_profile_show')}}">Profile</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+{%endblock items%}
+
 {% block container -%}
     <title>{{entity.firstName}} {{entity.lastName}}</title>
     <div class="row">
@@ -36,14 +60,6 @@
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                            <div class="panel-body">
-                                <ul>
-                                    <li><a href="{{path('vol_profile_edit', { 'email': 'dilini@gmail.com' })}}">Edit</a></li>
-                                    <li><a href="#">Delete</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -52,7 +68,7 @@
             <form class="form-signin" method="POST" action="#" data-validate="parsley">
                 <div class="col-md-8">
                     <h2 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif;">{{entity.firstName}} {{entity.lastName}}</h2>            
-                    <p>Approved by: {{admin}}</p>
+                    <p>Approved by: <a href="{{path('vol_profile_show')}}">{{admin.firstName}} {{admin.lastName}}</a></p>
                     <div class="panel-body">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#personalSection">Personal and Contact</a></li>

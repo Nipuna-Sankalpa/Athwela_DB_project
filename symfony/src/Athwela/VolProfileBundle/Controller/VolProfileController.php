@@ -16,47 +16,40 @@ namespace Athwela\VolProfileBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Athwela\EntityBundle\Entity\Volunteer;
+use Athwela\EntityBundle\Entity\Admin;
 use Athwela\DA\CRUD\Read;
 use Athwela\DA\CustomQuery\CustomQuery;
 use Athwela\DA\DBConnection;
 use Symfony\Component\HttpFoundation\Request;
 
 class VolProfileController extends ContainerAware {
-
-    public function indexAction() {
-        return $this->render('VolProfileBundle:VolProfile:index.html.twig');
-    }
-
 //    method will bahave as it was before.
 //    when you use this method to show profile other than the one who has already logged in symply pass his/her email
 //    along with the route.
     
     public function showAction(Request $request) {
-
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        
+        $user = $this->container->get('security.context')->getToken()->getUser();        
         if ($request->getMethod() === 'GET' && $request->get('email') != NULL) {
             $email = $request->get('email');
         } else {
             $email = $user->getEmail();
+            $conn = DBConnection::getInstance()->getConnection();
+            $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
+            $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
+            $edu = $this->getEdu($conn, $entity);
+            $skill = $this->getSkills($conn, $entity);
+            $interest = $this->getInterestedAreas($conn, $entity);
+            $admin = $this->getAdmin($conn, $entity);
+            DBConnection::getInstance()->closeConnection($conn);
+            return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:show.html.twig', array(
+                        'entity' => $entity,
+                        'entitymobile' => $entitymobile,
+                        'edu' => $edu,
+                        'skills' => $skill,
+                        'interests' => $interest,
+                        'admin' => $admin
+            ));
         }
-
-        $conn = DBConnection::getInstance()->getConnection();
-        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
-        $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
-        $edu = $this->getEdu($conn, $entity);
-        $skill = $this->getSkills($conn, $entity);
-        $interest = $this->getInterestedAreas($conn, $entity);
-        $admin = $this->getAdmin($conn, $entity);
-
-        return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:show.html.twig', array(
-                    'entity' => $entity,
-                    'entitymobile' => $entitymobile,
-                    'edu' => $edu,
-                    'skills' => $skill,
-                    'interests' => $interest,
-                    'admin' => $admin
-        ));
     }
 
     public function getSkills($conn, $entity) {
@@ -93,30 +86,13 @@ class VolProfileController extends ContainerAware {
     }
 
     public function getAdmin($conn, $entity) {
-        $admin = CustomQuery::getInstance()->customQuery('SELECT a.first_name, a.last_name FROM `admin` as a, volunteer as v where a.ID = v.a_ID and v.ID = ' . $entity->getId());
-        $temp = '';
+        $admin = CustomQuery::getInstance()->customQuery('SELECT a.first_name, a.last_name, a.email FROM `admin` as a, volunteer as v where a.ID = v.a_ID and v.ID = ' . $entity->getId());
+        $temp = new Admin();
         while ($row = mysqli_fetch_row($admin)) {
-            $temp = $row[0] . ' ' . $row[1];
+            $temp->setFirstName($row[0]);
+            $temp->setLastName($row[1]);
+            $temp->setEmail($row[2]);
         }
         return $temp;
     }
-
-//    public function editAction($email) {
-//        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
-//        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
-//        $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
-//        $edu = $this->getEdu($conn, $entity);
-//        return $this->render('VolProfileBundle:VolProfile:edit.html.twig', array(
-//                    'entity' => $entity,
-//                    'entitymobile' => $entitymobile,
-//                    'edu' => $edu
-//        ));
-//    }
-//    public function updateAction(Request $request, $email) {
-//        if ($request->getMethod() == "POST") {
-//            $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
-//            $updatedValues;
-//        }
-//        return $this->redirect($this->generateUrl('vol_profile_edit', array('email' => $email)));
-//    }
 }

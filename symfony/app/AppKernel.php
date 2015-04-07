@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Athwela\TimelineBundle\AthwelaTimelineBundle(),
             new Athwela\VolProfileBundle\VolProfileBundle(),
             new Athwela\AdministratorBundle\AthwelaAdministratorBundle(),
+            new Athwela\OrgProfileBundle\OrgProfileBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
