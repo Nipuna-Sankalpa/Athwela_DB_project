@@ -11,7 +11,6 @@ namespace Athwela\OrgProfileBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Athwela\DA\CRUD\Read;
-use Athwela\DA\CustomQuery\CustomQuery;
 use Athwela\DA\DBConnection;
 use Athwela\EntityBundle\Entity\Organization;
 
