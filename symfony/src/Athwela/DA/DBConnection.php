@@ -7,21 +7,24 @@ namespace Athwela\DA;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Description of DBConnection
  *
  * @author Yellow Flash
  */
-class DBConnection {
+class DBConnection extends Controller {
 
-//prevent instantiating DBConnection
+    private $connection;
+
+    //prevent instantiating DBConnection
     private function __construct() {
         
     }
 
     public static function getInstance() {
-        $instance = null;
+        static $instance = null;
         if ($instance === null) {
             $instance = new DBConnection();
         }
@@ -38,9 +41,13 @@ class DBConnection {
 
 //open a connection with athwela dataBase
 
-    public function openConnection($host, $username, $password, $database) {
-        $connection = mysqli_connect($host, $username, $password, $database);
-        return $connection;
+    public function getConnection() {
+        $connection = mysqli_connect('localhost', 'root', 'dilini', 'athwela1');
+        if ($connection) {
+            return $connection;
+        } else {
+            die($connection->error);
+        }
     }
 
 //close dataBase connection

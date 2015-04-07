@@ -10,10 +10,89 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            <div class="row">
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <span class="glyphicon glyphicon-plus"></span> New Messages
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="glyphicon glyphicon-search"></span> Search
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <div>
+                                    <form action="#" method="POST">
+                                        <div class="form-group row">
+
+                                            <div class="col-sm-3" >
+                                                <label class="control-label"> Volunteer name :</label>
+                                                <input list="type" class="form-control" placeholder="Select type">
+                                                <datalist id="type">
+                                                    <option value="Internet Explorer">
+                                                    <option value="Firefox">
+                                                    <option value="Chrome">
+                                                    <option value="Opera">
+                                                    <option value="Safari">
+                                                </datalist>
+                                            </div>
+                                            <div class="col-sm-3" >
+                                                <label class="control-label"> Organization name :</label>
+                                                <input list="organization" class="form-control" placeholder="Select organization">
+                                                <datalist id="organization">
+                                                    <option value="Internet Explorer">
+                                                    <option value="Firefox">
+                                                    <option value="Chrome">
+                                                    <option value="Opera">
+                                                    <option value="Safari">
+                                                </datalist>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <label class="control-label" data-toggle="tooltip" data-placement="right" title="Select second date of the range"> First date :</label>
+                                                <input type="date" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Select first date of the range">
+
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <label class="control-label" data-toggle="tooltip" data-placement="right" title="Select second date of the range"> Second date :</label>
+                                                <input type="date" class="form-control" placeholder="Select time range" data-toggle="tooltip" data-placement="bottom" title="Select second date of the range">
+                                            </div>
+
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-info">Search</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+            </div>
+
+            <div><a href="#"><i class="fa fa-envelope fa-fw"></i> View all messages</a></div>
+
         </div>
         <!-- /.container-fluid -->
     </div>
 
 
 
-{%endblock content%}{# empty Twig template #}
+{%endblock content%}

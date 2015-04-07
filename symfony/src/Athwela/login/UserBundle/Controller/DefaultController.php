@@ -11,7 +11,7 @@ class DefaultController extends Controller {
 
     public function indexAction() {
 //      $conn=DBConnection::getInstance()->openConnection($host, $username, $password, $database);
-        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', '0713899213', 'athwela1');
+        $conn = DBConnection::getInstance()->getConnection();
 
 //first parameter=>connection variable to database connection
 //second parameter=>values what you need to insert(example given below is for insert new row to admin table)data type need to be array and the sequence must be protected

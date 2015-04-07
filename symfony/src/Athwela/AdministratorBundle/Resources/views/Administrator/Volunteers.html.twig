@@ -10,6 +10,73 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            <div class="row">
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <span class="glyphicon glyphicon-plus"></span> New Volunteers
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="glyphicon glyphicon-search"></span> Search
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <div>
+                                    <form action="#" method="POST">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label class="control-label"> Volunteer Name :</label>
+                                                <input type="text" class="form-control" placeholder="Enter volunteer name">
+                                            </div>
+                                            <div class="col-sm-6" >
+                                                <label class="control-label"> Volunteer Skill :</label>
+                                                <input list="skills" class="form-control" placeholder="Select skill">
+                                                <datalist id="skills">
+                                                    <option value="Internet Explorer">
+                                                    <option value="Firefox">
+                                                    <option value="Chrome">
+                                                    <option value="Opera">
+                                                    <option value="Safari">
+                                                </datalist>
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-info">Search</button>
+                                    </form>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+            </div>
+
+            <div><a href="#"><span class="glyphicon glyphicon-user"></span> View all volunteers</a></div>
+
         </div>
         <!-- /.container-fluid -->
     </div>
