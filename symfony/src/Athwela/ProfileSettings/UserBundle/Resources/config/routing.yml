@@ -1,3 +1,14 @@
-athwela_profile_settings:
-    path:     /ProfileSettings
-    defaults: { _controller: AthwelaProfileSettingsUserBundle:ChangePassword:changePassword}
+volunteer_profile_settings:
+    path:     /volunteer/profile/settings/{id}
+    defaults: { _controller: AthwelaProfileSettingsUserBundle:Volunteer:settings}
+organization_profile_settings:
+    path:     /organization/profile/settings/{id}
+    defaults: { _controller: AthwelaProfileSettingsUserBundle:Organization:settings}
+organization_profile_updates:
+    path:     /organization/profile/updates/{id}
+    defaults: { _controller: AthwelaProfileSettingsUserBundle:Organization:updates}
+    requirements: { _method: post }
+volunteer_profile_updates:
+    path:     /volunteer/profile/updates/{id}
+    defaults: { _controller: AthwelaProfileSettingsUserBundle:Volunteer:updates}
+    requirements: { _method: post }

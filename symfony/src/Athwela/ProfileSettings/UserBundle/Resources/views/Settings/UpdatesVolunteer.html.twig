@@ -1,18 +1,20 @@
 {% extends '::base.html.twig'%}
 {%block css%}
     <link href="{{asset('css/formValidation.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
 {%endblock css%}
-
-{%block container%}
-
-    <div class="row">
+{%block container%}  
+    <div class="alert alert-success col-md-8 col-md-offset-2 text-center">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        You have <strong> successfully </strong> updated your profile.
+    </div>
+    <div class="row">       
         <div class="col-md-12">
             <fieldset>
-                <legend class="text-center header">Edit profile settings</legend>
-                <div class = "mymargin15"> </div>                 
-                <div class="col-md-4">
+                <legend class="header text-center">Edit profile settings</legend>   
 
-                    <form action = "#" id = "form1" class="form-horizontal" enctype="{{ form_enctype(form) }}" method="post" >
+                <div class="col-md-4">                            
+                    <form action = "#" id = "form1" class="form-horizontal" method="post" >
                         <fieldset >   
                             <legend class="text-center">Edit Profile Picture</legend>
                             <div class="form-group ">
@@ -26,12 +28,10 @@
                                     <input name="file" type="file" class="form-control">   
                                 </div>
                             </div>
-                        </fieldset>
-
+                        </fieldset>                            
                         <br>
                         <br>
-                        <br>
-{# set password reset form action into path('athwela_profile_settings'){place this portion on the action method in form}#}
+                        <br>                            
                         <fieldset >
                             <legend class="text-center">Password reset</legend>
 
@@ -67,60 +67,93 @@
                             </div>    
 
                         </fieldset>
-                    </form>
-
+                    </form>                          
                 </div>
 
+                <br>
+                {#-------------------- Basic Profile Settings Form 2-----------------------#}
 
                 <div class="col-md-8">  
-                    <form action = "php/FormToMail.php" id = "form2" class="form-horizontal" method="post" >  
+                    <form action = "{{ path('volunteer_profile_updates',{'id': id}) }}" id = "form2" class="form-horizontal" method="post" >  
+
+                        {#-------------------- First Name -----------------------#}
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">First name:</label>
                             <div class="col-md-3">
-                                <input class="form-control" name="first_name" type="text" value="Jane">
+                                <input class="form-control" name="first_name" type="text" value="{{request['first_name']}}">
                             </div>
                         </div>
+
+                        {#-------------------- Last Name -----------------------#}   
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Last name:</label>
                             <div class="col-md-8">
-                                <input class="form-control" name="last_name" type="text" value="Jane">
+                                <input class="form-control" name="last_name" type="text" value="{{request['last_name']}}">
                             </div>
                         </div>  
 
-                        <div class="form-group">
+                        {#-------------------- Brithday -----------------------#}   
+
+                        <div class="form-group" id="move">
                             <label class="col-md-4 control-label">Birthday</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="birthday" data-fv-date="false" data-fv-date-format="YYYY/MM/DD" data-fv-date-message="The birthday is not valid" /> (YYYY/MM/DD)
+
+                                <div class="input-group date" id="datetimePicker">
+                                    <input type="text" class="form-control" name="datetimePicker" value="{{request['datetimePicker']}}" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>                                                                       
                             </div>
                         </div>
+
+                        {#-------------------- Gender -----------------------#}  
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Gender</label>
                             <div class="col-md-8">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="male" /> Male
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="female" /> Female
-                                    </label>
-                                </div>
+                                {% if request['gender'] == "male" %}
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="male" checked="checked" /> Male
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="female" /> Female
+                                        </label>
+                                    </div>
 
+                                {% else %} 
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="male" /> Male
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="female" checked="checked"/> Female
+                                        </label>
+                                    </div>
+                                {% endif %}  
                             </div>
                         </div>
+
+                        {#-------------------- Mobile Phone -----------------------#}    
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Mobile Phone:</label>
                             <div class="col-md-8">
-                                <input class="form-control" name="phone" type="text" value="0712345678">
+                                <input class="form-control" name="phone" type="text" value="{{request['phone']}}">
                             </div>
                         </div> 
+
+                        {#-------------------- Skills -----------------------#}
+
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Interested Areas</label>
+                            <label class="col-md-4 control-label">Skills</label>
                             <div class="col-md-8">
                                 <div class="checkbox">
                                     <label>
@@ -172,12 +205,8 @@
                     </form>
                 </div>
 
-            </fieldset> 
-
-
         </div>
     </div>
-
 
     <style>
         .header {
@@ -191,6 +220,12 @@
             font-size: 35px;
             color: #006600;
         }
+
+        #form2 > .has-feedback .form-control-feedback   
+        {
+            top: 0;
+            right: -15px;
+        }
     </style>
 {%endblock container%}
 
@@ -200,6 +235,56 @@
     <script src={{asset('js/jquery-1.11.2.min.js')}}></script>
     <script src={{asset('js/formValidation.min.js')}}></script>
     <script src={{asset('js/framework/bootstrap.min.js')}}></script>
+    <script src={{asset('js/moment.min.js')}}></script>
+    <script src={{asset('js/bootstrap-datetimepicker.min.js')}}></script>   
+
+    <script>
+        $(document).ready(function() {
+            $('#datetimePicker').datetimepicker({
+                viewMode: 'years',
+                format: 'DD/MM/YYYY'
+            });
+        });
+    </script>   
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#form1').formValidation({
+                message: 'This value is not valid',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    oldpassword: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The oldpassword is required and cannot be empty'
+                            }
+                        }
+                    },
+                    newpassword: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The newpassword is required and cannot be empty'
+                            }
+                        }
+                    },
+                    confirmPassword: {
+                        validators: {
+                            identical: {
+                                field: 'newpassword',
+                                message: 'The password and its confirm are not the same'
+                            }
+                        }
+                    }
+
+                }
+            });
+        });
+    </script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('#form2').formValidation({
@@ -224,24 +309,6 @@
                             }
                         }
                     },
-                    email: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The emai address is required and cannot be empty'
-                            },
-                            emailAddress: {
-                                message: 'The input is not a valid email address'
-                            }
-                        }
-                    },
-                    confirmPassword: {
-                        validators: {
-                            identical: {
-                                field: 'newpassword',
-                                message: 'The password and its confirm are not the same'
-                            }
-                        }
-                    },
                     phone: {
                         validators: {
                             notEmpty: {
@@ -263,17 +330,6 @@
                             }
                         }
                     },
-                    birthday: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The date of birth is required'
-                            },
-                            date: {
-                                format: 'YYYY/MM/DD',
-                                message: 'The date of birth is not valid'
-                            }
-                        }
-                    },
                     file: {
                         validators: {
                             file: {
@@ -282,22 +338,10 @@
                                 message: 'Please choose a jpg file.'
                             }
                         }
-                    },
-                    message: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The message is required and cannot be empty'
-                            }
-                        }
                     }
+
                 }
             });
         });
     </script>
 {% endblock js%}
-
-
-
-
-
-

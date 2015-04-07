@@ -23,10 +23,10 @@
     <style>
         body {
             padding-top: 70px;
-            
-        #dtid {
-           margin-top: 7px;
-        }
+
+            #dtid {
+                margin-top: 7px;
+            }
             /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
         }
     </style>
@@ -53,34 +53,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                {%block logo%}{%endblock logo%}<span style="position: fixed; left: 3em; "class="site-title">Athwela</span>
-            </a>
+
+            {%block logo%}{%endblock logo%}{%block brand%}<span style="margin-left: 2em; color: black;" class=" site-title1 navbar-brand">Athwela</span>{%endblock brand%}
+
 
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
             {% block items%}
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="{{path('fos_user_security_logout')}}">Logout</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Profile Settings</a></li>
-                            <li><a href="#">Change Password</a></li>
-                            <li><a href="{{path('vol_profile_show', { 'email': 'dilini@gmail.com' })}}">Profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{path('vol_profile_show', { 'email': 'dilini@gmail.com' })}}"><span class="glyphicon glyphicon-user"></span> {{app.user.username}}</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Profile Settings</a></li>
+                    <li><a href="{{path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             {%endblock items%}
         </div>

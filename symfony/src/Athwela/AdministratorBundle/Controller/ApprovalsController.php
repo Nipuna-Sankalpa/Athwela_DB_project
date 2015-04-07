@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Athwela\DA\DBConnection;
 use Athwela\DA\CRUD\Read;
 use Athwela\EntityBundle\Entity\Admin;
+use Athwela\EntityBundle\Entity\Volunteer;
 use Athwela\DA\CustomQuery\CustomQuery;
 
 class ApprovalsController extends ContainerAware {
@@ -36,6 +37,15 @@ class ApprovalsController extends ContainerAware {
                     'volunteers' => $volunteers,
         ));
     }
+    
+    public function adminVolsAction(){
+        $conn = DBConnection::getInstance()->getConnection();
+        $object = Read::getInstance()->read($conn, new Volunteer(), 'admin', 'email', $email);
+        
+    }
+
+
+    
 
     private function getNewMessages() {
         $query = "SELECT COUNT(vol_ID) as count FROM vol_admin_msg WHERE status=" . "'" . "notRead" . "'";

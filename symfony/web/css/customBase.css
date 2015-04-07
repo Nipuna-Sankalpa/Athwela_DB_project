@@ -9,15 +9,15 @@ and open the template in the editor.
 */
 
 .navbar-inverse {
-    background-color: rgba(224,224,224,0.7);
+    background-color: rgba(224,224,224,1);
     border-color: rgba(224,224,224,1);
-    
+
 
 }
 
 background{
     background-color: rgba(224,224,224,0.5);
-    
+
 }
 
 @font-face {
@@ -35,6 +35,16 @@ background{
     /*text-transform: capitalize;*/
 }
 
+.site-title1 {
+    font-family: myFirstFont;
+    font-size: 30pt;
+    
+    font-weight: normal;
+    margin-top: 5px;
+    /*text-transform: uppercase;*/
+    /*text-transform: capitalize;*/
+}
+
 .signUpForm{
     background-color: rgba(0,0,0,0.5);
     box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.5);
@@ -42,4 +52,19 @@ background{
     color: #DADADA;
     padding: 1.5em;
     margin-top: 1em;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+    color: black;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: cornflowerblue;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: blue;
+  background-color: transparent;
 }

@@ -1,0 +1,302 @@
+{% extends '::base.html.twig'%}
+{%block css%}
+    <link href="{{asset('css/formValidation.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+{%endblock css%}
+
+{%block container%}
+
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset>
+                <legend class="header text-center">Edit profile settings</legend>
+                <div class = "mymargin15"> </div>  
+                <div class="col-md-4">  
+                    <br>
+                    <form action = "#" id = "form1" class="form-horizontal" method="post" >
+                        <fieldset >   
+                            <legend class="text-center">Change Organization Logo</legend>
+                            <div class="form-group ">
+                                <div class= "col-md-10 col-md-offset-1 ">
+                                    <img src="http://www.alanarnette.com/blog/wp-content/uploads/2012/04/images.jpg" class="avatar img-responsive img-thumbnail center-block" alt="avatar">
+                                </div>
+                                <div class = "col-md-12">    
+                                    <h6>Upload a different photo...</h6>
+                                </div>    
+                                <div class = "col-md-12">
+                                    <input name="file" type="file" class="form-control">   
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <br>
+                    <br>
+                    {###################################################################################}
+                    <form action = "{{path('organization_profile_settings',{'id':id})}}" id = "form2" class="form-horizontal" method="post" >
+                        <fieldset >
+                            <legend class="text-center">Password reset</legend>
+
+                            <div class="form-group ">
+
+                                <div class = "col-md-12">
+                                    {{form_row(form._token)}}
+                                    <label class="control-label">Current Password</label>
+                                    {{form_widget(form.current_password,{'attr':{'class':'form-control','placeholder':'Enter Current password'}})}}
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-md-12" >
+                                    <label class="control-label">New Password</label>
+                                    {{form_widget(form.new.first,{'attr':{'class':'form-control','placeholder':'Enter New password'}})}}
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-md-12" >
+                                    <label class="control-label">Re-type new Password</label>
+                                    {{form_widget(form.new.second,{'attr':{'class':'form-control','placeholder':'Re-Enter New password'}})}}
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12" >
+                                    <button type ="submit" name = "contact" class="btn btn-default pull-left" >Update</button>
+                                </div>
+                            </div>    
+
+                        </fieldset>
+                    </form>
+                    {#################################################################}
+
+
+                </div>
+                <br>
+                <br>
+
+                <div class="col-md-8">  
+                    <form action = "{{ path('organization_profile_updates',{'id': id}) }}" id = "form2" class="form-horizontal" method="post" >  
+                        {#-------------------- Organization Name -----------------------#}                     
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Organization Name:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" name="organization_name" type="text" placeholder="organization name">
+                            </div>
+                        </div>
+                        {#-------------------- Description -----------------------#} 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Description:</label>
+                            <div class="col-md-8">
+                                <textarea rows="6" cols="50" class="form-control" name="description" placeholder="description" type="text" ></textarea>
+                            </div>
+                        </div> 
+
+                        {#-------------------- Mobile Phone -----------------------#} 
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Mobile Phone:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" name="phone" type="text" placeholder="mobile number">
+                            </div>
+                        </div> 
+
+                        {#-------------------- Fax -----------------------#} 
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Fax:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" name="fax" type="text" placeholder="fax number">
+                            </div>
+                        </div> 
+
+                        {#-------------------- Expected Skills -----------------------#}
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Expected Skills:</label>
+                            <div class="col-md-8">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="net" /> .Net
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="java" /> Java
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="c" /> C/C++
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="php" /> PHP
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="perl" /> Perl
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="ruby" /> Ruby
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="python" /> Python
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="programs[]" value="javascript" /> Javascript
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" col-md-8 col-md-offset-4 left">
+                                <button type ="submit" name = "contact" class="btn btn-default pull-right" >Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>            
+        </div>
+    </div>
+
+
+    <style>
+        .header {
+            color: #006600;
+            font-size: 27px;
+            font-weight:bold ;
+            padding: 10px;
+        }
+
+        .bigicon {
+            font-size: 35px;
+            color: #006600;
+        }
+
+    </style>
+{%endblock container%}
+
+
+
+{% block js%}
+    <script src={{asset('js/jquery-1.11.2.min.js')}}></script>
+    <script src={{asset('js/formValidation.min.js')}}></script>
+    <script src={{asset('js/framework/bootstrap.min.js')}}></script>
+    <script src={{asset('js/moment.min.js')}}></script>
+    <script src={{asset('js/bootstrap-datetimepicker.min.js')}}></script>  
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#form1').formValidation({
+                message: 'This value is not valid',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    oldpassword: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The oldpassword is required and cannot be empty'
+                            }
+                        }
+                    },
+                    newpassword: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The newpassword is required and cannot be empty'
+                            }
+                        }
+                    },
+                    confirmPassword: {
+                        validators: {
+                            identical: {
+                                field: 'newpassword',
+                                message: 'The password and its confirm are not the same'
+                            }
+                        }
+                    }
+
+                }
+            });
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#form2').formValidation({
+                message: 'This value is not valid',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    organization_name: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The organization name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    phone: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The phone number is required and cannot be empty'
+                            },
+                            stringLength: {
+                                max: 10,
+                                message: 'The phone number must be 10 characters long'
+                            },
+                            digits: {
+                                message: 'The phone number can only consist of numbers'
+                            }
+                        }
+                    },
+                    fax: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The phone number is required and cannot be empty'
+                            },
+                            stringLength: {
+                                max: 10,
+                                message: 'The phone number must be 10 characters long'
+                            },
+                            digits: {
+                                message: 'The phone number can only consist of numbers'
+                            }
+                        }
+                    },
+                    file: {
+                        validators: {
+                            file: {
+                                extension: 'jpg',
+                                type: 'image/jpg',
+                                message: 'Please choose a jpg file.'
+                            }
+                        }
+                    },
+                    description: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The description is required and cannot be empty'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock js%}
