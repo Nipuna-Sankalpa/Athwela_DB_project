@@ -24,11 +24,25 @@
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
 
-
-
-
-
-
+                                {%if volunteers!=null%}
+                                    {% for vol in volunteers %}
+                                        <div class="well well-sm col-sm-6">
+                                            <div class="col-xs-4">
+                                                <li><a href="{{path('vol_profile_show',{'email':vol.email})}}">{{vol.firstName}}</a></li>
+                                            </div>
+                                            <div class="text-right col-xs-7 col-xs-offset-1">
+                                                <div class="btn-group btn-group-xs">
+                                                    <a href="{{path('athwela_administrator_approve',{'email':vol.email})}}"><button class="btn-info"><span class="glyphicon glyphicon-ok"></span></button></a>
+                                                    <a href="{{path('athwela_administrator_reject',{'email':vol.email})}}"><button class="btn-info"><span class="glyphicon glyphicon-remove"></span></button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div>
+                                        <li><h4 class="text-center">No new volunteers !</h4></li>
+                                    </div>
+                                {% endif %}
 
                             </div>
                         </div>
@@ -44,25 +58,28 @@
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
                                 <div>
-                                    <form action="#" method="POST">
+                                    <form action="{{path('athwela_administrator_search')}}" method="POST">
                                         <div class="form-group row">
                                             <div class="col-sm-6">
                                                 <label class="control-label"> Volunteer Name :</label>
-                                                <input type="text" class="form-control" placeholder="Enter volunteer name">
+                                                <input  type="text" class="form-control" name="volName" placeholder="Enter volunteer name">
                                             </div>
                                             <div class="col-sm-6" >
                                                 <label class="control-label"> Volunteer Skill :</label>
-                                                <input list="skills" class="form-control" placeholder="Select skill">
+                                                <input  list="skills" name="skill" class="form-control" placeholder="Select skill">
                                                 <datalist id="skills">
-                                                    <option value="Internet Explorer">
-                                                    <option value="Firefox">
-                                                    <option value="Chrome">
-                                                    <option value="Opera">
-                                                    <option value="Safari">
+                                                    {%if skills%}
+                                                        {%for skill in skills%}
+                                                            <option value="{{skill.name}}">
+                                                            {% endfor %}
+                                                        {%else%}
+                                                        <option value="No types has been defined">
+                                                        {% endif %}
+
                                                 </datalist>
                                             </div>
                                         </div>
-                                        
+
                                         <button type="submit" class="btn btn-info">Search</button>
                                     </form>
                                 </div>
@@ -75,7 +92,57 @@
 
             </div>
 
-            <div><a href="#"><span class="glyphicon glyphicon-user"></span> View all volunteers</a></div>
+            <div><a href="{{path('athwela_administrator_volunteer',{'flag':TRUE})}}"><span class="glyphicon glyphicon-user"></span> View all volunteers</a></div>
+            <br />
+
+            <div class="row">
+                {%if allVolunteers%}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><span class="fa fa-user"></span>  All Volunteers</div>
+                        <div class="panel-body">
+                            {% for allVols in allVolunteers%}
+                                <div class="col-sm-4">
+                                    <li class="text-center"><a href="{{path('vol_profile_show',{'email':allVols.email})}}">{{allVols.firstName}}</a></li>
+                                </div >
+                                <div class="col-sm-4">
+                                    <a href="{{path('vol_profile_show',{'email':allVols.email})}}"><span class="fa fa-envelope"></span> {{allVols.email}}</a>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="{{path('vol_profile_show',{'email':allVols.email})}}"><span class="fa fa-th-large"></span> {{allVols.availability}}</a>
+                                </div>
+                            {% endfor%}
+                        </div>
+                    </div>
+
+                {% endif %}
+            </div>
+
+
+            <div class="row">
+                {%if searchVols%}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><span class="glyphicon glyphicon-search"></span> Search Results</div>
+                        <div class="panel-body">
+                            {% for searchVol in searchVols%}
+                                <div class="col-sm-3">
+                                    <li><a href="{{path('vol_profile_show',{'email':searchVol.email})}}">{{searchVol.name}}</a></li>
+                                </div >
+                                <div class="col-sm-3">
+                                    <a href="{{path('vol_profile_show',{'email':searchVol.email})}}"><span class="fa fa-envelope"></span> {{searchVol.email}}</a>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a href="{{path('vol_profile_show',{'email':searchVol.email})}}"><span class="fa fa-envelope"></span> {{searchVol.status}}</a>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a href="{{path('vol_profile_show',{'email':searchVol.email})}}"><span class="fa fa-envelope"></span> {{searchVol.skill}}</a>
+                                </div>
+                            {% endfor%}
+                        </div>
+                    </div>
+
+                {% endif %}
+            </div>
+
 
         </div>
         <!-- /.container-fluid -->

@@ -1,28 +1,4 @@
 {%extends "::base.html.twig"%}
-{%block items%}
-    <ul class="nav navbar-nav">
-        <li>
-            <a href="#">About</a>
-        </li>
-        <li>
-            <a href="#">Services</a>
-        </li>
-        <li>
-            <a href="{{path('fos_user_security_logout')}}">Logout</a>
-        </li>
-        <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Profile Settings</a></li>
-                <li><a href="#">Change Password</a></li>
-                <li><a href="{{path('vol_profile_show')}}">Profile</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-{%endblock items%}
-
 {% block container -%}
     <title>{{entity.firstName}} {{entity.lastName}}</title>
     <div class="row">
