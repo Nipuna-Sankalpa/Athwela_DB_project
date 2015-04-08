@@ -2,36 +2,35 @@
 {%block css%}
     <link href="{{asset('css/formValidation.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('BootstrapFormHelpers/dist/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet">
 {%endblock css%}
-{%block container%}  
-    <div class="alert alert-success col-md-8 col-md-offset-2 text-center">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        You have <strong> successfully </strong> updated your profile.
-    </div>
-    <div class="row">       
-        <div class="col-md-12">
-            <fieldset>
-                <legend class="header text-center">Update profile settings</legend>   
 
+{%block container%}
+
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset> 
+                <legend class="header text-center">Edit profile settings</legend>
                 <div class="col-md-4">  
                     <br>
                     <form action = "#" id = "form1" class="form-horizontal" method="post" >
                         <fieldset >   
-                            <legend class="text-center">Update Organization Logo</legend>
                             <div class="form-group ">
                                 <div class= "col-md-10 col-md-offset-1 ">
-                                    <img src="http://fc06.deviantart.net/fs71/f/2012/275/d/f/profile_picture_by_bosch91-d5gks3i.jpg" class="avatar img-responsive img-thumbnail center-block" alt="avatar">
-                                </div>
-                                <div class = "col-md-12">    
-                                    <h6>Upload a different photo...</h6>
-                                </div>    
-                                <div class = "col-md-12">
+                                    <img src="http://www.alanarnette.com/blog/wp-content/uploads/2012/04/images.jpg" class="avatar img-responsive img-thumbnail center-block" alt="avatar">
+                                </div> 
+                            </div>    
+                            <div class="form-group ">    
+                                <div class = "col-md-10 col-md-offset-1">
                                     <input name="file" type="file" class="form-control">   
                                 </div>
                             </div>
-                        </fieldset>                            
-                        <br>
-                        <br>                           
+                        </fieldset>
+                    </form>
+                    <br>
+                    <br>
+                    {###################################################################################}
+                    <form action = "{{path('organization_profile_settings',{'id':id})}}" id = "form2" class="form-horizontal" method="post" >
                         <fieldset >
                             <legend class="text-center">Password reset</legend>
 
@@ -67,96 +66,182 @@
                             </div>    
 
                         </fieldset>
-                    </form>                          
-                </div>
+                    </form>
+                    {#################################################################}
 
+
+                </div>
                 <br>
-                {#-------------------- Basic Profile Settings Form 2-----------------------#}
 
                 <div class="col-md-8">  
-                    <form action = "{{ path('volunteer_profile_updates',{'id': id}) }}" id = "form2" class="form-horizontal" method="post" >  
-
-                        {#-------------------- Organization Name -----------------------#}
-
+                    <form action = "{{ path('organization_profile_updates',{'id': id}) }}" id = "form3" class="form-horizontal" method="post" >  
+                        {#-------------------- Organization Name -----------------------#}                     
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Organization name:</label>
-                            <div class="col-md-3">
-                                <input class="form-control" name="organization_name" type="text" value="{{request['organization_name']}}">
+                            <label class="col-md-4 control-label">Organization Name:</label>
+                            <div class="col-md-7">
+                                <input class="form-control" name="organization_name" type="text" placeholder="organization name" value="{{request['organization_name']}}">
                             </div>
                         </div>
                         {#-------------------- Description -----------------------#} 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Description:</label>
                             <div class="col-md-8">
-                                <textarea rows="6" cols="50"class="form-control" name="description" type="text">{{request['description']}} </textarea>
+                                <textarea rows="6" cols="50" class="form-control" name="description" placeholder="description" type="text">{{request['description']}}</textarea>
                             </div>
                         </div> 
 
-                        {#-------------------- Mobile Phone -----------------------#}    
-
+                        {#-------------------- Phone Number -----------------------#} 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Mobile Phone:</label>
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                                <label class="col-md-12 control-label">Phone Number:</label> 
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-7" >
+                            
+                            {% for number in request['phoneNu'] %} 
+                                    {% if number != "" %}
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                              <input class="form-control" name="phoneNu[]" type="text" value="{{number}}">
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                            {% endfor %}
+                            
+                            <div class="form-group " >
+                                <div class="col-md-10">
+                                  <input class="form-control" name="phoneNu[]" type="text" placeholder="phoneNu #1">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-default addPhone" data-template="phoneNu">Add</button>
+                                </div>
+                            </div>
+                                                       
+                            <div class="form-group hide" id="phoneNuTemplate">
+                                <div class="col-md-10">
+                                  <input class="form-control" name="phoneNu[]" type="text" >
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-default removeButton">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        
+                         {#-------------------- Fax Number -----------------------#} 
+                        <div class="form-group">
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                                <label class="col-md-12 control-label">Fax Number:</label> 
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-7" >
+                            
+                            {% for number in request['faxNu'] %} 
+                                    {% if number != "" %}
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                              <input class="form-control" name="faxNu[]" type="text" value="{{number}}">
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                            {% endfor %}
+                            
+                            <div class="form-group " >
+                                <div class="col-md-10">
+                                  <input class="form-control" name="faxNu[]" type="text" placeholder="faxNu #1">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-default addFax" data-template="faxNu">Add</button>
+                                </div>
+                            </div>
+                                                       
+                            <div class="form-group hide" id="faxNuTemplate">
+                                <div class="col-md-10">
+                                  <input class="form-control" name="faxNu[]" type="text" >
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-default removeButton">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+ 
+                        
+                        {#-------------------- Address -----------------------#} 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Address:</label>
                             <div class="col-md-8">
-                                <input class="form-control" name="phone" type="text" value="{{request['phone']}}">
+                                
+                                        {#-------------------- Street -----------------------#} 
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Street:</label>
+                                            <div class="col-md-8">
+                                <input class="form-control" name="street" type="text" placeholder="street" value="{{request['street']}}">
+                                            </div>
+                                        </div>
+                                
+                                        {#-------------------- City -----------------------#} 
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">City:</label>
+                                            <div class="col-md-8">
+                                    <input class="form-control" name="city" type="text" placeholder="city" value="{{request['city']}}">
+                                            </div>
+                                        </div>
+                                
+                                        {#-------------------- Country -----------------------#} 
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Country:</label>
+                                            <div class="col-md-8">
+                        <div class="bfh-selectbox bfh-countries" data-name="country" data-country="{{request['country']}}" data-flags="true"  ></div>
+                                            </div>
+                                        </div>
+                                
+                                        
                             </div>
                         </div> 
 
-                        {#-------------------- Fax -----------------------#}    
+                        
+                                        {#-------------------- Expected Skills -----------------------#}
+                            <div class="form-group">
+ 
+                                    <label class="col-md-4 control-label"> Expected Skills:</label>
+                        
+                             <div class = "col-md-8">
+   
+                                {% for number in skills %} 
+                                        {% set foo = "" %}
+                                            {% for select in request['programs']  %} 
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Fax:</label>
-                            <div class="col-md-8">
-                                <input class="form-control" name="phone" type="text" value="{{request['fax']}}">
+                                                {% if number == select %}
+                                                        {% set foo = "contain" %}
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="programs[]" value={{number}} checked="checked"> {{number}}
+                                                            </label>
+                                                        </div>
+
+                                                {% endif %}
+
+                                            {% endfor %}
+
+                                                {% if foo == "" %}
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="programs[]" value={{number}}> {{number}}
+                                                        </label>
+                                                    </div>
+                                                {% endif %}
+
+                                {% endfor %}
+                                 
+                             </div>  
                             </div>
-                        </div>
-
-                        {#-------------------- Expected Skills -----------------------#}
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Expected Skills:</label>
-                            <div class="col-md-8">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="net" /> .Net
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="java" /> Java
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="c" /> C/C++
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="php" /> PHP
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="perl" /> Perl
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="ruby" /> Ruby
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="python" /> Python
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="javascript" /> Javascript
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <div class=" col-md-8 col-md-offset-4 left">
                                 <button type ="submit" name = "contact" class="btn btn-default pull-right" >Update</button>
@@ -164,9 +249,10 @@
                         </div>
                     </form>
                 </div>
-
+            </fieldset>            
         </div>
     </div>
+
 
     <style>
         .header {
@@ -180,6 +266,7 @@
             font-size: 35px;
             color: #006600;
         }
+
     </style>
 {%endblock container%}
 
@@ -190,112 +277,146 @@
     <script src={{asset('js/formValidation.min.js')}}></script>
     <script src={{asset('js/framework/bootstrap.min.js')}}></script>
     <script src={{asset('js/moment.min.js')}}></script>
-    <script src={{asset('js/bootstrap-datetimepicker.min.js')}}></script>   
+    <script src={{asset('js/bootstrap-datetimepicker.min.js')}}></script>  
+    <script src={{asset('BootstrapFormHelpers/dist/js/bootstrap-formhelpers.min.js')}}></script> 
 
-    <script>
-        $(document).ready(function() {
-            $('#datetimePicker').datetimepicker({
-                viewMode: 'years',
-                format: 'DD/MM/YYYY'
+<script type="text/javascript">
+        
+        $(document).ready(function() {      
+        $('.addPhone').on('click', function() {
+                var index = $(this).data('index');
+                if (!index) {
+                    index = 1;
+                    $(this).data('index', 1);
+                }
+                index++;
+                $(this).data('index', index);
+
+                var template     = $(this).attr('data-template'),
+                    $templateEle = $('#' + template + 'Template'),
+                    $row         = $templateEle.clone().removeAttr('id').insertBefore($templateEle).removeClass('hide'),
+                    $el          = $row.find('input').eq(0).attr('name', template + '[]');
+                $('#form3').formValidation('addField', $el);
+                $el.attr('placeholder', 'phoneNu #' + index);
+                $row.on('click', '.removeButton', function(e) {
+                    $('#form3').formValidation('removeField', $el);
+                    $row.remove();
+                });
             });
         });
-    </script>   
+    
+        $(document).ready(function() {      
+            $('.addFax').on('click', function() {
+                    var index = $(this).data('index');
+                    if (!index) {
+                        index = 1;
+                        $(this).data('index', 1);
+                    }
+                    index++;
+                    $(this).data('index', index);
 
-    <script type="text/javascript">
+                    var template     = $(this).attr('data-template'),
+                        $templateEle = $('#' + template + 'Template'),
+                        $row         = $templateEle.clone().removeAttr('id').insertBefore($templateEle).removeClass('hide'),
+                        $el          = $row.find('input').eq(0).attr('name', template + '[]');
+                    $('#form3').formValidation('addField', $el);
+                    $el.attr('placeholder', 'faxNu #' + index);
+                    $row.on('click', '.removeButton', function(e) {
+                        $('#form3').formValidation('removeField', $el);
+                        $row.remove();
+                    });
+                });
+            });
+        
         $(document).ready(function() {
-            $('#form1').formValidation({
+        $('#form1').formValidation({
+        message: 'This value is not valid',
+                icon: {
+                valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                               
+                        file: {
+                        validators: {
+                        file: {
+                                extension: 'jpeg,png,jpg',
+                                type: 'image/jpeg,image/png,image/jpg',
+                                message: 'only jpeg,png and png extentions are allowed'
+                        }
+                        }
+                        }
+                }
+        });
+
+    });
+    
+        $(document).ready(function() {
+            $('#form3').formValidation({
                 message: 'This value is not valid',
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-            oldpassword: {
-        validators: {
-        notEmpty: {
-                message: 'The oldpassword is required and cannot be empty'
-                    }
-                        }
-                    },
-                    newpassword: {
-                    validators: {
-                notEmpty: {
-                            message: 'The newpassword is required and cannot be empty'
-                                }
-                        }
-                    },
-                            confirmPassword: {
-                    validators: {
-                    identical: {
-                            field: 'newpassword',
-                                message: 'The password and its confirm are not the same'
+                    organization_name: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The organization name is required and cannot be empty'
                             }
                         }
-                    }
-
-                    }
-            });
-                        });
-    </script>
-
-    <script type="text/javascript">
-                                $(document).ready(function() {
-                                $('#form2').formValidation({
-                message: 'This value is not valid',
-                            icon: {
-                    valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-        validating: 'glyphicon glyphicon-refresh'
-            },
-                fields: {
-                organization_name: {
-                    validators: {
-                    notEmpty: {
-                message: 'The first name is required and cannot be empty'
-                    }
-                        }                     },
-                            phone: {
-                                validators: {
-                            notEmpty: {
-                    message: 'The phone number is required and cannot be empty'
-                            },
-                                stringLength: {
-                                max: 10,
-                                message: 'The phone number must be 10 characters long'
-                            },
-                                digits: {
-                            message: 'The phone number can only consist of numbers'
-                                }
-                        }
                     },
-                            fax: {
-                    validators: {
-                        notEmpty: {
-                                message: 'The fax number is required and cannot be empty'
-                            },
-                            stringLength: {
-                                max: 10,
-                            message: 'The fax number must be 10 characters long'
-                            },
+                    'phoneNu[]': {
+                        validators: {
                                 digits: {
-                        message: 'The fax number can only consist of numbers'
-                    }
+                                message: 'The phone number can only consist of numbers'
+                                },
+                                phone: {
+                                            country: 'US',
+                                            message: 'Please enter a valid phone number in Sri Lanka'
+                                        }
                         }
-                            },
-                                file: {
-                                validators: {
+                        },
+                    'faxNu[]': {
+                        validators: {
+                                digits: {
+                                message: 'The fax number can only consist of numbers'
+                                },
+                                phone: {
+                                            country: 'US',
+                                            message: 'Please enter a valid fax number in Sri Lanka'
+                                        }
+                        }
+                        },
+                    street: {
+                        validators: {
+                        notEmpty: {
+                        message: 'The street is required and cannot be empty'
+                        }
+                        }
+                        },
+                        city: {
+                        validators: {
+                        notEmpty: {
+                        message: 'The city is required and cannot be empty'
+                        }
+                        }
+                        },
+                    file: {
+                        validators: {
                             file: {
                                 extension: 'jpg',
-                        type: 'image/jpg',
-                        message: 'Please choose a jpg file.'
+                                type: 'image/jpg',
+                                message: 'Please choose a jpg file.'
                             }
-                                }
+                        }
                     },
                     description: {
                         validators: {
-            notEmpty: {
-        message: 'The description is required and cannot be empty'
+                            notEmpty: {
+                                message: 'The description is required and cannot be empty'
                             }
                         }
                     }
@@ -303,6 +424,4 @@
             });
         });
     </script>
-
-
 {% endblock js%}
