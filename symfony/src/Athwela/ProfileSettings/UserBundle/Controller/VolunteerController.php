@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
+use Athwela\DA\DBConnection;
+use Athwela\DA\CRUD\Read;
+use Athwela\EntityBundle\Entity\Volunteer;
 
 class VolunteerController extends Controller {
 
@@ -25,10 +28,15 @@ class VolunteerController extends Controller {
 
             return new RedirectResponse($this->getRedirectionUrl($user));
         }
-
+        
+        $entity = $this->createVolunteerEditForm($user->getEmail());
+        if(!$entity){
+            return $this->container->get('templating')->renderResponse('AthwelaProfileSettingsUserBundle:Settings:SettingsVolunteer.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(), 'id' => $id));
+        }else{
         return $this->container->get('templating')->renderResponse(
-                        'AthwelaProfileSettingsUserBundle:Settings:SettingsVolunteer.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(), 'id' => $id)
-        );
+            'AthwelaProfileSettingsUserBundle:Settings:SettingsVolunteer.html.' . $this->container->getParameter('fos_user.template.engine'), array(
+            'form' => $form->createView(), 'id' => $id, 'entity' => $entity));
+        }
     }
 
     public function updatesAction(Request $request, $id) {
@@ -68,5 +76,12 @@ class VolunteerController extends Controller {
     protected function setFlash($action, $value) {
         $this->container->get('session')->getFlashBag()->set($action, $value);
     }
+    
+    private function createVolunteerEditForm($email){        
+        $conn = DBConnection::getInstance()->getConnection();
+        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
+        return $entity;
+    }
+
 
 }

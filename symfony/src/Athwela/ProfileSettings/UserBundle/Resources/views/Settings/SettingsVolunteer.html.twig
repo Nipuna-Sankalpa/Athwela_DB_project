@@ -4,6 +4,14 @@
     <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
 {%endblock css%}
 
+{%block items%}
+    <ul class="nav navbar-nav">
+        <li><a href="{{path('athwela_timeline_volunteer')}}"><span class="glyphicon glyphicon-book"></span>Timeline</a></li>
+        <li><a href="{{path('vol_profile_show')}}"><span class="glyphicon glyphicon-user"></span>{{app.user.username}}</a></li>
+        <li><a href="{{path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+{%endblock items%}
+
 {%block container%}
 
     <div class="row">
@@ -34,7 +42,7 @@
                     {#-------------------------- PW Change----------------------------------#}
                     <form action = "{{path('volunteer_profile_settings',{'id':id})}}" id = "form2" class="form-horizontal" method="post" >
                         <fieldset >
-                            <legend class="text-center">Password reset</legend>
+                            <legend class="text-center">Password Reset</legend>
 
                             <div class="form-group ">
 
@@ -81,7 +89,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">First name:</label>
                             <div class="col-md-8">
-                                <input class="form-control" name="first_name" type="text" placeholder="first name">
+                                <input class="form-control" name="first_name" type="text" placeholder="First Name" value="{{entity.firstName|default('')}}">
                             </div>
                         </div>
 
@@ -90,7 +98,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Last name:</label>
                             <div class="col-md-8">
-                                <input class="form-control" name="last_name" type="text" placeholder="last name">
+                                <input class="form-control" name="last_name" type="text" placeholder="Last Name" value="{{entity.lastName|default('')}}">
                             </div>
                         </div>  
 
@@ -99,9 +107,8 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Birthday</label>
                             <div class="col-md-8">
-
                                 <div class="input-group date" id="datetimePicker">
-                                    <input type="text" class="form-control" name="datetimePicker" placeholder="select your birthday" />
+                                    <input type="text" class="form-control" name="datetimePicker" placeholder="Select your birthday"/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -112,19 +119,44 @@
                         {#-------------------- Gender -----------------------#}
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Gender</label>
+                            <label class="col-md-4 control-label">Gender</label>                            
                             <div class="col-md-8">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="male" /> Male
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="female" /> Female
-                                    </label>
-                                </div>
-
+                                {%if entity != null and entity.gender == 1%}
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="male" checked="true"/> Male
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="female"/> Female
+                                        </label>
+                                    </div>
+                                {%endif%}
+                                {%if entity != null and entity.gender == 0%}
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="male"/> Male
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="female" checked="true"/> Female
+                                        </label>
+                                    </div>
+                                {%endif%}                                
+                                {%if entity == null%}
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="male"/> Male
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="female"/> Female
+                                        </label>
+                                    </div>
+                                {%endif%}
                             </div>
                         </div>
 

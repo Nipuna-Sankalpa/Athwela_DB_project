@@ -23,24 +23,46 @@ use Athwela\DA\DBConnection;
 use Symfony\Component\HttpFoundation\Request;
 
 class VolProfileController extends ContainerAware {
+
 //    method will bahave as it was before.
 //    when you use this method to show profile other than the one who has already logged in symply pass his/her email
 //    along with the route.
-    
+
     public function showAction(Request $request) {
-        $user = $this->container->get('security.context')->getToken()->getUser();        
+        $user = $this->container->get('security.context')->getToken()->getUser();
         if ($request->getMethod() === 'GET' && $request->get('email') != NULL) {
             $email = $request->get('email');
         } else {
             $email = $user->getEmail();
             $conn = DBConnection::getInstance()->getConnection();
             $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
+            if (!$entity) {
+                $form = $this->container->get('fos_user.change_password.form');
+                return $this->container->get('templating')->renderResponse('AthwelaProfileSettingsUserBundle:Settings:SettingsVolunteer.html.' . $this->container->getParameter('fos_user.template.engine'), ['form' => $form->createView(), 'id' => $user->getId(), 'entity' => $entity]);
+            }
             $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
             $edu = $this->getEdu($conn, $entity);
             $skill = $this->getSkills($conn, $entity);
             $interest = $this->getInterestedAreas($conn, $entity);
             $admin = $this->getAdmin($conn, $entity);
-            DBConnection::getInstance()->closeConnection($conn);
+            DBConnection::getInstance()->closeConnection($conn);          
+            
+            if ($entity && !$entitymobile) {
+                $entitymobile = array('No any mobile number set');
+            }
+            
+            if ($entity && !$edu) {
+                $edu = array('No any education detail set');
+            }
+            
+            if ($entity && !$skill) {
+                $skill = array('No any skill set');
+            }
+            
+            if ($entity && !$interest) {
+                $interest = array('No any interested area set');
+            }
+            
             return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:show.html.twig', array(
                         'entity' => $entity,
                         'entitymobile' => $entitymobile,
@@ -95,4 +117,5 @@ class VolProfileController extends ContainerAware {
         }
         return $temp;
     }
+
 }
