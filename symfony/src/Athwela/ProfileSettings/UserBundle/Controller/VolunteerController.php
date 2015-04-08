@@ -33,6 +33,7 @@ class VolunteerController extends Controller {
 
     public function updatesAction(Request $request, $id) {
         $params = $this->getRequest()->request->all();
+        $skills = array(".Net","Java","C","PHP","Perl","Ruby","Python","Javascript");
 
         /*         * **************************** dont edit/delete ************************************************* */
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -53,7 +54,8 @@ class VolunteerController extends Controller {
         return $this->container->get('templating')->renderResponse(
                         'AthwelaProfileSettingsUserBundle:Settings:UpdatesVolunteer.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(),
                     'id' => $id,
-                    'request' => $params,)
+                    'request' => $params,
+                    'skills' => $skills)
         );
     }
 
