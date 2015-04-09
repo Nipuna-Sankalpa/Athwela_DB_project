@@ -37,6 +37,7 @@ class CustomQuery {
         if ($result) {
             return $result;
         } else {
+            
             die($conn->error);
         }
     }

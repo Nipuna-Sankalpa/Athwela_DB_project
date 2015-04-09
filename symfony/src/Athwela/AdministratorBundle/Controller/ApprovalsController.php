@@ -53,7 +53,7 @@ class ApprovalsController extends ContainerAware {
         $volunteers = NULL;
         $allvolunteers = NULL;
         $searchResult = NULL;
-        $skills=NULL;
+        $skills = NULL;
 
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {
@@ -173,7 +173,12 @@ class ApprovalsController extends ContainerAware {
     }
 
     private function getNewMessages() {
-        $query = "SELECT COUNT(vol_ID) as count FROM vol_admin_msg WHERE status=" . "'" . "notRead" . "'";
+        $query = "  select count(a.ID) from (
+                    select ID,msg,date,msgStatus from vol_admin_msg 
+                    union all
+                    select ID,msg,date,msgStatus from org_admin_msg 
+                    )as a where a.msgStatus="."'"."notRead"."'";
+
         $result = CustomQuery::getInstance()->customQuery($query);
 
         if ($result) {

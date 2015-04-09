@@ -19,31 +19,32 @@ use Athwela\DA\DBConnection;
 use Athwela\DA\CRUD\Update;
 use Athwela\DA\CRUD\Delete;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Athwela\EntityBundle\Entity\Volunteer;
-use Athwela\EntityBundle\Entity\Type;
+use Athwela\EntityBundle\Entity\Organization;
+
 use Athwela\DA\CustomQuery\CustomQuery;
 use Symfony\Component\HttpFoundation\Request;
-use Athwela\AdministratorBundle\Entity\SearchVol;
+
 
 class ApprovalsOrgController extends ContainerAware {
 
     public function adminOrgAction(Request $request) {
 
         $query = "SELECT name,ID FROM organization WHERE status=" . "'" . "pending" . "'";
-        $quer1 = "SELECT name,ID FROM organization WHERE status=" . "'" . "pending" . "'";
+        $query1 = "SELECT name FROM type";
         $result = CustomQuery::getInstance()->customQuery($query);
         $result1 = CustomQuery::getInstance()->customQuery($query1);
         $i = 0;
-        $orgs = NULL;
-        $allorgs = NULL;
+        $newOrgs = NULL;
+        $allOrgs = NULL;
         $searchOrg = NULL;
+        $types = NULL;
 
 
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {
-                $orgs[$i] = new Volunteer();
-                $orgs[$i]->setFirstName($row[0]);
-                $orgs[$i]->setId($row[1]);
+                $newOrgs[$i] = new Organization();
+                $newOrgs[$i]->setName($row[0]);
+                $newOrgs[$i]->setId($row[1]);
                 $i++;
             }
         } else {
@@ -57,10 +58,10 @@ class ApprovalsOrgController extends ContainerAware {
 
             if ($result) {
                 while ($row = mysqli_fetch_row($result)) {
-                    $allorgs[$i] = new Organization();
-                    $allorgs[$i]->seName($row[0]);
-                    $allorgs[$i]->setCountry($row[1]);
-                    $allorgs[$i]->setAvailability($row[2]);
+                    $allOrgs[$i] = new Organization();
+                    $allOrgs[$i]->setName($row[0]);
+                    $allOrgs[$i]->setCountry($row[1]);
+                    $allOrgs[$i]->setStatus($row[2]);
                     $i++;
                 }
             } else {
@@ -69,15 +70,6 @@ class ApprovalsOrgController extends ContainerAware {
         }
 
 
-        if ($result1) {
-            while ($row = mysqli_fetch_row($result1)) {
-                $types[$i] = new Type();
-                $types[$i]->setName($row[0]);
-                $i++;
-            }
-        } else {
-            die('Error');
-        }
 
 
         if ($request->getMethod() === 'GET' && $request->get('query') != NULL) {
@@ -87,7 +79,7 @@ class ApprovalsOrgController extends ContainerAware {
             $i = 0;
             if ($result) {
                 while ($row = mysqli_fetch_row($result)) {
-                    $searchOrg[$i] = new SearchVol();
+                    $searchOrg[$i] = new Organization();
                     $searchOrg[$i]->setName($row[0]);
                     $searchOrg[$i]->setCountry($row[1]);
                     $searchOrg[$i]->setStatus($row[2]);
@@ -99,11 +91,11 @@ class ApprovalsOrgController extends ContainerAware {
             }
         }
 
-        return $this->container->get('templating')->renderResponse('AthwelaAdministratorBundle:Administrator:Volunteers.html.twig', array(
-                    'volunteers' => $orgs,
-                    'allVolunteers' => $allorgs,
-                    'searchVols' => $searchOrg,
-                    'types' => $types,
+        return $this->container->get('templating')->renderResponse('AthwelaAdministratorBundle:Administrator:Organization.html.twig', array(
+                    'newOrgs' => $newOrgs,
+                    'allOrgs' => $allOrgs,
+                    'searchOrgs' => $searchOrg,
+                    
         ));
     }
 
@@ -119,23 +111,18 @@ class ApprovalsOrgController extends ContainerAware {
         }
 
         if ($orgName) {
-            $queryTemp.="and name like " . "'" . "%$orgName%" . "' ";
+            $queryTemp.="name like " . "'" . "%$orgName%" . "' ";
         }
-        if ($orgType) {
-            $queryTemp.="and skill=" . "'" . $orgType . "' ";
-        }
-
-        $queryTemp1 = substr_replace($queryTemp, " ", 0, 3);
-
-        $query.=$queryTemp1;
+ 
+        $query.=$queryTemp;
 
         $url = $this->container->get('router')->generate('athwela_administrator_organization', array('query' => $query));
         return new RedirectResponse($url);
     }
 
-    public function approveOrgsAction($email) {
+    public function approveOrgsAction($id) {
         $conn = DBConnection::getInstance()->getConnection();
-        $temp = Update::getInstance()->update($conn, 'Organization', 'email', $email, array('status'), array('approved'));
+        $temp = Update::getInstance()->update($conn, 'Organization', 'ID', $id, array('status'), array('approved'));
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_organization');
             return new RedirectResponse($url);
@@ -144,9 +131,9 @@ class ApprovalsOrgController extends ContainerAware {
         }
     }
 
-    public function rejectOrgsAction($email) {
+    public function rejectOrgsAction($id) {
         $conn = DBConnection::getInstance()->getConnection();
-        $temp = Delete::getInstance()->deleteRow($conn, 'Organization', 'email', $email);
+        $temp = Delete::getInstance()->deleteRow($conn, 'Organization', 'ID', $id);
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_organization');
             return new RedirectResponse($url);

@@ -60,7 +60,7 @@ class Read {
 
         if ($temp[sizeof($temp) - 1] == 'Institute') {
             $institute = $entity;
-            $institute->setID($row[0]);
+            $institute->setId($row[0]);
             $institute->setName($row[1]);
             $institute->setCity($row[2]);
             $institute->setCountry($row[3]);
@@ -69,7 +69,7 @@ class Read {
         }
         if ($temp[sizeof($temp) - 1] == 'Organization') {
             $organization = $entity;
-            $organization->setID($row[0]);
+            $organization->setId($row[0]);
             $organization->setA_ID($row[1]);
             $organization->setName($row[2]);
             $organization->setDescription($row[3]);
@@ -82,7 +82,7 @@ class Read {
         if ($temp[sizeof($temp) - 1] == 'Project') {
 
             $project = $entity;
-            $project->setID($row[0]);
+            $project->setId($row[0]);
             $project->setA_ID($row[2]);
             $project->setT_ID($row[3]);
             $project->setO_ID($row[4]);
@@ -100,7 +100,7 @@ class Read {
         if ($temp[sizeof($temp) - 1] == 'Type') {
 
             $type = $entity;
-            $type->setID($row[0]);
+            $type->setId($row[0]);
             $type->setName($row[1]);
             $type->setDescription($row[2]);
 
@@ -142,6 +142,7 @@ class Read {
 
         $query = "SELECT * FROM $table WHERE $indexCol" . "=" . "'" . $indexVal . "';";
         $result = $conn->query($query);
+        $mulVal=NULL;
         $i = 0;
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {

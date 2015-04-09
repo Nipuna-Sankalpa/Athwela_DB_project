@@ -35,6 +35,7 @@ class VolProfileController extends ContainerAware {
         } else {
             $email = $user->getEmail();
         }
+        
         $conn = DBConnection::getInstance()->getConnection();
         $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
         $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');

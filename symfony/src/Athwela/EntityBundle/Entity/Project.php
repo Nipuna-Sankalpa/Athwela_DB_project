@@ -7,12 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Project
  */
-class Project
-{
+class Project {
+
     /**
      * @var string
      */
     private $title;
+
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     /**
      * @var string
@@ -28,6 +32,7 @@ class Project
      * @var \DateTime
      */
     private $startDate;
+
     public function getO_ID() {
         return $this->o_ID;
     }
@@ -52,7 +57,7 @@ class Project
         $this->t_ID = $t_ID;
     }
 
-        /**
+    /**
      * @var \DateTime
      */
     private $endDate;
@@ -105,8 +110,7 @@ class Project
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->v = new \Doctrine\Common\Collections\ArrayCollection();
         $this->s = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -117,8 +121,7 @@ class Project
      * @param string $title
      * @return Project
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -129,8 +132,7 @@ class Project
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -140,8 +142,7 @@ class Project
      * @param string $description
      * @return Project
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -152,8 +153,7 @@ class Project
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -163,8 +163,7 @@ class Project
      * @param integer $status
      * @return Project
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
 
         return $this;
@@ -175,8 +174,7 @@ class Project
      *
      * @return integer 
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
     }
 
@@ -186,8 +184,7 @@ class Project
      * @param \DateTime $startDate
      * @return Project
      */
-    public function setStartDate($startDate)
-    {
+    public function setStartDate($startDate) {
         $this->startDate = $startDate;
 
         return $this;
@@ -198,8 +195,7 @@ class Project
      *
      * @return \DateTime 
      */
-    public function getStartDate()
-    {
+    public function getStartDate() {
         return $this->startDate;
     }
 
@@ -209,8 +205,7 @@ class Project
      * @param \DateTime $endDate
      * @return Project
      */
-    public function setEndDate($endDate)
-    {
+    public function setEndDate($endDate) {
         $this->endDate = $endDate;
 
         return $this;
@@ -221,8 +216,7 @@ class Project
      *
      * @return \DateTime 
      */
-    public function getEndDate()
-    {
+    public function getEndDate() {
         return $this->endDate;
     }
 
@@ -232,8 +226,7 @@ class Project
      * @param integer $volunteersNeeded
      * @return Project
      */
-    public function setVolunteersNeeded($volunteersNeeded)
-    {
+    public function setVolunteersNeeded($volunteersNeeded) {
         $this->volunteersNeeded = $volunteersNeeded;
 
         return $this;
@@ -244,8 +237,7 @@ class Project
      *
      * @return integer 
      */
-    public function getVolunteersNeeded()
-    {
+    public function getVolunteersNeeded() {
         return $this->volunteersNeeded;
     }
 
@@ -255,8 +247,7 @@ class Project
      * @param integer $noOfFilledPositions
      * @return Project
      */
-    public function setNoOfFilledPositions($noOfFilledPositions)
-    {
+    public function setNoOfFilledPositions($noOfFilledPositions) {
         $this->noOfFilledPositions = $noOfFilledPositions;
 
         return $this;
@@ -267,8 +258,7 @@ class Project
      *
      * @return integer 
      */
-    public function getNoOfFilledPositions()
-    {
+    public function getNoOfFilledPositions() {
         return $this->noOfFilledPositions;
     }
 
@@ -278,8 +268,7 @@ class Project
      * @param \DateTime $postedDate
      * @return Project
      */
-    public function setPostedDate($postedDate)
-    {
+    public function setPostedDate($postedDate) {
         $this->postedDate = $postedDate;
 
         return $this;
@@ -290,8 +279,7 @@ class Project
      *
      * @return \DateTime 
      */
-    public function getPostedDate()
-    {
+    public function getPostedDate() {
         return $this->postedDate;
     }
 
@@ -300,8 +288,7 @@ class Project
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -311,8 +298,7 @@ class Project
      * @param \Athwela\EntityBundle\Entity\Organization $o
      * @return Project
      */
-    public function setO(\Athwela\EntityBundle\Entity\Organization $o = null)
-    {
+    public function setO(\Athwela\EntityBundle\Entity\Organization $o = null) {
         $this->o_ID = $o;
 
         return $this;
@@ -323,8 +309,7 @@ class Project
      *
      * @return \Athwela\EntityBundle\Entity\Organization 
      */
-    public function getO()
-    {
+    public function getO() {
         return $this->o_ID;
     }
 
@@ -334,8 +319,7 @@ class Project
      * @param \Athwela\EntityBundle\Entity\Admin $a
      * @return Project
      */
-    public function setA(\Athwela\EntityBundle\Entity\Admin $a = null)
-    {
+    public function setA(\Athwela\EntityBundle\Entity\Admin $a = null) {
         $this->a_ID = $a;
 
         return $this;
@@ -346,8 +330,7 @@ class Project
      *
      * @return \Athwela\EntityBundle\Entity\Admin 
      */
-    public function getA()
-    {
+    public function getA() {
         return $this->a_ID;
     }
 
@@ -357,8 +340,7 @@ class Project
      * @param \Athwela\EntityBundle\Entity\Type $t
      * @return Project
      */
-    public function setT(\Athwela\EntityBundle\Entity\Type $t = null)
-    {
+    public function setT(\Athwela\EntityBundle\Entity\Type $t = null) {
         $this->t_ID = $t;
 
         return $this;
@@ -369,8 +351,7 @@ class Project
      *
      * @return \Athwela\EntityBundle\Entity\Type 
      */
-    public function getT()
-    {
+    public function getT() {
         return $this->t_ID;
     }
 
@@ -380,8 +361,7 @@ class Project
      * @param \Athwela\EntityBundle\Entity\Volunteer $v
      * @return Project
      */
-    public function addV(\Athwela\EntityBundle\Entity\Volunteer $v)
-    {
+    public function addV(\Athwela\EntityBundle\Entity\Volunteer $v) {
         $this->v[] = $v;
 
         return $this;
@@ -392,8 +372,7 @@ class Project
      *
      * @param \Athwela\EntityBundle\Entity\Volunteer $v
      */
-    public function removeV(\Athwela\EntityBundle\Entity\Volunteer $v)
-    {
+    public function removeV(\Athwela\EntityBundle\Entity\Volunteer $v) {
         $this->v->removeElement($v);
     }
 
@@ -402,8 +381,7 @@ class Project
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getV()
-    {
+    public function getV() {
         return $this->v;
     }
 
@@ -413,8 +391,7 @@ class Project
      * @param \Athwela\EntityBundle\Entity\Skill $s
      * @return Project
      */
-    public function add(\Athwela\EntityBundle\Entity\Skill $s)
-    {
+    public function add(\Athwela\EntityBundle\Entity\Skill $s) {
         $this->s[] = $s;
 
         return $this;
@@ -425,8 +402,7 @@ class Project
      *
      * @param \Athwela\EntityBundle\Entity\Skill $s
      */
-    public function remove(\Athwela\EntityBundle\Entity\Skill $s)
-    {
+    public function remove(\Athwela\EntityBundle\Entity\Skill $s) {
         $this->s->removeElement($s);
     }
 
@@ -435,10 +411,10 @@ class Project
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getS()
-    {
+    public function getS() {
         return $this->s;
     }
+
     /**
      * @var \Athwela\EntityBundle\Entity\Organization
      */
@@ -453,6 +429,5 @@ class Project
      * @var \Athwela\EntityBundle\Entity\Type
      */
     private $t;
-
 
 }

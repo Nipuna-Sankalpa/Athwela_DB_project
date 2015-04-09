@@ -62,10 +62,10 @@
                                     <dt><span class="glyphicon glyphicon-circle-arrow-up" ></span> Gender :</dt>
                                     {%if(entity.gender) == 1%}
                                         <dd>Male</dd><br/>
-                                    {%endif%}
+                                    {% endif %}
                                     {%if entity.gender == 0%}
                                         <dd>Female</dd><br/>  
-                                    {%endif%}
+                                    {% endif %}
                                     <dt><span class="glyphicon glyphicon-home" ></span> Hometown :</dt>
                                     <dd>{{entity.city}}</dd><br/> 
                                     <dt><span class="glyphicon glyphicon-flag" ></span> Country :</dt>
@@ -74,21 +74,21 @@
                                     <dd>{{entity.email}}</dd><br/>
                                     <dt><span class="glyphicon glyphicon-home"></span> Adress :</dt>
                                     <dd>{{entity.street}}, {{entity.city}}, {{entity.country}}</dd><br/>
-                                    {%for i in 0..((entitymobile|length)-1)%}
+                                    {% for i in 0..((entitymobile|length)-1)%}
                                         <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
                                         <dd>{{entitymobile[i]}}</dd><br/>
-                                    {%endfor%}
+                                    {% endfor %}
                                 </dl>
                             </div>
                             <div id="educationSection" class="tab-pane fade">
                                 <dl class="dl-horizontal" style="margin-top: 10px">
-                                    {%for i in 0..((edu|length)-1)%}
+                                    {% for i in 0..((edu|length)-1)%}
                                         <p style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px"><b>{{edu[i][0]}}, {{edu[i][4]}}, {{edu[i][5]}}</b></p>
                                         <dt><span class="glyphicon glyphicon-education"></span> Qualification :</dt>
                                         <dd>{{edu[i][1]}}</dd><br/>
                                         <dt><span class="glyphicon glyphicon-book"></span> Attended :</dt>
                                         <dd> From {{edu[i][2]}} To {{edu[i][3]}} </dd><br/>    
-                                    {%endfor%}
+                                    {% endfor%}
                                 </dl>
                             </div>
                             <div id="skills" class="tab-pane fade">
