@@ -2,6 +2,7 @@
 {%block css%}
     <link href="{{asset('css/formValidation.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('BootstrapFormHelpers/dist/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet">  
 {%endblock css%}
 
 {%block items%}
@@ -11,32 +12,32 @@
         <li><a href="{{path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
 {%endblock items%}
-
 {%block container%}
-
     <div class="row">
         <div class="col-md-12">
             <fieldset>
                 <legend class="header text-center">Edit profile settings</legend>
                 <div class = "mymargin15"> </div>                 
                 <div class="col-md-4">                           
-                    <form action = "#" id = "form1" class="form-horizontal" method="post" >
+                    <form action = "{{ path('volunteer_profile_updates',{'id': id}) }}" id = "form1" class="form-horizontal" method="post" >
                         <fieldset >   
-                            <legend class="text-center">Edit Profile Picture</legend>
                             <div class="form-group ">
-                                <div class= "col-md-10 col-md-offset-1 ">
-                                    <img src="http://fc06.deviantart.net/fs71/f/2012/275/d/f/profile_picture_by_bosch91-d5gks3i.jpg" class="avatar img-responsive img-thumbnail center-block" alt="avatar">
-                                </div>
-                                <div class = "col-md-12">    
-                                    <h6>Upload a different photo...</h6>
-                                </div>    
-                                <div class = "col-md-12">
+                                <div class= "col-md-8 col-md-offset-2 ">
+                                    <img src="{{asset('img/blankProPic.jpg')}}" class="avatar img-responsive img-thumbnail center-block" alt="avatar">
+                                </div>  
+                            </div>   
+                            <div class="form-group">
+                                <div class = "col-md-10 col-md-offset-1">
                                     <input name="file" type="file" class="form-control">   
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class=" col-md-12">
+                                    <button type ="submit" name = "contact" class="btn btn-default center-block" >Update</button>
                                 </div>
                             </div>
                         </fieldset>
                     </form>
-                    <br>
                     <br>
                     <br>
                     {#-------------------------- PW Change----------------------------------#}
@@ -48,7 +49,7 @@
 
                                 <div class = "col-md-12">
                                     {{form_row(form._token)}}
-                                    <label class="control-label">Current Password</label>
+                                    <label class="control-label">Current Password:</label>
                                     {{form_widget(form.current_password,{'attr':{'class':'form-control','placeholder':'Enter Current password'}})}}
 
                                 </div>
@@ -56,7 +57,7 @@
                             <div class="form-group">
 
                                 <div class="col-md-12" >
-                                    <label class="control-label">New Password</label>
+                                    <label class="control-label">New Password:</label>
                                     {{form_widget(form.new.first,{'attr':{'class':'form-control','placeholder':'Enter New password'}})}}
 
                                 </div>
@@ -64,7 +65,7 @@
                             <div class="form-group">
 
                                 <div class="col-md-12" >
-                                    <label class="control-label">Re-type new Password</label>
+                                    <label class="control-label">Re-type new Password:</label>
                                     {{form_widget(form.new.second,{'attr':{'class':'form-control','placeholder':'Re-Enter New password'}})}}
 
                                 </div>
@@ -83,8 +84,9 @@
                 </div>
 
 
-                <div class="col-md-8">  
-                    <form action = "{{ path('volunteer_profile_updates',{'id': id}) }}" id = "form2" class="form-horizontal" method="post" >  
+                <div class="col-md-8"> 
+                    <br>
+                    <form action = "{{ path('volunteer_profile_updates',{'id': id}) }}" id = "form3" class="form-horizontal" method="post" >  
                         {#-------------------- First Name -----------------------#}                     
                         <div class="form-group">
                             <label class="col-md-4 control-label">First name:</label>
@@ -105,46 +107,41 @@
                         {#-------------------- Brithday -----------------------#}   
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Birthday</label>
+                            <label class="col-md-4 control-label">Birthday:</label>
                             <div class="col-md-8">
-                                <div class="input-group date" id="datetimePicker">
-                                    <input type="text" class="form-control" name="datetimePicker" placeholder="Select your birthday"/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>                                                                       
+                                {%if entity == null%}
+                                    <div class="bfh-datepicker" data-format="y-m-d" placeholder="Select your birthday" data-name="birthday"></div>                                             
+                                {%endif%}
                             </div>
                         </div>
+
+
+                        {#-------------------- Phone Number -----------------------#} 
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Phone Number:</label>
+                            <div class="col-md-5">
+                                <input class="form-control" name="phoneNu[]" type="text" placeholder="phoneNu #1">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default addButton" data-template="phoneNu">Add</button>
+                            </div>
+                        </div> 
+                        <div class="form-group hide" id="phoneNuTemplate">
+                            <div class="col-md-offset-4 col-md-5">
+                                <input class="form-control" name="phoneNu[]" type="text" >
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default removeButton">Remove</button>
+                            </div>
+                        </div>
+
 
                         {#-------------------- Gender -----------------------#}
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Gender</label>                            
-                            <div class="col-md-8">
-                                {%if entity != null and entity.gender == 1%}
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="gender" value="male" checked="true"/> Male
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="gender" value="female"/> Female
-                                        </label>
-                                    </div>
-                                {%endif%}
-                                {%if entity != null and entity.gender == 0%}
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="gender" value="male"/> Male
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="gender" value="female" checked="true"/> Female
-                                        </label>
-                                    </div>
-                                {%endif%}                                
+                            <label class="col-md-4 control-label">Gender:</label>
+                            <div class="col-md-8">                                                             
                                 {%if entity == null%}
                                     <div class="radio">
                                         <label>
@@ -160,58 +157,125 @@
                             </div>
                         </div>
 
-                        {#-------------------- Mobile Phone -----------------------#} 
-
+                        {#-------------------- Address -----------------------#} 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Mobile Phone:</label>
+                            <label class="col-md-4 control-label">Address:</label>
                             <div class="col-md-8">
-                                <input class="form-control" name="phone" type="text" placeholder="mobile number">
+
+                                {#-------------------- Street -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Street:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="street" type="text" placeholder="street">
+                                    </div>
+                                </div>
+
+                                {#-------------------- City -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">City:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="city" type="text" placeholder="city">
+                                    </div>
+                                </div>
+
+                                {#-------------------- Country -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Country:</label>
+                                    <div class="col-md-8">            
+                                        <div class="bfh-selectbox bfh-countries" data-name="country" data-country="US" data-flags="true" ></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>   
+
+
+                        {#-------------------- Education -----------------------#} 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Education:</label>
+                            <div class="col-md-8">
+
+                                {#-------------------- Instute -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Instute:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="institute" type="text" placeholder="instute">
+                                    </div>
+                                </div>
+
+                                {#-------------------- Start Date -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Start Date:</label>
+                                    <div class="col-md-8">
+                                        <div class="bfh-datepicker" data-format="y-m-d" data-date="today" data-name="start_date" ></div>
+                                    </div>
+                                </div>
+
+                                {#-------------------- End Date -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">End Date:</label>
+                                    <div class="col-md-8">
+                                        <div class="bfh-datepicker" data-format="y-m-d" data-date="today" data-name="end_date"></div>
+                                    </div>
+                                </div>
+
+                                {#-------------------- Degree -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Degree:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="degree" type="text" placeholder="degree">
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div> 
+
 
                         {#-------------------- Skills -----------------------#}
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Skills</label>
+                            <label class="col-md-4 control-label">Skills:</label>
                             <div class="col-md-8">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="programs[]" value="net" /> .Net
+                                        <input type="checkbox" name="programs[]" value=".Net" /> .Net
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="programs[]" value="java" /> Java
+                                        <input type="checkbox" name="programs[]" value="Java" /> Java
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="programs[]" value="c" /> C/C++
+                                        <input type="checkbox" name="programs[]" value="C" /> C/C++
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="programs[]" value="php" /> PHP
+                                        <input type="checkbox" name="programs[]" value="PHP" /> PHP
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="programs[]" value="perl" /> Perl
+                                        <input type="checkbox" name="programs[]" value="Perl" /> Perl
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="programs[]" value="ruby" /> Ruby
+                                        <input type="checkbox" name="programs[]" value="Ruby" /> Ruby
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="programs[]" value="python" /> Python
+                                        <input type="checkbox" name="programs[]" value="Python" /> Python
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="programs[]" value="javascript" /> Javascript
+                                        <input type="checkbox" name="programs[]" value="Javascript" /> Javascript
                                     </label>
                                 </div>
                             </div>
@@ -239,130 +303,136 @@
             font-size: 35px;
             color: #006600;
         }  
-        #move > .has-feedback .form-control-feedback   
-        {
-            top: 0;
-            right: -15px;
-        }
     </style>
 {%endblock container%}
 
 
-
-{% block js%}
+{%block js%}
     <script src={{asset('js/jquery-1.11.2.min.js')}}></script>
     <script src={{asset('js/formValidation.min.js')}}></script>
     <script src={{asset('js/framework/bootstrap.min.js')}}></script>
     <script src={{asset('js/moment.min.js')}}></script>
-    <script src={{asset('js/bootstrap-datetimepicker.min.js')}}></script>   
-    <script>
-        $(document).ready(function() {
-        $('#datetimePicker').datetimepicker({
-        viewMode: 'years',
-                format: 'DD/MM/YYYY'
-        });
-        });</script>
+    <script src={{asset('js/bootstrap-datetimepicker.min.js')}}></script>  
+    <script src={{asset('BootstrapFormHelpers/dist/js/bootstrap-formhelpers.min.js')}}></script>  
 
     <script type="text/javascript">
-                $(document).ready(function() {
-        $('#form1').formValidation({
-        message: 'This value is not valid',
-                icon: {
-                valid: 'glyphicon glyphicon-ok',
-                        invalid: 'glyphicon glyphicon-remove',
-                        validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                oldpassword: {
-                validators: {
-                notEmpty: {
-                message: 'The oldpassword is required and cannot be empty'
+        $(document).ready(function () {
+            $('.addButton').on('click', function () {
+                var index = $(this).data('index');
+                if (!index) {
+                    index = 1;
+                    $(this).data('index', 1);
                 }
-                }
-                },
-                        newpassword: {
-                        validators: {
-                        notEmpty: {
-                        message: 'The newpassword is required and cannot be empty'
-                        }
-                        }
-                        },
-                        confirmPassword: {
-                        validators: {
-                        identical: {
-                        field: 'newpassword',
-                                message: 'The password and its confirm are not the same'
-                        }
-                        }
-                        }
+                index++;
+                $(this).data('index', index);
 
-                }
+                var template = $(this).attr('data-template'),
+                        $templateEle = $('#' + template + 'Template'),
+                        $row = $templateEle.clone().removeAttr('id').insertBefore($templateEle).removeClass('hide'),
+                        $el = $row.find('input').eq(0).attr('name', template + '[]');
+                $('#form3').formValidation('addField', $el);
+                $el.attr('placeholder', 'phoneNu #' + index);
+                $row.on('click', '.removeButton', function (e) {
+                    $('#form3').formValidation('removeField', $el);
+                    $row.remove();
+                });
+            });
         });
-        });</script>
-    <script type="text/javascript">
-                $(document).ready(function() {
-        $('#form2').formValidation({
-        message: 'This value is not valid',
+
+
+        $(document).ready(function () {
+            $('#form1').formValidation({
+                message: 'This value is not valid',
                 icon: {
-                valid: 'glyphicon glyphicon-ok',
-                        invalid: 'glyphicon glyphicon-remove',
-                        validating: 'glyphicon glyphicon-refresh'
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                first_name: {
-                validators: {
-                notEmpty: {
-                message: 'The first name is required and cannot be empty'
-                }
-                }
-                },
-                        last_name: {
+                    file: {
                         validators: {
-                        notEmpty: {
-                        message: 'The last name is required and cannot be empty'
+                            file: {
+                                extension: 'jpeg,png,jpg',
+                                type: 'image/jpeg,image/png,image/jpg',
+                                message: 'only jpeg,png and png extentions are allowed'
+                            }
                         }
-                        }
-                        }
-                confirmPassword: {
-                validators: {
-                identical: {
-                field: 'newpassword',
-                        message: 'The password and its confirm are not the same'
+                    }
                 }
-                }
+            });
+
+        });
+
+        $(document).ready(function () {
+            $('#form3').formValidation({
+                message: 'This value is not valid',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
                 },
-                        phone: {
+                fields: {
+                    first_name: {
                         validators: {
-                        notEmpty: {
-                        message: 'The phone number is required and cannot be empty'
-                        },
-                                stringLength: {
-                                max: 10,
-                                        message: 'The phone number must be 10 characters long'
-                                },
-                                digits: {
+                            notEmpty: {
+                                message: 'The first name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    last_name: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The last name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    street: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The street is required and cannot be empty'
+                            }
+                        }
+                    },
+                    city: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The city is required and cannot be empty'
+                            }
+                        }
+                    },
+                    'phoneNu[]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'The phone number is required and cannot be empty'
+                            },
+                            digits: {
                                 message: 'The phone number can only consist of numbers'
-                                }
+                            },
+                            phone: {
+                                country: 'US',
+                                message: 'Please enter a valid phone number in Sri Lanka'
+                            }
                         }
-                        },
-                        gender: {
+                    },
+                    gender: {
                         validators: {
-                        notEmpty: {
-                        message: 'The gender is required'
+                            notEmpty: {
+                                message: 'The gender is required'
+                            }
                         }
-                        }
-                        },
-                        file: {
+                    },
+                    file: {
                         validators: {
-                        file: {
-                        extension: 'jpg',
-                                type: 'image/jpg',
+                            file: {
+                                extension: 'jpeg',
+                                type: 'image/jpeg',
                                 message: 'Please choose a jpg file.'
+                            }
                         }
-                        }
-                        }
+                    }
                 }
-        });
+            });
+
         });
     </script>
-{% endblock js%}
+{%endblock js%}

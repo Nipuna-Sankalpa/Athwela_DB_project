@@ -40,7 +40,7 @@ class DBConnection {
 
     public function getConnection() {
 
-        $connection = mysqli_connect('localhost', 'root', 'dilini', 'athwela1');
+        $connection = mysqli_connect('localhost', 'root', 'dilini', 'athwela8');
         if ($connection) {
             return $connection;
         } else {

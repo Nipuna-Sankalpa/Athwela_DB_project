@@ -18,7 +18,7 @@ class OrgProfileController extends Controller
 {
     public function showAction($id)
     {
-        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
+        $conn = DBConnection::getInstance()->getConnection();
         $entity = Read::getInstance()->read($conn, new Organization(), 'organization', 'ID', $id);
         $fax = Read::getInstance()->readMul($conn, $id, '1', 'organization_fax');
         $email = Read::getInstance()->readMul($conn, $id, '1', 'organization_email');

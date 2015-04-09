@@ -2,13 +2,13 @@
 
 namespace Athwela\ProfileSettings\UserBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Model\UserInterface;
 
-class OrganizationController extends ContainerAware {
+class OrganizationController extends Controller {
 
     public function settingsAction($id) {
         
@@ -36,6 +36,7 @@ class OrganizationController extends ContainerAware {
 
     public function updatesAction(Request $request, $id) {
         $params = $this->getRequest()->request->all();
+         $skills = array(".Net","Java","C","PHP","Perl","Ruby","Python","Javascript");
         /*         * **************************** dont edit/delete ************************************************* */
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -55,7 +56,8 @@ class OrganizationController extends ContainerAware {
         return $this->container->get('templating')->renderResponse(
                         'AthwelaProfileSettingsUserBundle:Settings:UpdatesOrganization.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(),
                     'id' => $id,
-                    'request' => $params,)
+                    'request' => $params,
+                    'skills'=>$skills)
         );
     }
     

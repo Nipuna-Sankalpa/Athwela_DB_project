@@ -454,5 +454,7 @@ class Project
      */
     private $t;
 
-
+    function setID($id) {
+        $this->id = $id;
+    }
 }

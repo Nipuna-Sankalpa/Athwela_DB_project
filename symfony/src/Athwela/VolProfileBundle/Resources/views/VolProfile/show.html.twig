@@ -13,7 +13,7 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="{{path('volunteer_profile_settings', {'id' : entity.id})}}">Profile Settings</a></li>
+                <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Profile Settings</a></li>
                 <li><a href="#">Change Password</a></li>
                 <li><a href="{{path('athwela_timeline_volunteer')}}">Timeline</a></li>
                 <li class="divider"></li>
@@ -23,15 +23,29 @@
     </ul>
 {%endblock items%}
 
-{% block container -%}
-    <title>{{entity.firstName}} {{entity.lastName}}</title>
-    <div class="row">
-        <div class="col-md-3">
+{%block css%}
+    <style>
+        .p-text{
+            color: whitesmoke;            
+            font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; 
+            width: 100px; 
+            text-align: center;
+            margin-left: 630px; 
+            margin-top: -32px; 
+            box-shadow: inset 0 -1px 1px rgba(0,0,0,0.5), /*bottom internal shadow*/
+                inset 0 1px 1px rgba(255,255,255,1); /*top internal highlight*/
+            border-radius: 10px;
+        }
+    </style>
+{%endblock css%}
 
+{% block container -%}    
+    <div style="margin-left: 1100px"></div>
+    <div class="row">        
+        <div class="col-md-3">
             <div id="image">                
                 <img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail">
-            </div>
-
+            </div>                  
             <div id="navBox" style="margin-top: 20px;">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-info">
@@ -46,7 +60,12 @@
                             <div class="panel-body">
                                 <ul>
                                     <li><a href="#">Ongoing</a></li>
-                                    <li><a href="#">Notifications</a></li>
+                                    {%if notification[0]+notification[1] != 0%}
+                                        <li><a href="{{path('vol_profile_notification', {'amount':notification, 'email':entity.email})}}">Notifications <div style="width: 15px; height: 17px; background-color: red; margin-top: -17px; margin-left: 80px; color: white; text-align: center; font-size: 12px; border-radius: 5px;">{{notification[0]+notification[1]}}</div></a></li>
+                                    {%endif%}
+                                    {%if notification[0]+notification[1] == 0%}
+                                        <li><a href="{{path('vol_profile_notification', {'amount':0, 'email':entity.email})}}">Notifications</a></li>
+                                    {%endif%}
                                     <li><a href="#">Contribution</a></li>
                                 </ul>
                             </div>
@@ -63,8 +82,7 @@
                         <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
                                 <ul>
-                                    <li><a href="{{path('volunteer_profile_settings', {'id' : entity.id})}}">Edit</a></li>
-                                    <li><a href="#">Delete</a></li>
+                                    <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Edit</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -75,9 +93,19 @@
         <div class="container">
             <form class="form-signin" method="POST" action="#" data-validate="parsley">
                 <div class="col-md-8">
-                    <h2 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif;">{{entity.firstName}} {{entity.lastName}}</h2>            
-                    <p>Approved by: <a href="{{path('vol_profile_show')}}">{{admin.firstName}} {{admin.lastName}}</a></p>
-                    <div class="panel-body">
+                    <h2 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif;">{{entity.firstName}} {{entity.lastName}}</h2>
+
+                    {%if entity.availability == 'available'%}
+                        <p style="background-color: mediumseagreen;" class="p-text">Available</p>  
+                    {%endif%}
+                    {%if entity.availability == 'unavailable'%}
+                        <p style="background-color: #FF9900;" class="p-text">Unavailable</p>  
+                    {%endif%}
+                    {%if entity.availability == 'engaged'%}
+                        <p style="background-color: tomato;" class="p-text">Volunteering</p>  
+                    {%endif%}
+
+                    <div class="panel-body" style="margin-top: 30px; margin-left: 20px">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#personalSection">Personal and Contact</a></li>
                             <li><a data-toggle="tab" href="#educationSection">Education</a></li>                            
@@ -88,55 +116,74 @@
                             <div id="personalSection" class="tab-pane fade in active">
                                 <dl class="dl-horizontal" style="margin-top: 10px">
                                     <dt><span class="glyphicon glyphicon-user"></span> Name :</dt>
-                                    <dd>{{entity.firstName}} {{entity.lastName}}</dd><br/>
+                                    <dd>{{entity.firstName|default('')}} {{entity.lastName|default('')}}</dd><br/>
                                     <dt><span class="glyphicon glyphicon glyphicon-calendar" ></span> Date of Birth :</dt>
-                                    <dd>{{entity.dob|date('y-m-d')}}</dd><br/>  
-                                    <dt><span class="glyphicon glyphicon-circle-arrow-up" ></span> Gender :</dt>
-                                    {%if(entity.gender) == 1%}
-                                        <dd>Male</dd><br/>
-                                    {%endif%}
-                                    {%if entity.gender == 0%}
-                                        <dd>Female</dd><br/>  
-                                    {%endif%}
+                                    <dd>{{entity.dob|date('y-m-d')|default('')}}</dd><br/>  
+                                    <dt><span class="glyphicon glyphicon-circle-arrow-up" ></span> Gender :</dt>                                    
+                                    <dd>{{entity.gender|capitalize}}</dd><br/>  
                                     <dt><span class="glyphicon glyphicon-home" ></span> Hometown :</dt>
-                                    <dd>{{entity.city}}</dd><br/> 
+                                    <dd>{{entity.city|default('')}}</dd><br/> 
                                     <dt><span class="glyphicon glyphicon-flag" ></span> Country :</dt>
-                                    <dd>{{entity.country}}</dd><br/>  
+                                    <dd>{{entity.country|default('')}}</dd><br/>  
                                     <dt><span class="glyphicon glyphicon-envelope"></span> E-mail :</dt>
-                                    <dd>{{entity.email}}</dd><br/>
+                                    <dd>{{entity.email|default('')}}</dd><br/>
                                     <dt><span class="glyphicon glyphicon-home"></span> Adress :</dt>
-                                    <dd>{{entity.street}}, {{entity.city}}, {{entity.country}}</dd><br/>
-                                    {%for i in 0..((entitymobile|length)-1)%}
+                                    <dd>{{entity.street|default('')}}, {{entity.city|default('')}}, {{entity.country|default('')}}</dd><br/>
+                                    {%if entitymobile == null%}
                                         <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
-                                        <dd>{{entitymobile[i]}}</dd><br/>
-                                    {%endfor%}
+                                        <dd><i>No any mobile number to show</i></dd><br/>
+                                    {%endif%}
+                                    {%if entitymobile != null%}
+                                        {%for i in 0..((entitymobile|length)-1)%}
+                                            <dt><span class="glyphicon glyphicon-phone"></span> Mobile {{i+1}} :</dt>
+                                            <dd>{{entitymobile[i]}}</dd><br/>
+                                        {%endfor%}
+                                    {%endif%}
                                 </dl>
                             </div>
                             <div id="educationSection" class="tab-pane fade">
                                 <dl class="dl-horizontal" style="margin-top: 10px">
-                                    {%for i in 0..((edu|length)-1)%}
-                                        <p style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px"><b>{{edu[i][0]}}, {{edu[i][4]}}, {{edu[i][5]}}</b></p>
+                                    {%if edu == null%}
                                         <dt><span class="glyphicon glyphicon-education"></span> Qualification :</dt>
-                                        <dd>{{edu[i][1]}}</dd><br/>
-                                        <dt><span class="glyphicon glyphicon-book"></span> Attended :</dt>
-                                        <dd> From {{edu[i][2]}} To {{edu[i][3]}} </dd><br/>    
-                                    {%endfor%}
+                                        <dd><i>No any qualification to show</i></dd><br/>
+                                    {%endif%}
+                                    {%if edu != null%}
+                                        {%for i in 0..((edu|length)-1)%}
+                                            <p style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px"><b>{{edu[i][0]}}, {{edu[i][4]}}, {{edu[i][5]}}</b></p>
+                                            <dt><span class="glyphicon glyphicon-education"></span> Qualification :</dt>
+                                            <dd>{{edu[i][1]}}</dd><br/>
+                                            <dt><span class="glyphicon glyphicon-book"></span> Attended :</dt>
+                                            <dd> From {{edu[i][2]}} To {{edu[i][3]}} </dd><br/>    
+                                        {%endfor%}
+                                    {%endif%}
                                 </dl>
                             </div>
                             <div id="skills" class="tab-pane fade">
                                 <dl class="dl-horizontal" style="margin-top: 10px">
-                                    {%for i in 0..((skills|length)-1)%}                                        
-                                        <dt><span class="glyphicon glyphicon-star"></span>{{skills[i][0]}}</dt>
-                                        <dd>{{skills[i][1]}}</dd><br/>  
-                                    {%endfor%}
+                                    {%if skills == null%}
+                                        <dt><span class="glyphicon glyphicon-star"></span> Skills :</dt>
+                                        <dd><i>No any skill to show</i></dd><br/>
+                                    {%endif%}
+                                    {%if skills != null%}
+                                        {%for i in 0..((skills|length)-1)%}                                        
+                                            <dt><span class="glyphicon glyphicon-star"></span>{{skills[i][0]}}</dt>
+                                            <dd>{{skills[i][1]}}</dd><br/>  
+                                        {%endfor%}
+                                    {%endif%}
                                 </dl>
                             </div>
                             <div id="workSection" class="tab-pane fade">
                                 <dl class="dl-horizontal" style="margin-top: 10px">
-                                    {%for i in 0..((interests|length)-1)%}                                        
-                                        <dt><span class="glyphicon glyphicon-star"></span>{{skills[i][0]}}</dt>
-                                        <dd>{{interests[i][1]}}</dd><br/>  
-                                    {%endfor%}
+                                    {%if interests == null%}
+                                        <dt><span class="glyphicon glyphicon-education"></span> Interests :</dt>
+                                        <dd><i>No any interested areas to show</i></dd><br/>
+                                    {%endif%}
+                                    {%if interests != null%}
+                                        {%for i in 0..((interests|length)-1)%}                                        
+                                            <dt><span class="glyphicon glyphicon-star"></span>{{interests[i][0]}}</dt>
+                                            <dd>{{interests[i][1]}}</dd><br/>  
+                                        {%endfor%}
+                                    {%endif%}
                                 </dl>
                             </div>
                         </div>
