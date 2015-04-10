@@ -62,7 +62,7 @@ class Read {
 
         if ($temp[sizeof($temp) - 1] == 'Institute') {
             $institute = $entity;
-            $institute->setID($row[0]);
+            $institute->setId($row[0]);
             $institute->setName($row[1]);
             $institute->setCity($row[2]);
             $institute->setCountry($row[3]);
@@ -72,18 +72,20 @@ class Read {
         if ($temp[sizeof($temp) - 1] == 'Organization') {
             $organization = $entity;
             $organization->setID($row[0]);
-            $organization->setA_ID($row[1]);
-            $organization->setName($row[2]);
-            $organization->setDescription($row[3]);
-            $organization->setStreet($row[4]);
-            $organization->setCity($row[5]);
-            $organization->setCountry($row[6]);
+            $organization->setEmail($row[1]);
+            $organization->setA_ID($row[2]);
+            $organization->setName($row[3]);
+            $organization->setDescription($row[4]);
+            $organization->setStreet($row[5]);
+            $organization->setCity($row[6]);
+            $organization->setCountry($row[7]);
             return $organization;
         }
 
         if ($temp[sizeof($temp) - 1] == 'Project') {
 
             $project = $entity;
+
             $project->setID($row[0]);
             $project->setA_ID($row[1]);
             $project->setT_ID($row[2]);
@@ -97,12 +99,13 @@ class Read {
             $project->setNoOfFilledPositions($row[10]);
             $project->setPostedDate($row[11]);
 
+
             return $project;
         }
         if ($temp[sizeof($temp) - 1] == 'Type') {
 
             $type = $entity;
-            $type->setID($row[0]);
+            $type->setId($row[0]);
             $type->setName($row[1]);
             $type->setDescription($row[2]);
 
@@ -144,8 +147,8 @@ class Read {
         $query = "SELECT * FROM $table WHERE $indexCol" . "=" . "'" . $indexVal . "';";
         $conn = DBConnection::getInstance()->getConnection();
         $result = $conn->query($query);
+        $mulVal=NULL;
         $i = 0;
-        $mulVal = null;
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {
                 $mulVal[$i] = $row[1];

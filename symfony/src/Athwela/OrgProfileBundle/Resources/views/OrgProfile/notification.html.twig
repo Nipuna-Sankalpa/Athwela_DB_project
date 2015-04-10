@@ -15,7 +15,7 @@
             <ul class="dropdown-menu">
                 <li><a href="#">Profile Settings</a></li>
                 <li><a href="#">Change Password</a></li>
-                <li><a href="{{path('org_profile_show', { 'id': '1' })}}">Profile</a></li>
+                <li><a href="{{path('org_profile_show')}}">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href="#">Logout</a></li>
             </ul>
@@ -23,6 +23,29 @@
     </ul>
 {%endblock items%}
 
-{% block container -%}
-    
+{% block container -%}    
+    <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;">        
+        {%if amount != 0%}
+            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+                <b>You have <label style="color: red">{{amount}}</label> unread message(s)!</b>
+            </div>   
+            <hr>
+            {%for i in 0..(messages|length-1)%}
+                <div style="background-color: whitesmoke" class="img-responsive img-thumbnail">
+                    <label>From: {{messages[i][1]}} (Admin) </label>
+                    <label>At: {{messages[i][2]}}</label><br/>
+                    <label>Subject: {{messages[i][3]}}</label><br/>
+                    <label>Your admin says: {{messages[i][4]}}</label> 
+                </div>
+                <hr>
+            {%endfor%}
+        {%endif%}
+        {%if amount == 0%}
+            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+                <b>You have no unread messages!</b>
+            </div>   
+        {%endif%}
+        <br/>
+        <a href="{{path('org_profile_message', {'email' : entity.email})}}" class="btn btn-success" style="margin-top: 10px">Send a message</a>
+    </div>
 {%endblock%}

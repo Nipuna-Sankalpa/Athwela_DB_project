@@ -10,7 +10,7 @@
 {%block navBar%}
     <ul class="nav navbar-top-links navbar-right">
 
-        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+        <li><a href="#"><i class="fa fa-user fa-fw"></i> {{app.user.username}}</a>
         </li>
 
         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
@@ -71,7 +71,7 @@
                 </li>
 
                 <li>
-                    <a href="{{path('athwela_administrator_admin')}}"><i class="fa fa-user fa-fw"></i> Admins</a>
+                    <a href="{{path('athwela_administrator_admin',{'flag':'unblocked'})}}"><i class="fa fa-user fa-fw"></i> Admins</a>
                 </li>
 
                 <li>
@@ -289,3 +289,4 @@
         <!-- /.container-fluid -->
     </div>
 {% endblock content%}
+{% block script%}{%endblock script%}

@@ -15,7 +15,7 @@
             <ul class="dropdown-menu">
                 <li><a href="#">Profile Settings</a></li>
                 <li><a href="#">Change Password</a></li>
-                <li><a href="{{path('org_profile_show', { 'id': '1' })}}">Profile</a></li>
+                <li><a href="{{path('org_profile_show')}}">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href="#">Logout</a></li>
             </ul>
@@ -29,7 +29,7 @@
         <div class="col-md-3">
 
             <div id="image">                
-                <div style="width: 200px; height: 200px; border: 1px solid black; margin-top: 40px">Profile Picture</div>
+                <img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail">
             </div>
 
             <div id="navBox" style="margin-top: 20px;">
@@ -45,10 +45,15 @@
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <ul>
-                                    <li><a href="#">Posted</a></li>
+                                    <li><a href="{{path('org_profile_posted')}}">Posted</a></li>
                                     <li><a href="#">Create</a></li>
-                                    <li><a href="#">Ongoing</a></li>
-                                    <li><a href="{{path('org_profile_notification', {'id':entity.id})}}">Notification</a></li>
+                                    <li><a href="{{path('org_profile_ongoing')}}">Ongoing</a></li>
+                                    {%if amount != 0%}
+                                        <li><a href="{{path('org_profile_notification', {'email':entity.email})}}">Notifications <div style="width: 15px; height: 17px; background-color: red; margin-top: -17px; margin-left: 80px; color: white; text-align: center; font-size: 12px; border-radius: 5px;">{{amount}}</div></a></li>
+                                    {%endif%}
+                                    {%if amount == 0%}
+                                        <li><a href="{{path('org_profile_notification', {'email':entity.email})}}">Notifications</a></li>
+                                    {%endif%}
                                 </ul>
                             </div>
                         </div>
@@ -74,7 +79,8 @@
         </div>
         <div class="container">
             <form class="form-signin" method="POST" action="#" data-validate="parsley">
-                <div class="col-md-8">                    
+                <div class="col-md-8">              
+                    <h2 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif;">{{entity.name}}</h2>
                     <div class="panel-body">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#personalSection">Profile and Contact</a></li>                            
@@ -94,17 +100,9 @@
                                             <dd>{{mobile[i]}}</dd><br/>
                                         {%endfor%}
                                     {%endif%}
-
-                                    {%if email == null%}
-                                        <dt><span class="glyphicon glyphicon-envelope"></span> Email :</dt>
-                                        <dd><i>No any email to show</i></dd><br/>
-                                    {%endif%}
-                                    {%if email != null%}
-                                        {%for i in 0..((email|length)-1)%}
-                                            <dt><span class="glyphicon glyphicon-envelope"></span> E-mail {{i+1}} :</dt>
-                                            <dd>{{email[i]}}</dd><br/>
-                                        {%endfor%}
-                                    {%endif%}
+                                    
+                                    <dt><span class="glyphicon glyphicon-envelope"></span> Email :</dt>
+                                    <dd><i>{{entity.email}}</i></dd><br/>
 
                                     {%if fax == null%}
                                         <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax :</dt>

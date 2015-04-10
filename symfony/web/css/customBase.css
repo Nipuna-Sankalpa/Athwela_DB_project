@@ -66,5 +66,5 @@ background{
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: blue;
-  background-color: transparent;
+  background-color: rgb(213,214,208);
 }

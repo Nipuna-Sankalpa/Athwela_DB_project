@@ -1,9 +1,28 @@
 org_profile_homepage:
     path:     /hello/{name}
     defaults: { _controller: OrgProfileBundle:Default:index }
+    
 org_profile_show:
-    path:     /{id}/show
+    path:     /show
     defaults: {_controller: OrgProfileBundle:OrgProfile:show }
+    
 org_profile_notification:
-    path:     /{id}/notification
-    defaults: {_controller: OrgProfileBundle:OrgProfile:notification }
+    path:     /{email}/notification
+    defaults: {_controller: OrgProfileBundle:OrgNotification:notification }
+    
+org_profile_message:
+    path:     /{email}/message
+    defaults: {_controller: OrgProfileBundle:OrgNotification:message }
+    
+org_profile_message_send:
+    path:     /{email}/send
+    defaults: {_controller: OrgProfileBundle:OrgNotification:messagesend }
+    requirements: { _method: post|delete }
+    
+org_profile_ongoing:
+    path:     /ongoing
+    defaults: {_controller: OrgProfileBundle:OrgProject:ongoing }
+    
+org_profile_posted:
+    path:     /posted
+    defaults: {_controller: OrgProfileBundle:OrgProject:posted }

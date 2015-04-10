@@ -1,27 +1,4 @@
 {%extends "::base.html.twig"%}
-{%block items%}
-    <ul class="nav navbar-nav">
-        <li>
-            <a href="#">About</a>
-        </li>
-        <li>
-            <a href="#">Services</a>
-        </li>
-        <li>
-            <a href="{{path('fos_user_security_logout')}}">Logout</a>
-        </li>
-        <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Profile Settings</a></li>
-                <li><a href="#">Change Password</a></li>
-                <li><a href="{{path('athwela_timeline_volunteer')}}">Timeline</a></li>
-                <li class="divider"></li>
-                <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-{%endblock items%}
 
 {%block css%}
     <style>
@@ -38,6 +15,7 @@
         }
     </style>
 {%endblock css%}
+
 
 {% block container -%}    
     <div style="margin-left: 1100px"></div>
@@ -62,11 +40,13 @@
                                     <li><a href="{{path('vol_profile_ongoing')}}">Ongoing</a></li>
                                     {%if notification[0]+notification[1] != 0%}
                                         <li><a href="{{path('vol_profile_notification', {'amount':notification, 'email':entity.email})}}">Notifications <div style="width: 15px; height: 17px; background-color: red; margin-top: -17px; margin-left: 80px; color: white; text-align: center; font-size: 12px; border-radius: 5px;">{{notification[0]+notification[1]}}</div></a></li>
-                                    {%endif%}
+                                    {% endif%}
                                     {%if notification[0]+notification[1] == 0%}
                                         <li><a href="{{path('vol_profile_notification', {'amount':0, 'email':entity.email})}}">Notifications</a></li>
-                                    {%endif%}
+
+                                    {% endif%}
                                     <li><a href="{{path('vol_profile_contribution')}}">Contribution</a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -97,13 +77,13 @@
 
                     {%if entity.availability == 'available'%}
                         <p style="background-color: mediumseagreen;" class="p-text">Available</p>  
-                    {%endif%}
+                    {% endif%}
                     {%if entity.availability == 'unavailable'%}
                         <p style="background-color: #FF9900;" class="p-text">Unavailable</p>  
-                    {%endif%}
+                    {% endif%}
                     {%if entity.availability == 'engaged'%}
                         <p style="background-color: tomato;" class="p-text">Volunteering</p>  
-                    {%endif%}
+                    {% endif%}
 
                     <div class="panel-body" style="margin-top: 30px; margin-left: 20px">
                         <ul class="nav nav-tabs">
@@ -118,9 +98,11 @@
                                     <dt><span class="glyphicon glyphicon-user"></span> Name :</dt>
                                     <dd>{{entity.firstName|default('')}} {{entity.lastName|default('')}}</dd><br/>
                                     <dt><span class="glyphicon glyphicon glyphicon-calendar" ></span> Date of Birth :</dt>
+
                                     <dd>{{entity.dob|date('y-m-d')|default('')}}</dd><br/>  
                                     <dt><span class="glyphicon glyphicon-circle-arrow-up" ></span> Gender :</dt>                                    
                                     <dd>{{entity.gender|capitalize}}</dd><br/>  
+
                                     <dt><span class="glyphicon glyphicon-home" ></span> Hometown :</dt>
                                     <dd>{{entity.city|default('')}}</dd><br/> 
                                     <dt><span class="glyphicon glyphicon-flag" ></span> Country :</dt>
@@ -128,25 +110,31 @@
                                     <dt><span class="glyphicon glyphicon-envelope"></span> E-mail :</dt>
                                     <dd>{{entity.email|default('')}}</dd><br/>
                                     <dt><span class="glyphicon glyphicon-home"></span> Adress :</dt>
+
+                                   
+
                                     <dd>{{entity.street|default('')}}, {{entity.city|default('')}}, {{entity.country|default('')}}</dd><br/>
                                     {%if entitymobile == null%}
                                         <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
                                         <dd><i>No any mobile number to show</i></dd><br/>
-                                    {%endif%}
+                                    {% endif%}
                                     {%if entitymobile != null%}
                                         {%for i in 0..((entitymobile|length)-1)%}
                                             <dt><span class="glyphicon glyphicon-phone"></span> Mobile {{i+1}} :</dt>
                                             <dd>{{entitymobile[i]}}</dd><br/>
-                                        {%endfor%}
-                                    {%endif%}
+                                        {% endfor%}
+                                    {% endif%}
+
                                 </dl>
                             </div>
                             <div id="educationSection" class="tab-pane fade">
                                 <dl class="dl-horizontal" style="margin-top: 10px">
+
+
                                     {%if edu == null%}
                                         <dt><span class="glyphicon glyphicon-education"></span> Qualification :</dt>
                                         <dd><i>No any qualification to show</i></dd><br/>
-                                    {%endif%}
+                                    {% endif%}
                                     {%if edu != null%}
                                         {%for i in 0..((edu|length)-1)%}
                                             <p style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px"><b>{{edu[i][0]}}, {{edu[i][4]}}, {{edu[i][5]}}</b></p>
@@ -154,8 +142,9 @@
                                             <dd>{{edu[i][1]}}</dd><br/>
                                             <dt><span class="glyphicon glyphicon-book"></span> Attended :</dt>
                                             <dd> From {{edu[i][2]}} To {{edu[i][3]}} </dd><br/>    
-                                        {%endfor%}
-                                    {%endif%}
+                                        {% endfor%}
+                                    {% endif%}
+
                                 </dl>
                             </div>
                             <div id="skills" class="tab-pane fade">
@@ -163,13 +152,13 @@
                                     {%if skills == null%}
                                         <dt><span class="glyphicon glyphicon-star"></span> Skills :</dt>
                                         <dd><i>No any skill to show</i></dd><br/>
-                                    {%endif%}
+                                    {% endif%}
                                     {%if skills != null%}
                                         {%for i in 0..((skills|length)-1)%}                                        
                                             <dt><span class="glyphicon glyphicon-star"></span>{{skills[i][0]}}</dt>
                                             <dd>{{skills[i][1]}}</dd><br/>  
-                                        {%endfor%}
-                                    {%endif%}
+                                        {% endfor%}
+                                    {% endif%}
                                 </dl>
                             </div>
                             <div id="workSection" class="tab-pane fade">
@@ -177,13 +166,13 @@
                                     {%if interests == null%}
                                         <dt><span class="glyphicon glyphicon-education"></span> Interests :</dt>
                                         <dd><i>No any interested areas to show</i></dd><br/>
-                                    {%endif%}
+                                    {% endif%}
                                     {%if interests != null%}
                                         {%for i in 0..((interests|length)-1)%}                                        
                                             <dt><span class="glyphicon glyphicon-star"></span>{{interests[i][0]}}</dt>
                                             <dd>{{interests[i][1]}}</dd><br/>  
-                                        {%endfor%}
-                                    {%endif%}
+                                        {% endfor%}
+                                    {% endif%}
                                 </dl>
                             </div>
                         </div>
@@ -192,4 +181,4 @@
             </form>
         </div>
     </div>
-{%endblock%}
+{% endblock %}
