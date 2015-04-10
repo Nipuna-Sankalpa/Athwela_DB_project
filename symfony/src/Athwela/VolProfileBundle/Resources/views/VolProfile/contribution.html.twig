@@ -1,0 +1,51 @@
+{%extends "::base.html.twig"%}
+{%block items%}
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#">Services</a>
+        </li>
+        <li>
+            <a href="{{path('vol_profile_show')}}">Profile</a>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Profile Settings</a></li>
+                <li><a href="#">Change Password</a></li>
+                <li><a href="{{path('athwela_timeline_volunteer')}}">Timeline</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+{%endblock items%}
+
+{% block container -%}
+    <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;">
+        {%if contribution[0][0] != null and contribution|length != 0%}            
+            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+                You have contributed to <label style="color: red">{{contribution|length}}</label> projects so far!
+            </div>
+            <hr>
+            {%for i in 0..(contribution|length-1)%}
+                <div style="background-color: whitesmoke; width: 100%" class="img-responsive img-thumbnail">
+
+                    <b>Project name: </b>{{contribution[i][0].title}} <br/>
+                    <b>Description: </b>{{contribution[i][0].description}} <br/>
+                    <b>Posted by: </b>{{contribution[i][2].name}}, {{contribution[i][2].street}}, {{contribution[i][2].city}}, {{contribution[i][2].country}} <br/>                    
+                    <b>Your contribution: </b>{{contribution[i][1]}} 
+                    <a class="btn btn-info" style="float: right">More>></a>
+                </div>   
+                <hr>
+            {%endfor%}
+        {%endif%}
+        {%if contribution[0][0] == null%}  
+            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+                <b>You have not contributed to any project. Surf our site to find suitable projects for you.</b>
+            </div>
+        {%endif%}
+    </div>
+{%endblock%}

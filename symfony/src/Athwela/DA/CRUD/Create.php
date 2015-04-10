@@ -8,6 +8,7 @@
 
 namespace Athwela\DA\CRUD;
 
+use Athwela\DA\DBConnection;
 /**
  * Description of Create
  *
@@ -31,8 +32,9 @@ class Create {
 //   ex:- create($conn,array(),$table name);
     
     
-    public function create($conn, $values, $tableName) {
+    public function create($values, $tableName) {
         $val = null;
+        $conn = DBConnection::getInstance()->getConnection();
         for ($i = 0; $i < sizeof($values) - 1; $i++) {
             $val.="'" . $values[$i] . "'" . ",";
         }
@@ -41,9 +43,11 @@ class Create {
             $query = "INSERT INTO $tableName VALUES ($val);";
 
             if ($conn->query($query) === TRUE) {
+                DBConnection::getInstance()->closeConnection($conn);
                 return true;
             } else {
                 echo "Error: " . $query . "<br>" . $conn->error;
+                DBConnection::getInstance()->closeConnection($conn);
                 return false;
             }
         }

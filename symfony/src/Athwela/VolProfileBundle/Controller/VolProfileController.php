@@ -94,11 +94,13 @@ class VolProfileController extends ContainerAware {
 
     public function getNotificationCount($entity) {
         $temp[] = 0;
-        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(distinct date) FROM vol_admin_msg where msgStatus = "notRead" and ID = ' . $entity->getId());
+
+        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_vol_messages where msgStatus = "notRead" and v_ID = ' . $entity->getId());
+
         while ($row = mysqli_fetch_row($notification1)) {
             $temp[0] = $row[0];
         }
-        $notification2 = CustomQuery::getInstance()->customQuery('SELECT count(distinct vp.accepted_at) FROM fos_user, volunteer, volunteer_project as vp where vp.v_ID = ' . $entity->getId() . ' and volunteer.email = fos_user.email and volunteer.ID = ' . $entity->getId() . ' and last_login < vp.accepted_at ');
+        $notification2 = CustomQuery::getInstance()->customQuery('SELECT count(distinct vp.accepted_at) FROM fos_user, volunteer, volunteer_project as vp where vp.v_ID = ' . $entity->getId() . ' and volunteer.email = fos_user.email and volunteer.ID = ' . $entity->getId() . ' and last_login <= vp.accepted_at and vp.status = "notSeen"');
         while ($row = mysqli_fetch_row($notification2)) {
             $temp[1] = $row[0];
         }

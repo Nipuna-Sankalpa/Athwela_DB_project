@@ -1,0 +1,61 @@
+{%extends "::base.html.twig"%}
+{%block items%}
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#">Services</a>
+        </li>
+        <li>
+            <a href="{{path('vol_profile_show')}}">Profile</a>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Profile Settings</a></li>
+                <li><a href="#">Change Password</a></li>
+                <li><a href="{{path('athwela_timeline_volunteer')}}">Timeline</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+{%endblock items%}
+
+{% block container -%}
+    <center>
+        {%if sent!= null and sent%}
+            <div class="alert alert-success col-md-8 col-md-offset-2 text-center">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                Your message has been sent <strong> successfully! </strong>
+            </div>
+        {%endif%}
+        {%if sent != null and not sent%}
+            <div class="alert alert-error col-md-8 col-md-offset-2 text-center">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                Ops! An error occured! Please try again later.
+            </div>
+        {%endif%}
+        <div style="width: 500px; height: 100px; text-align: left">
+            <form class="form-signin" method="POST" action="{{path('vol_profile_message_send', {'email':entity.email})}}" data-validate="parsley">
+                To: <br>
+                <select name="admin" class="form-control" placeholder="Select an admin">
+                    {%for i in 0..admins|length-1%}
+                        <option value="{{i+1}}">{{admins[i]}}</option>
+                    {%endfor%}
+                </select>
+                <br>
+
+                Subject: <br>
+                <input type="text" name="subject" class="form-control" placeholder="Subject"><br>
+                <br>
+
+                Your Message: <br>
+                <textarea name="message" rows="6" cols="50" class="form-control" placeholder="Type your message here.."></textarea><br><br>
+
+                <input type="submit" value="Send" class="btn btn-success" style="float: right">
+            </form>
+        </div>
+    </center>
+{%endblock%}

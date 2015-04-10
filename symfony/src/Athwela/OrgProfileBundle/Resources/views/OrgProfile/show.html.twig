@@ -1,4 +1,4 @@
-{%extends "base.html.twig"%}
+{%extends "::base.html.twig"%}
 {% block items%}
     <ul class="nav navbar-nav">
         <li>
@@ -48,6 +48,7 @@
                                     <li><a href="#">Posted</a></li>
                                     <li><a href="#">Create</a></li>
                                     <li><a href="#">Ongoing</a></li>
+                                    <li><a href="{{path('org_profile_notification', {'id':entity.id})}}">Notification</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -59,6 +60,13 @@
                                     Setup Profile
                                 </a>
                             </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <ul>
+                                    <li><a href="#">Edit</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,18 +84,38 @@
                                 <dl class="dl-horizontal" style="margin-top: 10px">
                                     <dt><span class="glyphicon glyphicon-home" ></span> Address :</dt>
                                     <dd>{{entity.street}}, {{entity.city}}, {{entity.country}}</dd><br/>   
-                                    {%for i in 0..((mobile|length)-1)%}
-                                        <dt><span class="glyphicon glyphicon-phone"></span> Mobile {{i+1}} :</dt>
-                                        <dd>{{mobile[i]}}</dd><br/>
-                                    {%endfor%}
-                                    {%for i in 0..((email|length)-1)%}
-                                        <dt><span class="glyphicon glyphicon-envelope"></span> E-mail {{i+1}} :</dt>
-                                        <dd>{{email[i]}}</dd><br/>
-                                    {%endfor%}
-                                    {%for i in 0..((fax|length)-1)%}                                        
-                                        <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax {{i+1}} :</dt>
-                                        <dd>{{fax[i]}}</dd><br/>  
-                                    {%endfor%}
+                                    {%if mobile == null%}
+                                        <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
+                                        <dd><i>No any mobile number to show</i></dd><br/>
+                                    {%endif%}
+                                    {%if mobile != null%}
+                                        {%for i in 0..((mobile|length)-1)%}
+                                            <dt><span class="glyphicon glyphicon-phone"></span> Mobile {{i+1}} :</dt>
+                                            <dd>{{mobile[i]}}</dd><br/>
+                                        {%endfor%}
+                                    {%endif%}
+
+                                    {%if email == null%}
+                                        <dt><span class="glyphicon glyphicon-envelope"></span> Email :</dt>
+                                        <dd><i>No any email to show</i></dd><br/>
+                                    {%endif%}
+                                    {%if email != null%}
+                                        {%for i in 0..((email|length)-1)%}
+                                            <dt><span class="glyphicon glyphicon-envelope"></span> E-mail {{i+1}} :</dt>
+                                            <dd>{{email[i]}}</dd><br/>
+                                        {%endfor%}
+                                    {%endif%}
+
+                                    {%if fax == null%}
+                                        <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax :</dt>
+                                        <dd><i>No any fax number to show</i></dd><br/>
+                                    {%endif%}
+                                    {%if fax != null%}
+                                        {%for i in 0..((fax|length)-1)%}                                        
+                                            <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax {{i+1}} :</dt>
+                                            <dd>{{fax[i]}}</dd><br/>  
+                                        {%endfor%}
+                                    {%endif%}
                                 </dl>
                             </div>
                         </div>
