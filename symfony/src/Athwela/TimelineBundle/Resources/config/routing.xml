@@ -9,6 +9,6 @@
     </route>
 
     <route id="athwela_timeline_volunteer" path="/timeline">
-        <default key="_controller">AthwelaTimelineBundle:Default:viewTimeline</default>
+        <default key="_controller">AthwelaTimelineBundle:Timeline:index</default>
     </route>
 </routes>

@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block styleSheet %}
+{% block css %}
     <link href="{{asset('css/timeline.css')}}" rel="stylesheet">
 {% endblock %}
 {# Setting UP profile Link #}
@@ -12,74 +12,73 @@
 
 
 {% block container %}
-    {#<div class="col-md-3">
-        <div id="image">
+    <div class="col-md-12 container">
+        {% for project in projects %}
+        <ul class="timeline">
+            {% if loop.index0 is even %}
+            <li>
+                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
 
-            <img src="{{path('friends_profile_image',{'email': profile.email})}}" alt="Profile Picture" class="profilePicFrame img-rounded" style="width:227px ;height: 277px;">
-
-        </div>
-
-        <div id="navBox" style="margin-top: 1em;">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-info">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                View Profile
-                            </a>
-                        </h4>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            <ul>
-                                <li><a href="{{ path('friends_timeline_homepage', { 'email': profile.email }) }}">My Posts</li>
-                                <li><a href="{{ path('profile', { 'email': profile.email }) }}">Friends</a></li>
-                            </ul>
-                        </div>
+                    <div class="timeline-body">
+                        <h4>{{ project.title }}</h4>
+                        <p>{{ project.description }}</p>
+
+                    </div>
+
+                    <div class="timeline-footer">
+                        <a><i class="glyphicon glyphicon-thumbs-up"></i></a>
+                        <a><i class="glyphicon glyphicon-share"></i></a>
+                        <a class="pull-right">Continuar Lendo</a>
                     </div>
                 </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Setup Profile
-                            </a>
-                        </h4>
+            </li>
+            {% else %}
+            <li  class="timeline-inverted">
+                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
+
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            <ul>
-                                <li><a href="{{ path('profile_edit', { 'email': profile.email }) }}">Edit profile</a></li>
+                    <div class="timeline-body">
+                        <h4>{{ project.title }}</h4>
+                        <p>{{ project.description }}</p>
 
-                            </ul>
-                        </div>
                     </div>
-                </div>
-            </div>
 
-        </div>
-
-    </div>#}
-    <div class="col-md-2"></div>
-    
-    <div class="col-md-8">
-{#        {% for post in posts %}#}
-
-            <div class="panel panel-primary box-shadow">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-md-6"><h2 class="panel-title">First Name Last Name</h2></div>
-                        <div class="col-md-6"><p class="pull-right">Timestamp</p></div>
+                    <div class="timeline-footer">
+                        <a><i class="glyphicon glyphicon-thumbs-up"></i></a>
+                        <a><i class="glyphicon glyphicon-share"></i></a>
+                        <a class="pull-right">Continuar Lendo</a>
                     </div>
                 </div>
+            </li>
+            {% endif %}
+        </ul>
 
-                <div class="panel-body">
-                    <p>Sample Content</p>
-                </div>
-            </div>
-
-{#        {% endfor %}#}
+        {% endfor %}
     </div>
 
-    <div class="col-md-2"></div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var my_posts = $("[rel=tooltip]");
+
+            var size = $(window).width();
+            for(i=0;i<my_posts.length;i++){
+                the_post = $(my_posts[i]);
+
+                if(the_post.hasClass('invert') && size >=767 ){
+                    the_post.tooltip({ placement: 'left'});
+                    the_post.css("cursor","pointer");
+                }else{
+                    the_post.tooltip({ placement: 'rigth'});
+                    the_post.css("cursor","pointer");
+                }
+            }
+        });
+    </script>
 {% endblock %}
