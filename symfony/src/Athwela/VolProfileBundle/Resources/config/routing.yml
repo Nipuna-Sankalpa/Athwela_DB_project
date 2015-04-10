@@ -9,3 +9,20 @@ vol_profile_show:
 vol_profile_notification:
     path:     /{email}/notification
     defaults: {_controller: VolProfileBundle:Notification:notification }
+    
+vol_profile_message:
+    path:     /{email}/message
+    defaults: {_controller: VolProfileBundle:Notification:message }
+    
+vol_profile_message_send:
+    path:     /{email}/send
+    defaults: {_controller: VolProfileBundle:Notification:messagesend }
+    requirements: { _method: post|delete }
+    
+vol_profile_ongoing:
+    path:     /ongoing
+    defaults: {_controller: VolProfileBundle:VolProjects:ongoing }
+  
+vol_profile_contribution:
+    path:     /contribution
+    defaults: {_controller: VolProfileBundle:VolProjects:contribution }

@@ -21,12 +21,12 @@ class VolAdminMsg
     /**
      * @var string
      */
-    private $status;
+    private $msgStatus;
     
     /**
      * @var \DateTime
      */
-    private $timestamp;
+    private $date;
             
     function getMsg() {
         return $this->msg;
@@ -36,20 +36,20 @@ class VolAdminMsg
         $this->msg = $msg;
     }
     
-    function getStatus() {
-        return $this->status;
+    function getMsgStatus() {
+        return $this->msgStatus;
     }
 
-    function getTimestamp() {
-        return $this->timestamp;
+    function getDate() {
+        return $this->date;
     }
 
-    function setStatus($status) {
-        $this->status = $status;
+    function setMsgStatus($msgStatus) {
+        $this->msgStatus = $msgStatus;
     }
 
-    function setTimestamp(\DateTime $timestamp) {
-        $this->timestamp = $timestamp;
+    function setDate(\DateTime $date) {
+        $this->date = $date;
     }
 
      /**

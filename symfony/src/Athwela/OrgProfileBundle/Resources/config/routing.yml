@@ -4,3 +4,6 @@ org_profile_homepage:
 org_profile_show:
     path:     /{id}/show
     defaults: {_controller: OrgProfileBundle:OrgProfile:show }
+org_profile_notification:
+    path:     /{id}/notification
+    defaults: {_controller: OrgProfileBundle:OrgProfile:notification }

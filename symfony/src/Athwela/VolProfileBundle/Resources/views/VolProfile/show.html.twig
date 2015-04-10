@@ -59,14 +59,14 @@
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <ul>
-                                    <li><a href="#">Ongoing</a></li>
+                                    <li><a href="{{path('vol_profile_ongoing')}}">Ongoing</a></li>
                                     {%if notification[0]+notification[1] != 0%}
                                         <li><a href="{{path('vol_profile_notification', {'amount':notification, 'email':entity.email})}}">Notifications <div style="width: 15px; height: 17px; background-color: red; margin-top: -17px; margin-left: 80px; color: white; text-align: center; font-size: 12px; border-radius: 5px;">{{notification[0]+notification[1]}}</div></a></li>
                                     {%endif%}
                                     {%if notification[0]+notification[1] == 0%}
                                         <li><a href="{{path('vol_profile_notification', {'amount':0, 'email':entity.email})}}">Notifications</a></li>
                                     {%endif%}
-                                    <li><a href="#">Contribution</a></li>
+                                    <li><a href="{{path('vol_profile_contribution')}}">Contribution</a></li>
                                 </ul>
                             </div>
                         </div>
