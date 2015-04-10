@@ -41,7 +41,9 @@ class NotificationController extends ContainerAware {
 
     public function getNotificationCount($entity) {
         $temp[] = 0;
+
         $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_vol_messages where msgStatus = "notRead" and v_ID = ' . $entity->getId());
+
         while ($row = mysqli_fetch_row($notification1)) {
             $temp[0] = $row[0];
         }
@@ -60,7 +62,7 @@ class NotificationController extends ContainerAware {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
             }
-            CustomQuery::getInstance()->customQuery('Update volunteer_project set status = "Seen" where p_ID = '.$row[0].' and v_ID = ' . $entity->getId() . ' and accepted_at = "' . $row[2] . '"');
+            CustomQuery::getInstance()->customQuery('Update volunteer_project set status = "Seen" where p_ID = ' . $row[0] . ' and v_ID = ' . $entity->getId() . ' and accepted_at = "' . $row[2] . '"');
             $i++;
         }
         return $temp;
@@ -69,7 +71,7 @@ class NotificationController extends ContainerAware {
     public function getProject($entity) {
         $temp = $this->getNotification($entity);
         $projects[][] = null;
-        if ($temp !=null && $temp[0][0] !=null) {
+        if ($temp != null && $temp[0][0] != null) {
             for ($i = 0; $i < count($temp); $i++) {
                 $projects[$i][0] = Read::getInstance()->read(new Project(), 'project', 'ID', $temp[$i][0]);
                 $projects[$i][1] = Read::getInstance()->read(new Organization(), 'organization', 'ID', $temp[$i][1]);
@@ -82,15 +84,19 @@ class NotificationController extends ContainerAware {
     public function getMessages($entity) {
         $i = 0;
         $messages[][] = null;
+
         $message = CustomQuery::getInstance()->customQuery('SELECT * FROM admin_vol_messages where msgStatus = "notRead" and v_ID = ' . $entity->getId());
         $admin = null;
+
         while ($row = mysqli_fetch_row($message)) {
             for ($index = 0; $index < count($row); $index++) {
                 $messages[$i][$index] = $row[$index];
             }
+
             $admin = Read::getInstance()->read(new Admin(), 'admin', 'ID', $row[1]);
             $messages[$i][1] = $admin->getFirstName() . ' ' . $admin->getLastName();
             CustomQuery::getInstance()->customQuery('Update admin_vol_messages set msgStatus = "Read" where v_ID = ' . $entity->getId() . ' and sent_time = "' . $row[2] . '"');
+
             $i++;
         }
         return $messages;
@@ -123,11 +129,13 @@ class NotificationController extends ContainerAware {
 
     public function getAdmins() {
         $admin = CustomQuery::getInstance()->customQuery('SELECT concat(first_name, " ", last_name) as name from admin');
-        $admins[] = null; $i = 0;
+        $admins[] = null;
+        $i = 0;
         while ($row = mysqli_fetch_row($admin)) {
             $admins[$i] = $row[0];
             $i++;
         }
         return $admins;
     }
+
 }

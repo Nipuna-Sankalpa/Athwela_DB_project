@@ -17,13 +17,33 @@
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    <span class="glyphicon glyphicon-plus"></span> New Organization
+                                    <span class="glyphicon glyphicon-plus"></span> New Organizations
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
-
+                                {#------------------------------------------------------------------------------------------------------#}
+                                {%if newOrgs!= null%}
+                                    {% for org in newOrgs %}
+                                        <div class="well well-sm col-sm-6">
+                                            <div class="col-xs-4">
+                                                <li><a href="#">{{org.name}}</a></li>
+                                            </div>
+                                            <div class="text-right col-xs-7 col-xs-offset-1">
+                                                <div class="btn-group btn-group-xs">
+                                                    <a href="{{path('athwela_administrator_Orgapprove',{'id':org.id})}}"><span class="glyphicon glyphicon-ok " data-toggle="tooltip" data-placement="bottom" title="Approve"></span></a>
+                                                    <a style="margin-left: 1em;" href="{{path('athwela_administrator_Orgreject',{'id':org.id})}}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject"></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div>
+                                        <li><h4 class="text-center">No new Organizations !</h4></li>
+                                    </div>
+                                {% endif %}
+                                {#-----------------------------------------------------------------------------------------------------------#}
                             </div>
                         </div>
                     </div>
@@ -38,25 +58,15 @@
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
                                 <div>
-                                    <form action="#" method="POST">
+                                    <form action="{{path('athwela_administrator_Orgsearch')}}" method="POST">
                                         <div class="form-group row">
                                             <div class="col-sm-6">
                                                 <label class="control-label"> Organization Name :</label>
-                                                <input type="text" class="form-control" placeholder="Enter organization name">
+                                                <input type="text" name="orgName" class="form-control" placeholder="Enter organization name">
                                             </div>
-                                            <div class="col-sm-6" >
-                                                <label class="control-label"> Volunteer Skill :</label>
-                                                <input list="organization" class="form-control" placeholder="Select organization">
-                                                <datalist id="organization">
-                                                    <option value="Internet Explorer">
-                                                    <option value="Firefox">
-                                                    <option value="Chrome">
-                                                    <option value="Opera">
-                                                    <option value="Safari">
-                                                </datalist>
-                                            </div>
+                                            
                                         </div>
-                                        
+
                                         <button type="submit" class="btn btn-info">Search</button>
                                     </form>
                                 </div>
@@ -67,7 +77,54 @@
 
             </div>
 
-            <div><a href="#"><i class="fa fa-table fa-fw"></i> View all organization</a></div>
+            <div><a href="{{path('athwela_administrator_organization',{'flag':TRUE})}}"><i class="fa fa-table fa-fw"></i> View all organization</a></div>
+            <br />
+
+            <div class="row">
+                {%if allOrgs%}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><span class="fa fa-user"></span>  All Volunteers</div>
+                        <div class="panel-body">
+                            {% for orgs in allOrgs%}
+                                <div class="col-sm-4">
+                                    <li class="text-center"><a href="#">{{orgs.name}}</a></li>
+                                </div >
+                                <div class="col-sm-4">
+                                    <a href="#"><span class="fa fa-envelope"></span> {{orgs.country}}</a>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="#"><span class="fa fa-th-large"></span> {{orgs.status}}</a>
+                                </div>
+                            {% endfor%}
+                        </div>
+                    </div>
+
+                {% endif %}
+            </div>
+
+<br />
+            <div class="row">
+                {%if searchOrgs%}
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><span class="glyphicon glyphicon-search"></span> Search Results</div>
+                        <div class="panel-body">
+                            {% for searchOrg in searchOrgs%}
+                                <div class="col-sm-4">
+                                    <li><a href="#">{{searchOrg.name}}</a></li>
+                                </div >
+                                <div class="col-sm-4">
+                                    <a href="#"><span class="fa fa-envelope"></span> {{searchOrg.country}}</a>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="#"><span class="fa fa-envelope"></span> {{searchOrg.status}}</a>
+                                </div>
+
+                            {% endfor%}
+                        </div>
+                    </div>
+
+                {% endif %}
+            </div>
 
         </div>
         <!-- /.container-fluid -->

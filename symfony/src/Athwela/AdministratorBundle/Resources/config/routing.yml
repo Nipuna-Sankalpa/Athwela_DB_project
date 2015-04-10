@@ -1,22 +1,102 @@
-athwela_administrator_admin:
-    path:     /admin
-    defaults: { _controller: AthwelaAdministratorBundle:Default:Admin }
-    
-athwela_administrator_message:
-    path:     /message
-    defaults: { _controller: AthwelaAdministratorBundle:Default:Messages }
-    
-athwela_administrator_organization:
-    path:     /organization
-    defaults: { _controller: AthwelaAdministratorBundle:Default:Organization }
-    
-athwela_administrator_project:
-    path:     /project
-    defaults: { _controller: AthwelaAdministratorBundle:Default:Project }
-    
+   
+#-------------------------------volunteer admin routes-------------------------------------------#    
 athwela_administrator_volunteer:
     path:     /volunteer
-    defaults: { _controller: AthwelaAdministratorBundle:Default:Volunteers }
+    defaults: { _controller: AthwelaAdministratorBundle:Approvals:adminVols }
+
+athwela_administrator_reject:
+    path:     /adminRejectVol/{email}
+    defaults: { _controller: AthwelaAdministratorBundle:Approvals:rejectVols }
+
+athwela_administrator_approve:
+    path:     /adminApproveVol/{email}
+    defaults: { _controller: AthwelaAdministratorBundle:Approvals:approveVols }
+
+athwela_administrator_search:
+    path:     /adminSearchVol/
+    defaults: { _controller: AthwelaAdministratorBundle:Approvals:searchVol }
+#--------------------------------------------------------------------------------------------------#
+
+#------------------------------routing relavent to organization------------------------------------#
+
+athwela_administrator_organization:
+    path:     /organization
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalsOrg:adminOrg }
+
+athwela_administrator_Orgapprove:
+    path:     /adminApproveOrg/{id}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalsOrg:approveOrgs }
+
+athwela_administrator_Orgreject:
+    path:     /adminRejectOrg/{id}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalsOrg:rejectOrgs }
+
+athwela_administrator_Orgsearch:
+    path:     /adminSearchOrg/
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalsOrg:searchOrg }
+    
+#---------------------------------------------------------------------------------------------------#
+
+#-------------------------------------------project routing-----------------------------------------#
+
+athwela_administrator_project:
+    path:     /project
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalProject:adminProject }
+
+athwela_administrator_projectSearch:
+    path:     /adminSearchProject/
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalProject:searchProject }
+
+athwela_administrator_projectApprove:
+    path:     /adminApproveProject/{id}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalProject:approveProject }
+
+athwela_administrator_projectReject:
+    path:     /adminRejectProject/{id}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalProject:rejectProject }
+
+
+#---------------------------------------------------------------------------------------------------#
+
+
+#--------------------------------------message routing----------------------------------------------#
+
+athwela_administrator_message:
+    path:     /message
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:adminMessage }
+
+athwela_administrator_searchMessage:
+    path:     /searchMessage
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:searchMessage }
+
+athwela_administrator_approveOrgMessage:
+    path:     /approveOrgMessage/{timeStamp}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:approveOrgMessage }
+
+athwela_administrator_approveVolMessage:
+    path:     /approveVolMessage/{timeStamp}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:approveVolMessage }
+
+athwela_administrator_rejectVolMessage:
+    path:     /rejectVolMessage/{timeStamp}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:rejectVolMessage }
+
+athwela_administrator_rejectOrgMessage:
+    path:     /rejectOrgMessage/{timeStamp}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:rejectOrgMessage }
+
+athwela_administrator_readMessage:
+    path:     /readMessage/{timeStamp}{name}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:rejectOrgMessage }
+
+
+
+#---------------------------------------------------------------------------------------------------#
+
+#-------------------------------------admin routing---------------------------------------------------#
+athwela_administrator_admin:
+    path:     /adminADD/{flag}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:adminReg }
     
 athwela_administrator_adminDash:
     path:     /adminDash
@@ -24,4 +104,22 @@ athwela_administrator_adminDash:
     
 athwela_administrator_adminSet:
     path:     /adminSettings
-    defaults: { _controller: AthwelaAdministratorBundle:Default:adminSettings }
+    defaults: { _controller: AthwelaAdministratorBundle:AdminSettings:index }  
+
+athwela_administrator_confirm:
+    path:     /registerConfirm/{token}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:confirm }  
+
+athwela_administrator_confirmed:
+    path:     /registerConfirmed
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:confirmed }  
+
+athwela_administrator_checkEmail:
+    path:     /registerCheckEmail
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:checkEmail }  
+
+athwela_administrator_register:
+    path:     /register
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:register }  
+
+#----------------------------------------------------------------------------------------#

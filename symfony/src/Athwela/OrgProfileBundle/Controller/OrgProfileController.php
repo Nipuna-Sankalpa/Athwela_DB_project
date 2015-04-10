@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -24,16 +24,16 @@ class OrgProfileController extends ContainerAware
         } else {
             $email = $user->getEmail();
         } 
+        
         $entity = Read::getInstance()->read(new Organization(), 'organization', 'email', $email);
-        $fax = Read::getInstance()->readMul($entity->getId(), '1', 'organization_fax');        
-        $mobile = Read::getInstance()->readMul($entity->getId(), '1', 'organization_mobile');
+        $fax = Read::getInstance()->readMul($entity->getId(), $entity->getId(), 'organization_fax');   
         $notific = $this->getNotificationCount($entity);
+        $mobile = Read::getInstance()->readMul($entity->getId(), $entity->getId(), 'organization_mobile');   
         return $this->container->get('templating')->renderResponse('OrgProfileBundle:OrgProfile:show.html.twig', array(
                     'entity' => $entity,
+                    'amount' => $notific,
                     'fax' => $fax,
-                    'email' => $email,
-                    'mobile' => $mobile,
-                    'amount' => $notific
+                    'mobile' => $mobile
         ));
     } 
     

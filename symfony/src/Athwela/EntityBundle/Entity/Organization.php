@@ -18,6 +18,15 @@ class Organization {
      * @var string
      */
     private $description;
+    private $status;
+
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+    }
 
     public function setId($id) {
         $this->id = $id;
@@ -26,7 +35,7 @@ class Organization {
     /**
      * @var string
      */
-    private $a_ID; 
+    private $a_ID;
     private $street;
 
     /**
@@ -39,7 +48,7 @@ class Organization {
         $this->a_ID = $a_ID;
     }
 
-        private $city;
+    private $city;
 
     /**
      * @var string
@@ -179,7 +188,7 @@ class Organization {
      * @param \Athwela\EntityBundle\Entity\Admin $a
      * @return Organization
      */
-    public function setA( $a = null) {
+    public function setA($a = null) {
         $this->a = $a;
 
         return $this;

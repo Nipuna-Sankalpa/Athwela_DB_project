@@ -32,7 +32,9 @@ class VolProfileController extends ContainerAware {
             $email = $request->get('email');
         } else {
             $email = $user->getEmail();
-        }        
+        }
+
+
         $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
         if (!$entity) {
             $form = $this->container->get('fos_user.change_password.form');
@@ -42,7 +44,8 @@ class VolProfileController extends ContainerAware {
         $edu = $this->getEdu($entity);
         $skill = $this->getSkills($entity);
         $interest = $this->getInterestedAreas($entity);
-        $notification = $this->getNotificationCount($entity);        
+        $notification = $this->getNotificationCount($entity);
+
         return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:show.html.twig', array(
                     'entity' => $entity,
                     'entitymobile' => $entitymobile,
@@ -88,10 +91,12 @@ class VolProfileController extends ContainerAware {
         }
         return $temp;
     }
-    
+
     public function getNotificationCount($entity) {
         $temp[] = 0;
+
         $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_vol_messages where msgStatus = "notRead" and v_ID = ' . $entity->getId());
+
         while ($row = mysqli_fetch_row($notification1)) {
             $temp[0] = $row[0];
         }
