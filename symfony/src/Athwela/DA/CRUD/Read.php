@@ -72,12 +72,13 @@ class Read {
         if ($temp[sizeof($temp) - 1] == 'Organization') {
             $organization = $entity;
             $organization->setID($row[0]);
-            $organization->setA_ID($row[1]);
-            $organization->setName($row[2]);
-            $organization->setDescription($row[3]);
-            $organization->setStreet($row[4]);
-            $organization->setCity($row[5]);
-            $organization->setCountry($row[6]);
+            $organization->setEmail($row[1]);
+            $organization->setA_ID($row[2]);
+            $organization->setName($row[3]);
+            $organization->setDescription($row[4]);
+            $organization->setStreet($row[5]);
+            $organization->setCity($row[6]);
+            $organization->setCountry($row[7]);
             return $organization;
         }
 

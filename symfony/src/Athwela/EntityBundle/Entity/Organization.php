@@ -56,6 +56,9 @@ class Organization {
      */
     private $a;
 
+    private $email;
+    
+    
     /**
      * Set name
      *
@@ -190,5 +193,14 @@ class Organization {
     public function getA() {
         return $this->a;
     }
+    
+    function getEmail() {
+        return $this->email;
+    }
+
+    function setEmail($email) {
+        $this->email = $email;
+    }
+
 
 }
