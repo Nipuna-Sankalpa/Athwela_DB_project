@@ -1,0 +1,48 @@
+{%extends "::base.html.twig"%}
+{%block items%}
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#">Services</a>
+        </li>
+        <li>
+            <a href="{{path('vol_profile_show')}}">Profile</a>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Profile Settings</a></li>
+                <li><a href="#">Change Password</a></li>
+                <li><a href="{{path('athwela_timeline_volunteer')}}">Timeline</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+{%endblock items%}
+
+{% block container -%}   
+    <form class="form-signin" method="POST" action="{{path('vol_profile_delete', { 'id': entity.id })}}" data-validate="parsley">
+        <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;">
+            <center>
+
+                <div id="image" style="margin-top: 30px">                
+                    <img src="{{asset('img/pic.jpg')}}" class="img-responsive img-thumbnail">
+                </div> 
+                <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+                    <b>
+                        You are about to delete your profile! By doing this, your status will be set to "Unavailable" and,<br/>
+                        no organization would be able to volunteer you. <br/>You can undo this action by logging in again.
+                        <br/><br/>Are you sure you want to continue?<br/>            
+                    </b>
+                </div>
+                <div style="margin-top: 30px">
+                    <input type="submit" class="btn btn-danger" value="Delete"/>
+                    <input type="submit" class="btn btn-default" value="Cancel"/>
+                </div>
+            </center>
+        </div>
+    </form>
+{%endblock%}

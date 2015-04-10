@@ -14,10 +14,20 @@ namespace Athwela\AdministratorBundle\Entity;
  * @author Yellow Flash
  */
 class AdminVolMsg {
+
     private $timeStamp;
     private $status;
     private $name;
     private $fakeTS;
+    private $msg;
+
+    public function getMsg() {
+        return $this->msg;
+    }
+
+    public function setMsg($msg) {
+        $this->msg = $msg;
+    }
 
     public function getFakeTS() {
         return $this->fakeTS;
@@ -26,7 +36,7 @@ class AdminVolMsg {
     public function setFakeTS($fakeTS) {
         $this->fakeTS = $fakeTS;
     }
-    
+
     public function getTimeStamp() {
         return $this->timeStamp;
     }
@@ -50,6 +60,5 @@ class AdminVolMsg {
     public function setName($name) {
         $this->name = $name;
     }
-
 
 }

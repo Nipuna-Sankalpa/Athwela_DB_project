@@ -18,12 +18,12 @@ class OrgProfileController extends Controller
 {
     public function showAction($id)
     {
-        $conn = DBConnection::getInstance()->openConnection('localhost', 'root', 'dilini', 'athwela1');
-        $entity = Read::getInstance()->read($conn, new Organization(), 'organization', 'ID', $id);
-        $fax = Read::getInstance()->readMul($conn, $id, '1', 'organization_fax');
-        $email = Read::getInstance()->readMul($conn, $id, '1', 'organization_email');
-        $mobile = Read::getInstance()->readMul($conn, $id, '1', 'organization_mobile');
-        DBConnection::getInstance()->closeConnection($conn);
+        
+        $entity = Read::getInstance()->read(new Organization(), 'organization', 'ID', $id);
+        $fax = Read::getInstance()->readMul($id, '1', 'organization_fax');
+        $email = Read::getInstance()->readMul($id, '1', 'organization_email');
+        $mobile = Read::getInstance()->readMul($id, '1', 'organization_mobile');
+        
         return $this->render('OrgProfileBundle:OrgProfile:show.html.twig', array(
                     'entity' => $entity,
                     'fax' => $fax,

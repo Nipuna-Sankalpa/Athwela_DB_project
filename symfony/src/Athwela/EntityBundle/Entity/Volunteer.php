@@ -49,12 +49,12 @@ class Volunteer {
     private $email;
 
     /**
-     * @var boolean
+     * @var string
      */
     private $gender;
 
     /**
-     * @var integer
+     * @var string
      */
     private $availability;
 
@@ -255,7 +255,7 @@ class Volunteer {
     /**
      * Set gender
      *
-     * @param boolean $gender
+     * @param string $gender
      * @return Volunteer
      */
     public function setGender($gender) {
@@ -276,7 +276,7 @@ class Volunteer {
     /**
      * Set availability
      *
-     * @param integer $availability
+     * @param string $availability
      * @return Volunteer
      */
     public function setAvailability($availability) {
@@ -288,7 +288,7 @@ class Volunteer {
     /**
      * Get availability
      *
-     * @return integer 
+     * @return string 
      */
     public function getAvailability() {
         return $this->availability;
@@ -452,6 +452,7 @@ class Volunteer {
     private $blog;
     private $linkedin;
     private $facebook;
+    private $image;
     
     function getBlog() {
         return $this->blog;
@@ -475,5 +476,12 @@ class Volunteer {
 
     function setFacebook($facebook) {
         $this->facebook = $facebook;
+    }
+    function getImage() {
+        return $this->image;
+    }
+
+    function setImage($image) {
+        $this->image = $image;
     }
 }

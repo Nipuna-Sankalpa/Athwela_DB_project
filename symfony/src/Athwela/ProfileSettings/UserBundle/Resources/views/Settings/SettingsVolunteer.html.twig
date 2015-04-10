@@ -1,12 +1,18 @@
-    {% extends '::base.html.twig'%}
-    {%block css%}
+{% extends '::base.html.twig'%}
+{%block css%}
     <link href="{{asset('css/formValidation.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
     <link href="{{asset('BootstrapFormHelpers/dist/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet">  
-    {%endblock css%}
+{%endblock css%}
 
-    {%block container%}
-
+{%block items%}
+    <ul class="nav navbar-nav">
+        <li><a href="{{path('athwela_timeline_volunteer')}}"><span class="glyphicon glyphicon-book"></span>Timeline</a></li>
+        <li><a href="{{path('vol_profile_show')}}"><span class="glyphicon glyphicon-user"></span>{{app.user.username}}</a></li>
+        <li><a href="{{path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+{%endblock items%}
+{%block container%}
     <div class="row">
         <div class="col-md-12">
             <fieldset>
@@ -37,7 +43,7 @@
                     {#-------------------------- PW Change----------------------------------#}
                     <form action = "{{path('volunteer_profile_settings',{'id':id})}}" id = "form2" class="form-horizontal" method="post" >
                         <fieldset >
-                            <legend class="text-center">Password reset</legend>
+                            <legend class="text-center">Password Reset</legend>
 
                             <div class="form-group ">
 
@@ -85,7 +91,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">First name:</label>
                             <div class="col-md-8">
-                                <input class="form-control" name="first_name" type="text" placeholder="first name">
+                                <input class="form-control" name="first_name" type="text" placeholder="First Name" value="{{entity.firstName|default('')}}">
                             </div>
                         </div>
 
@@ -94,7 +100,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Last name:</label>
                             <div class="col-md-8">
-                                <input class="form-control" name="last_name" type="text" placeholder="last name">
+                                <input class="form-control" name="last_name" type="text" placeholder="Last Name" value="{{entity.lastName|default('')}}">
                             </div>
                         </div>  
 
@@ -103,127 +109,130 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Birthday:</label>
                             <div class="col-md-8">
-                        <div class="bfh-datepicker" data-format="y-m-d" data-date="today" data-name="birthday"></div>             
+                                {%if entity == null%}
+                                    <div class="bfh-datepicker" data-format="y-m-d" placeholder="Select your birthday" data-name="birthday"></div>                                             
+                                {%endif%}
                             </div>
                         </div>
-      
-                        
+
+
                         {#-------------------- Phone Number -----------------------#} 
 
                         <div class="form-group">
-                                <label class="col-md-4 control-label">Phone Number:</label>
-                                <div class="col-md-5">
-                                  <input class="form-control" name="phoneNu[]" type="text" placeholder="phoneNu #1">
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-default addButton" data-template="phoneNu">Add</button>
-                                </div>
-                            </div> 
-                            <div class="form-group hide" id="phoneNuTemplate">
-                                <div class="col-md-offset-4 col-md-5">
-                                  <input class="form-control" name="phoneNu[]" type="text" >
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-default removeButton">Remove</button>
-                                </div>
+                            <label class="col-md-4 control-label">Phone Number:</label>
+                            <div class="col-md-5">
+                                <input class="form-control" name="phoneNu[]" type="text" placeholder="phoneNu #1">
                             </div>
-                        
-                        
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default addButton" data-template="phoneNu">Add</button>
+                            </div>
+                        </div> 
+                        <div class="form-group hide" id="phoneNuTemplate">
+                            <div class="col-md-offset-4 col-md-5">
+                                <input class="form-control" name="phoneNu[]" type="text" >
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-default removeButton">Remove</button>
+                            </div>
+                        </div>
+
+
                         {#-------------------- Gender -----------------------#}
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Gender:</label>
-                            <div class="col-md-8">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="male" /> Male
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="female" /> Female
-                                    </label>
-                                </div>
-
+                            <div class="col-md-8">                                                             
+                                {%if entity == null%}
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="male"/> Male
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender" value="female"/> Female
+                                        </label>
+                                    </div>
+                                {%endif%}
                             </div>
                         </div>
-    
+
                         {#-------------------- Address -----------------------#} 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Address:</label>
                             <div class="col-md-8">
-                                
-                                        {#-------------------- Street -----------------------#} 
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Street:</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" name="street" type="text" placeholder="street">
-                                            </div>
-                                        </div>
-                                
-                                        {#-------------------- City -----------------------#} 
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">City:</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" name="city" type="text" placeholder="city">
-                                            </div>
-                                        </div>
-                                
-                                        {#-------------------- Country -----------------------#} 
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Country:</label>
-                                            <div class="col-md-8">            
-        <div class="bfh-selectbox bfh-countries" data-name="country" data-country="US" data-flags="true" ></div>
-                                            </div>
-                                        </div>
-                                
-                                        
+
+                                {#-------------------- Street -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Street:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="street" type="text" placeholder="street">
+                                    </div>
+                                </div>
+
+                                {#-------------------- City -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">City:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="city" type="text" placeholder="city">
+                                    </div>
+                                </div>
+
+                                {#-------------------- Country -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Country:</label>
+                                    <div class="col-md-8">            
+                                        <div class="bfh-selectbox bfh-countries" data-name="country" data-country="US" data-flags="true" ></div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>   
-                        
-                        
+
+
                         {#-------------------- Education -----------------------#} 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Education:</label>
                             <div class="col-md-8">
-                                
-                                        {#-------------------- Instute -----------------------#} 
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Instute:</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" name="institute" type="text" placeholder="instute">
-                                            </div>
-                                        </div>
-                                
-                                        {#-------------------- Start Date -----------------------#} 
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Start Date:</label>
-                                            <div class="col-md-8">
-                                                <div class="bfh-datepicker" data-format="y-m-d" data-date="today" data-name="start_date" ></div>
-                                            </div>
-                                        </div>
-                                
-                                        {#-------------------- End Date -----------------------#} 
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">End Date:</label>
-                                            <div class="col-md-8">
-                                                <div class="bfh-datepicker" data-format="y-m-d" data-date="today" data-name="end_date"></div>
-                                            </div>
-                                        </div>
-                                
-                                        {#-------------------- Degree -----------------------#} 
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Degree:</label>
-                                            <div class="col-md-8">
-                                                <input class="form-control" name="degree" type="text" placeholder="degree">
-                                            </div>
-                                        </div>
-                                
-                                        
+
+                                {#-------------------- Instute -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Instute:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="institute" type="text" placeholder="instute">
+                                    </div>
+                                </div>
+
+                                {#-------------------- Start Date -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Start Date:</label>
+                                    <div class="col-md-8">
+                                        <div class="bfh-datepicker" data-format="y-m-d" data-date="today" data-name="start_date" ></div>
+                                    </div>
+                                </div>
+
+                                {#-------------------- End Date -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">End Date:</label>
+                                    <div class="col-md-8">
+                                        <div class="bfh-datepicker" data-format="y-m-d" data-date="today" data-name="end_date"></div>
+                                    </div>
+                                </div>
+
+                                {#-------------------- Degree -----------------------#} 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Degree:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="degree" type="text" placeholder="degree">
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div> 
-                     
-                        
+
+
                         {#-------------------- Skills -----------------------#}
 
                         <div class="form-group">
@@ -295,10 +304,10 @@
             color: #006600;
         }  
     </style>
-    {%endblock container%}
+{%endblock container%}
 
 
-    {%block js%}
+{%block js%}
     <script src={{asset('js/jquery-1.11.2.min.js')}}></script>
     <script src={{asset('js/formValidation.min.js')}}></script>
     <script src={{asset('js/framework/bootstrap.min.js')}}></script>
@@ -306,9 +315,9 @@
     <script src={{asset('js/bootstrap-datetimepicker.min.js')}}></script>  
     <script src={{asset('BootstrapFormHelpers/dist/js/bootstrap-formhelpers.min.js')}}></script>  
 
-<script type="text/javascript">
-    $(document).ready(function() {      
-        $('.addButton').on('click', function() {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.addButton').on('click', function () {
                 var index = $(this).data('index');
                 if (!index) {
                     index = 1;
@@ -317,114 +326,113 @@
                 index++;
                 $(this).data('index', index);
 
-                var template     = $(this).attr('data-template'),
-                    $templateEle = $('#' + template + 'Template'),
-                    $row         = $templateEle.clone().removeAttr('id').insertBefore($templateEle).removeClass('hide'),
-                    $el          = $row.find('input').eq(0).attr('name', template + '[]');
+                var template = $(this).attr('data-template'),
+                        $templateEle = $('#' + template + 'Template'),
+                        $row = $templateEle.clone().removeAttr('id').insertBefore($templateEle).removeClass('hide'),
+                        $el = $row.find('input').eq(0).attr('name', template + '[]');
                 $('#form3').formValidation('addField', $el);
                 $el.attr('placeholder', 'phoneNu #' + index);
-                $row.on('click', '.removeButton', function(e) {
+                $row.on('click', '.removeButton', function (e) {
                     $('#form3').formValidation('removeField', $el);
                     $row.remove();
                 });
             });
         });
-    
-    
-    $(document).ready(function() {
-        $('#form1').formValidation({
-        message: 'This value is not valid',
+
+
+        $(document).ready(function () {
+            $('#form1').formValidation({
+                message: 'This value is not valid',
                 icon: {
-                valid: 'glyphicon glyphicon-ok',
-                        invalid: 'glyphicon glyphicon-remove',
-                        validating: 'glyphicon glyphicon-refresh'
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                               
-                        file: {
+                    file: {
                         validators: {
-                        file: {
+                            file: {
                                 extension: 'jpeg,png,jpg',
                                 type: 'image/jpeg,image/png,image/jpg',
                                 message: 'only jpeg,png and png extentions are allowed'
+                            }
                         }
-                        }
-                        }
+                    }
                 }
+            });
+
         });
 
-    });
-    
-    $(document).ready(function() {
-        $('#form3').formValidation({
-        message: 'This value is not valid',
+        $(document).ready(function () {
+            $('#form3').formValidation({
+                message: 'This value is not valid',
                 icon: {
-                valid: 'glyphicon glyphicon-ok',
-                        invalid: 'glyphicon glyphicon-remove',
-                        validating: 'glyphicon glyphicon-refresh'
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                        first_name: {
+                    first_name: {
                         validators: {
-                        notEmpty: {
-                        message: 'The first name is required and cannot be empty'
+                            notEmpty: {
+                                message: 'The first name is required and cannot be empty'
+                            }
                         }
-                        }
-                        },
-                        last_name: {
+                    },
+                    last_name: {
                         validators: {
-                        notEmpty: {
-                        message: 'The last name is required and cannot be empty'
+                            notEmpty: {
+                                message: 'The last name is required and cannot be empty'
+                            }
                         }
-                        }
-                        },
-                        street: {
+                    },
+                    street: {
                         validators: {
-                        notEmpty: {
-                        message: 'The street is required and cannot be empty'
+                            notEmpty: {
+                                message: 'The street is required and cannot be empty'
+                            }
                         }
-                        }
-                        },
-                        city: {
+                    },
+                    city: {
                         validators: {
-                        notEmpty: {
-                        message: 'The city is required and cannot be empty'
+                            notEmpty: {
+                                message: 'The city is required and cannot be empty'
+                            }
                         }
-                        }
-                        },
-                        'phoneNu[]': {
+                    },
+                    'phoneNu[]': {
                         validators: {
-                                notEmpty: {
+                            notEmpty: {
                                 message: 'The phone number is required and cannot be empty'
-                                },
-                                digits: {
+                            },
+                            digits: {
                                 message: 'The phone number can only consist of numbers'
-                                },
-                                phone: {
-                                            country: 'US',
-                                            message: 'Please enter a valid phone number in Sri Lanka'
-                                        }
+                            },
+                            phone: {
+                                country: 'US',
+                                message: 'Please enter a valid phone number in Sri Lanka'
+                            }
                         }
-                        },
-                        gender: {
+                    },
+                    gender: {
                         validators: {
-                        notEmpty: {
-                        message: 'The gender is required'
+                            notEmpty: {
+                                message: 'The gender is required'
+                            }
                         }
-                        }
-                        },       
-                        file: {
+                    },
+                    file: {
                         validators: {
-                        file: {
-                        extension: 'jpeg',
+                            file: {
+                                extension: 'jpeg',
                                 type: 'image/jpeg',
                                 message: 'Please choose a jpg file.'
+                            }
                         }
-                        }
-                        }
+                    }
                 }
-        });
+            });
 
-    });
-</script>
-    {%endblock js%}
+        });
+    </script>
+{%endblock js%}

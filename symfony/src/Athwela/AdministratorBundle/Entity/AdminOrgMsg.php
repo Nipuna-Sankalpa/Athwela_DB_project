@@ -19,6 +19,15 @@ class AdminOrgMsg {
     private $status;
     private $name;
     private $fakeTS;
+    private $msg;
+
+    public function getMsg() {
+        return $this->msg;
+    }
+
+    public function setMsg($msg) {
+        $this->msg = $msg;
+    }
 
     public function getFakeTS() {
         return $this->fakeTS;

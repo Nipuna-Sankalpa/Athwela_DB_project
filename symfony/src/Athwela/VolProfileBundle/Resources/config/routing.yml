@@ -5,3 +5,7 @@ vol_profile_homepage:
 vol_profile_show:
     path:     /show
     defaults: {_controller: VolProfileBundle:VolProfile:show }
+    
+vol_profile_notification:
+    path:     /{email}/notification
+    defaults: {_controller: VolProfileBundle:Notification:notification }

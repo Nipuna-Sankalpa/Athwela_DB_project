@@ -30,8 +30,8 @@ class ApprovalMessageController extends ContainerAware {
 
     public function adminMessageAction(Request $request) {
 
-        $query1 = "SELECT name,date(timeStamp),timeStamp FROM admin_vol_msg WHERE status=" . "'" . "notRead" . "'";
-        $query = "SELECT name,date(timeStamp),timeStamp FROM admin_org_msg WHERE status=" . "'" . "notRead" . "'";
+        $query1 = "SELECT name,date(timeStamp),timeStamp,msg FROM admin_vol_msg WHERE status=" . "'" . "notRead" . "'";
+        $query = "SELECT name,date(timeStamp),timeStamp,msg FROM admin_org_msg WHERE status=" . "'" . "notRead" . "'";
 
         $result = CustomQuery::getInstance()->customQuery($query);
         $result1 = CustomQuery::getInstance()->customQuery($query1);
@@ -42,7 +42,7 @@ class ApprovalMessageController extends ContainerAware {
         $allMsgsOrg = NULL;
         $allMsgsVol = NULL;
         $searchMsgs = NULL;
-        
+
 
 
 
@@ -52,6 +52,7 @@ class ApprovalMessageController extends ContainerAware {
                 $newMsgsOrg[$i]->setName($row[0]);
                 $newMsgsOrg[$i]->setTimeStamp($row[1]);
                 $newMsgsOrg[$i]->setFakeTS($row[2]);
+                $newMsgsOrg[$i]->setMsg($row[3]);
                 $i++;
             }
         } else {
@@ -64,6 +65,7 @@ class ApprovalMessageController extends ContainerAware {
                 $newMsgsVol[$i]->setName($row[0]);
                 $newMsgsVol[$i]->setTimeStamp($row[1]);
                 $newMsgsVol[$i]->setFakeTS($row[2]);
+                $newMsgsVol[$i]->setMsg($row[3]);
                 $i++;
             }
         } else {
@@ -72,8 +74,8 @@ class ApprovalMessageController extends ContainerAware {
 
 
         if ($request->getMethod() === 'GET' && $request->get('flag')) {
-            $query = "SELECT name,date(timeStamp),status FROM admin_vol_msg";
-            $query1 = "SELECT name,date(timeStamp),status FROM admin_org_msg";
+            $query = "SELECT name,date(timeStamp),status,msg FROM admin_vol_msg";
+            $query1 = "SELECT name,date(timeStamp),status,msg FROM admin_org_msg";
             $result = CustomQuery::getInstance()->customQuery($query);
             $result1 = CustomQuery::getInstance()->customQuery($query1);
             $i = 0;
@@ -85,6 +87,7 @@ class ApprovalMessageController extends ContainerAware {
                     $allMsgsOrg[$i]->setName($row[0]);
                     $allMsgsOrg[$i]->setTimeStamp($row[1]);
                     $allMsgsOrg[$i]->setStatus($row[2]);
+                    $allMsgsOrg[$i]->setMsg($row[3]);
                     $i++;
                 }
             } else {
@@ -97,6 +100,7 @@ class ApprovalMessageController extends ContainerAware {
                     $allMsgsVol[$i]->setName($row[0]);
                     $allMsgsVol[$i]->setTimeStamp($row[1]);
                     $allMsgsVol[$i]->setStatus($row[2]);
+                    $allMsgsVol[$i]->setMsg($row[3]);
                     $i++;
                 }
             } else {
@@ -118,6 +122,7 @@ class ApprovalMessageController extends ContainerAware {
                     $searchMsgs[$i]->setName($row[2]);
                     $searchMsgs[$i]->setTimeStamp($row[0]);
                     $searchMsgs[$i]->setStatus($row[1]);
+                    $searchMsgs[$i]->setMsg($row[3]);
 
                     $i++;
                 }
@@ -127,9 +132,33 @@ class ApprovalMessageController extends ContainerAware {
             }
         }
 
+//        if ($request->getMethod() === 'GET' && $request->get('query') != NULL) {
+//            $query = $request->get('query');
+//            $result = CustomQuery::getInstance()->customQuery($query);
+//            $Msg = NULL;
+//            $i = 0;
+//
+//            if ($result) {
+//                while ($row = mysqli_fetch_row($result)) {
+//
+//                    $Msg[$i] = new orgAdminMsg();
+//                    $Msg[$i]->setOrg($row[0]);
+//                    $Msg[$i]->setDate($row[1]);
+//                    $Msg[$i]->setMsg($row[2]);
+//
+//                    
+//                    $i++;
+//                }
+//            } else {
+//
+//                die('Error Occured');
+//            }
+//        }
+
+
         return $this->container->get('templating')->renderResponse('AthwelaAdministratorBundle:Administrator:Messages.html.twig', array(
                     'searchMsgs' => $searchMsgs,
-                    
+//                    'Msg' => $Msg,
                     'allMsgsOrg' => $allMsgsOrg,
                     'allMsgsVol' => $allMsgsVol,
                     'newMsgsVol' => $newMsgsVol,
@@ -145,9 +174,9 @@ class ApprovalMessageController extends ContainerAware {
 
         $queryTemp = null;
         $query = "select * from (
-                    select timeStamp,status,name from admin_org_msg
+                    select timeStamp,status,name,msg from admin_org_msg
                     union all
-                    select timeStamp,status,name from admin_vol_msg
+                    select timeStamp,status,name,msg from admin_vol_msg
                     ) as a where ";
 
 
@@ -173,7 +202,7 @@ class ApprovalMessageController extends ContainerAware {
         $queryTemp1 = substr_replace($queryTemp, " ", 0, 3);
 
         $query.=$queryTemp1;
-        
+
 
 
 
@@ -225,8 +254,16 @@ class ApprovalMessageController extends ContainerAware {
             die('Task Incompleted');
         }
     }
+    
+    public function readAction($name,$timesStamp){
+        $query="SELECT date,msg from("
+                . "selec"
+                . ")";
+        
+    }
 
-    private function dateConvert($date) {
+
+        private function dateConvert($date) {
 
         $dateTime = new \DateTime($date);
         $formatted_date = date_format($dateTime, 'Y-m-d');

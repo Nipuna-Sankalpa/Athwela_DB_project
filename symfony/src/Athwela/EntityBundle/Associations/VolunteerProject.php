@@ -25,6 +25,11 @@ class VolunteerProject {
      * @var string
      */
     private $contribution;
+    
+    /**
+     * @var \DateTime
+     */
+    private $acceptedAt;
 
     /**
      * @return \Athwela\EntityBundle\Entity\Volunteer
@@ -72,5 +77,13 @@ class VolunteerProject {
     public function setContribution($contribution)
     {
         $this->contribution = $contribution;
+    }
+    
+    function getAcceptedAt() {
+        return $this->acceptedAt;
+    }
+
+    function setAcceptedAt(\DateTime $acceptedAt) {
+        $this->acceptedAt = $acceptedAt;
     }
 }

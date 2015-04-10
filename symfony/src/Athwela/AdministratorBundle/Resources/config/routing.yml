@@ -1,16 +1,4 @@
-athwela_administrator_admin:
-    path:     /admin
-    defaults: { _controller: AthwelaAdministratorBundle:Default:Admin }
-    
-
-athwela_administrator_adminDash:
-    path:     /adminDash
-    defaults: { _controller: AthwelaAdministratorBundle:Approvals:adminDash }
-    
-athwela_administrator_adminSet:
-    path:     /adminSettings
-    defaults: { _controller: AthwelaAdministratorBundle:AdminSettings:index }    
-    
+   
 #-------------------------------volunteer admin routes-------------------------------------------#    
 athwela_administrator_volunteer:
     path:     /volunteer
@@ -69,6 +57,8 @@ athwela_administrator_projectReject:
 
 
 #---------------------------------------------------------------------------------------------------#
+
+
 #--------------------------------------message routing----------------------------------------------#
 
 athwela_administrator_message:
@@ -95,6 +85,41 @@ athwela_administrator_rejectOrgMessage:
     path:     /rejectOrgMessage/{timeStamp}
     defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:rejectOrgMessage }
 
+athwela_administrator_readMessage:
+    path:     /readMessage/{timeStamp}{name}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:rejectOrgMessage }
+
 
 
 #---------------------------------------------------------------------------------------------------#
+
+#-------------------------------------admin routing---------------------------------------------------#
+athwela_administrator_admin:
+    path:     /adminADD/{flag}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:adminReg }
+    
+athwela_administrator_adminDash:
+    path:     /adminDash
+    defaults: { _controller: AthwelaAdministratorBundle:Approvals:adminDash }
+    
+athwela_administrator_adminSet:
+    path:     /adminSettings
+    defaults: { _controller: AthwelaAdministratorBundle:AdminSettings:index }  
+
+athwela_administrator_confirm:
+    path:     /registerConfirm/{token}
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:confirm }  
+
+athwela_administrator_confirmed:
+    path:     /registerConfirmed
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:confirmed }  
+
+athwela_administrator_checkEmail:
+    path:     /registerCheckEmail
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:checkEmail }  
+
+athwela_administrator_register:
+    path:     /register
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:register }  
+
+#----------------------------------------------------------------------------------------#

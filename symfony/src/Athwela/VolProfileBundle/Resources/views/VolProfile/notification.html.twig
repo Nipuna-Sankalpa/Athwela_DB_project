@@ -1,0 +1,70 @@
+{%extends "::base.html.twig"%}
+{%block items%}
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#">Services</a>
+        </li>
+        <li>
+            <a href="{{path('vol_profile_show')}}">Profile</a>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Profile Settings</a></li>
+                <li><a href="#">Change Password</a></li>
+                <li><a href="{{path('athwela_timeline_volunteer')}}">Timeline</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+{%endblock items%}
+
+{% block container -%}
+    <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;">
+        <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+            {%if notification[1] != 0%}
+                <b>You have <label style="color: red">{{notification[1]}}</label> unread notification(s)!</b>
+            {%endif%}
+            {%if notification[1] == 0%}
+                <b>You have no unread notification!</b>
+            {%endif%}
+        </div>
+        <hr>
+        <div style="background-color: whitesmoke" class="img-responsive img-thumbnail">
+            {%for i in 0..(projects|length-1)%}
+                <div class="img-responsive img-thumbnail" style="margin-bottom: 10px; width: 100%">
+                    Congradulations! You have been volunteered by <label style="color: green">{{projects[i][1].name}}, {{projects[i][1].street}}, {{projects[i][1].city}}, {{projects[i][1].country}}</label> for it's project
+                    titled as <label style="color: green">{{projects[i][0].title}}</label>.
+                    <input type="submit" value="More>>" class="btn btn-info" style="margin-bottom: 5px; margin-right: 50px"/>
+                </div>
+            {%endfor%}
+        </div>
+        <hr>
+    </div>
+    <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;">
+        <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+            {%if notification[0] != 0%}
+                <b>You have <label style="color: red">{{notification[0]}}</label> unread message(s)!</b>
+            {%endif%}
+            {%if notification[0] == 0%}
+                <b>You have no unread messages!</b>
+            {%endif%}
+        </div>
+        <hr>
+        <div style="background-color: whitesmoke" class="img-responsive img-thumbnail">
+            {%for i in 0..(messages|length-1)%}
+                <div class="img-responsive img-thumbnail" style="margin-bottom: 10px; width: 100%">
+                    From: Your Admin
+                    At: {{messages[i][2]}}
+                    Your admin says: {{messages[i][1]}}
+                    <input type="submit" value="Reply" class="btn btn-info" style="margin-bottom: 5px; margin-right: 50px"/>
+                </div>
+            {%endfor%}
+        </div>
+        <hr>
+    </div>
+{%endblock%}

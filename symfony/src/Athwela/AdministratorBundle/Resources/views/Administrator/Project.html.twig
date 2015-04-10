@@ -32,8 +32,8 @@
                                             </div>
                                             <div class="text-right col-xs-7 col-xs-offset-1">
                                                 <div class="btn-group btn-group-xs">
-                                                    <a href="{{path('athwela_administrator_projectApprove',{'id':project.id})}}"><button class="btn-info" data-toggle="tooltip" data-placement="bottom" title="Approve"><span class="glyphicon glyphicon-ok"></span></button></a>
-                                                    <a href="{{path('athwela_administrator_projectReject',{'id':project.id})}}"><button class="btn-info" data-toggle="tooltip" data-placement="bottom" title="Reject"><span class="glyphicon glyphicon-remove"></span></button></a>
+                                                    <a href="{{path('athwela_administrator_projectApprove',{'id':project.id})}}"><span class="glyphicon glyphicon-ok " data-toggle="tooltip" data-placement="bottom" title="Approve"></span></a>
+                                                    <a style="margin-left: 1em;" href="{{path('athwela_administrator_projectReject',{'id':project.id})}}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject"></span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
                 {% endif %}
             </div>
 
-<br >
+            <br >
             <div class="row">
                 {%if searchProjects%}
                     <div class="panel panel-default">

@@ -16,10 +16,8 @@ namespace Athwela\VolProfileBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Athwela\EntityBundle\Entity\Volunteer;
-use Athwela\EntityBundle\Entity\Admin;
 use Athwela\DA\CRUD\Read;
 use Athwela\DA\CustomQuery\CustomQuery;
-use Athwela\DA\DBConnection;
 use Symfony\Component\HttpFoundation\Request;
 
 class VolProfileController extends ContainerAware {
@@ -35,15 +33,18 @@ class VolProfileController extends ContainerAware {
         } else {
             $email = $user->getEmail();
         }
-        
-        $conn = DBConnection::getInstance()->getConnection();
-        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
-        $entitymobile = Read::getInstance()->readMul($conn, 'v_ID', $entity->getId(), 'volunteer_mobile');
-        $edu = $this->getEdu($conn, $entity);
-        $skill = $this->getSkills($conn, $entity);
-        $interest = $this->getInterestedAreas($conn, $entity);
-        $admin = $this->getAdmin($conn, $entity);
-        DBConnection::getInstance()->closeConnection($conn);
+
+
+        $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
+        if (!$entity) {
+            $form = $this->container->get('fos_user.change_password.form');
+            return $this->container->get('templating')->renderResponse('AthwelaProfileSettingsUserBundle:Settings:SettingsVolunteer.html.' . $this->container->getParameter('fos_user.template.engine'), ['form' => $form->createView(), 'id' => $user->getId(), 'entity' => $entity]);
+        }
+        $entitymobile = Read::getInstance()->readMul('v_ID', $entity->getId(), 'volunteer_mobile');
+        $edu = $this->getEdu($entity);
+        $skill = $this->getSkills($entity);
+        $interest = $this->getInterestedAreas($entity);
+        $notification = $this->getNotificationCount($entity);
 
         return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:show.html.twig', array(
                     'entity' => $entity,
@@ -51,12 +52,13 @@ class VolProfileController extends ContainerAware {
                     'edu' => $edu,
                     'skills' => $skill,
                     'interests' => $interest,
-                    'admin' => $admin
+                    'notification' => $notification
         ));
     }
 
-    public function getSkills($conn, $entity) {
+    public function getSkills($entity) {
         $j = 0;
+        $temp = null;
         $skills = CustomQuery::getInstance()->customQuery('Select s.name, s.description from skill as s, volunteer_skill as vs where s.ID = vs.s_ID and vs.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($skills)) {
             for ($index = 0; $index < count($row); $index++) {
@@ -66,8 +68,9 @@ class VolProfileController extends ContainerAware {
         return $temp;
     }
 
-    public function getEdu($conn, $entity) {
+    public function getEdu($entity) {
         $i = 0;
+        $temp = null;
         $entityedu = CustomQuery::getInstance()->customQuery('Select i.name, vi.degree, vi.start_date, vi.end_date, i.city, i.country from institute as i, volunteer_education as vi where i.ID = vi.i_ID and vi.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($entityedu)) {
             for ($index = 0; $index < count($row); $index++) {
@@ -77,8 +80,9 @@ class VolProfileController extends ContainerAware {
         return $temp;
     }
 
-    public function getInterestedAreas($conn, $entity) {
+    public function getInterestedAreas($entity) {
         $i = 0;
+        $temp = null;
         $intareas = CustomQuery::getInstance()->customQuery('select t.name, t.description from type as t, volunteer_interested_area as via where t.ID = via.t_ID and via.v_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($intareas)) {
             for ($index = 0; $index < count($row); $index++) {
@@ -88,15 +92,35 @@ class VolProfileController extends ContainerAware {
         return $temp;
     }
 
-    public function getAdmin($conn, $entity) {
-        $admin = CustomQuery::getInstance()->customQuery('SELECT a.first_name, a.last_name, a.email FROM `admin` as a, volunteer as v where a.ID = v.a_ID and v.ID = ' . $entity->getId());
-        $temp = new Admin();
-        while ($row = mysqli_fetch_row($admin)) {
-            $temp->setFirstName($row[0]);
-            $temp->setLastName($row[1]);
-            $temp->setEmail($row[2]);
+    public function getNotificationCount($entity) {
+        $temp[] = 0;
+        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(distinct date) FROM vol_admin_msg where msgStatus = "notRead" and ID = ' . $entity->getId());
+        while ($row = mysqli_fetch_row($notification1)) {
+            $temp[0] = $row[0];
+        }
+        $notification2 = CustomQuery::getInstance()->customQuery('SELECT count(distinct vp.accepted_at) FROM fos_user, volunteer, volunteer_project as vp where vp.v_ID = ' . $entity->getId() . ' and volunteer.email = fos_user.email and volunteer.ID = ' . $entity->getId() . ' and last_login < vp.accepted_at ');
+        while ($row = mysqli_fetch_row($notification2)) {
+            $temp[1] = $row[0];
         }
         return $temp;
     }
 
+//    public function deleteAction(Request $request, $id) {
+//        $this->createDeleteForm($request);
+//        
+//        return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:delete.html.twig');
+//    }
+//    
+//    public function createDeleteForm(Request $request){
+//        $user = $this->container->get('security.context')->getToken()->getUser();
+//        if ($request->getMethod() === 'GET' && $request->get('email') != NULL) {
+//            $email = $request->get('email');
+//        } else {
+//            $email = $user->getEmail();
+//        }
+//        $conn = DBConnection::getInstance()->getConnection();
+//        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
+//        return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:delete.html.twig', array(
+//                    'entity' => $entity,));
+//    }
 }

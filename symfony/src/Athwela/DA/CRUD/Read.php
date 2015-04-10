@@ -7,7 +7,7 @@
  */
 
 namespace Athwela\DA\CRUD;
-
+use Athwela\DA\DBConnection;
 /**
  * Description of Read
  *
@@ -29,8 +29,9 @@ class Read {
 
     // pass connection variable ,instance of the entity which required,table name,index col,index col val
     //index used to impose conditions
-    public function read($conn, $entity, $table, $index, $value) {
+    public function read($entity, $table, $index, $value) {
         $query = "SELECT * FROM $table WHERE $index " . "=" . "'" . "$value" . "'";
+        $conn = DBConnection::getInstance()->getConnection();
         $object = null;
         $result = $conn->query($query);
 
@@ -38,6 +39,7 @@ class Read {
             while ($row = mysqli_fetch_row($result)) {
                 $object = $this->entityAssign($row, get_class($entity), $entity);
             }
+            DBConnection::getInstance()->closeConnection($conn);
             return $object;
         } else {
             die($conn->error);
@@ -82,18 +84,20 @@ class Read {
         if ($temp[sizeof($temp) - 1] == 'Project') {
 
             $project = $entity;
-            $project->setId($row[0]);
-            $project->setA_ID($row[2]);
-            $project->setT_ID($row[3]);
-            $project->setO_ID($row[4]);
-            $project->setTitle($row[5]);
-            $project->setDescription($row[6]);
-            $project->setStatus($row[7]);
-            $project->setStartDatert($row[8]);
-            $project->setEndDate($row[9]);
-            $project->setVolunteersNeeded($row[10]);
-            $project->setNoOfFilledPositions($row[11]);
-            $project->setPostedDate($row[12]);
+
+            $project->setID($row[0]);
+            $project->setA_ID($row[1]);
+            $project->setT_ID($row[2]);
+            $project->setO_ID($row[3]);
+            $project->setTitle($row[4]);
+            $project->setDescription($row[5]);
+            $project->setStatus($row[6]);
+            $project->setStartDate($row[7]);
+            $project->setEndDate($row[8]);
+            $project->setVolunteersNeeded($row[9]);
+            $project->setNoOfFilledPositions($row[10]);
+            $project->setPostedDate($row[11]);
+
 
             return $project;
         }
@@ -138,17 +142,19 @@ class Read {
 
 //  read multi values pass connection variable, ID column name, ID value, table name 
 
-    public function readMul($conn, $indexCol, $indexVal, $table) {
-
+    public function readMul($indexCol, $indexVal, $table) {
         $query = "SELECT * FROM $table WHERE $indexCol" . "=" . "'" . $indexVal . "';";
+        $conn = DBConnection::getInstance()->getConnection();
         $result = $conn->query($query);
         $mulVal=NULL;
         $i = 0;
+        $mulVal = null;
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {
                 $mulVal[$i] = $row[1];
                 $i++;
             }
+            DBConnection::getInstance()->closeConnection($conn);
             return $mulVal;
         } else {
             die($conn->error);
