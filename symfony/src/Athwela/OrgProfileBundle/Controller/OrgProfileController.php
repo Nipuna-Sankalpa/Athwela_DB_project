@@ -9,38 +9,40 @@
 namespace Athwela\OrgProfileBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Athwela\EntityBundle\Entity\Volunteer;
-use Athwela\EntityBundle\Entity\Project;
 use Athwela\EntityBundle\Entity\Organization;
-use Athwela\EntityBundle\Entity\Admin;
 use Athwela\DA\CRUD\Read;
-use Athwela\DA\CRUD\Create;
 use Athwela\DA\CustomQuery\CustomQuery;
 use Symfony\Component\HttpFoundation\Request;
 
-class OrgProfileController extends ContainerAware {
-
-    public function showAction($id) {
-
-
-        $entity = Read::getInstance()->read(new Organization(), 'organization', 'ID', $id);
-        $fax = Read::getInstance()->readMul($id, '1', 'organization_fax');
-        $email = Read::getInstance()->readMul($id, '1', 'organization_email');
-        $mobile = Read::getInstance()->readMul($id, '1', 'organization_mobile');
-
+class OrgProfileController extends ContainerAware
+{
+    public function showAction(Request $request)
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if ($request->getMethod() === 'GET' && $request->get('email') != NULL) {
+            $email = $request->get('email');
+        } else {
+            $email = $user->getEmail();
+        } 
+        
+        $entity = Read::getInstance()->read(new Organization(), 'organization', 'email', $email);
+        $fax = Read::getInstance()->readMul($entity->getId(), $entity->getId(), 'organization_fax');   
+        $notific = $this->getNotificationCount($entity);
+        $mobile = Read::getInstance()->readMul($entity->getId(), $entity->getId(), 'organization_mobile');   
         return $this->container->get('templating')->renderResponse('OrgProfileBundle:OrgProfile:show.html.twig', array(
                     'entity' => $entity,
+                    'amount' => $notific,
                     'fax' => $fax,
-                    'email' => $email,
-                    'mobile' => $mobile,
+                    'mobile' => $mobile
         ));
+    } 
+    
+    public function getNotificationCount($entity) {
+        $temp = 0;
+        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_org_messages where msgStatus = "notRead" and o_ID = ' . $entity->getId());
+        while ($row = mysqli_fetch_row($notification1)) {
+            $temp = $row[0];
+        }
+        return $temp;
     }
-
-    public function notificationAction($id) {
-        $entity = Read::getInstance()->read(new Organization(), 'organization', 'ID', $id);
-        return $this->container->get('templating')->renderResponse('OrgProfileBundle:OrgProfile:notification.html.twig', array(
-                    'entity' => $entity,
-        ));
-    }
-
 }
