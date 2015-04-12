@@ -30,11 +30,11 @@ class Delete {
     }
 
 //    pass conn along with table name,name of the column being indexed and value of that particular row(being indexed)
-    
-    public function deleteRow($conn, $table, $index, $value) {
+
+    public function deleteRow($table, $index, $value) {
 
         $query = "DELETE FROM $table WHERE $index = " . "'" . "$value" . "'";
-
+        $conn = DBConnection::getInstance()->getConnection();
         if ($conn->query($query) === TRUE) {
             return true;
         } else {

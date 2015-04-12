@@ -32,8 +32,9 @@ class Update {
     //ex:- update($conn,table name,condition affected column,value of the index,array(fields whic are about to update),array( update values))
 //values and fields which are about to update shuold lie on same sequence 
     
-    public function update($conn, $table, $index, $value, $updatedFields, $updatedValues) {
+    public function update($table, $index, $value, $updatedFields, $updatedValues) {
         $column = null;
+        $conn = DBConnection::getInstance()->getConnection();
         for ($i = 0; $i < sizeof($updatedFields) - 1; $i++) {
             $column.=$updatedFields[$i] . "=" . "'" . $updatedValues[$i] . "',";
         }

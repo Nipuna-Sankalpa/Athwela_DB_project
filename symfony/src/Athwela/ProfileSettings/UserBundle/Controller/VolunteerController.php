@@ -84,7 +84,7 @@ class VolunteerController extends Controller {
     
     private function createVolunteerEditForm($email){        
         $conn = DBConnection::getInstance()->getConnection();
-        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
+        $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
         return $entity;
     }
 

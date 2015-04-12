@@ -122,4 +122,8 @@ athwela_administrator_register:
     path:     /register
     defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:register }  
 
+athwela_administrator_regMore:
+    path:     /register123
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:sendDatabase }  
+
 #----------------------------------------------------------------------------------------#
