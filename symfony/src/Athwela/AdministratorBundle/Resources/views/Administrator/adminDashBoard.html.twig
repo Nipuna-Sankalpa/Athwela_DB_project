@@ -1,6 +1,8 @@
 {% extends 'AthwelaAdministratorBundle:Default:index.html.twig'%}
 {%block customCss%}
     <link href="{{asset('css/dashBoard.css')}}" rel="stylesheet">
+    <link href="{{asset('css/lightbox.css')}}" rel="stylesheet" />
+    
 {%endblock customCss%}
 
 {%block titleAdmin%}<a class="navbar-brand" href="#">Administrator Panel</a>{%endblock titleAdmin%}
@@ -97,7 +99,7 @@
                     <h3 class="page-header">Profile</h3>
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail">
+                            <a href="{{asset('img/blankProPic.jpg')}}" data-lightbox="proPic" data-title="My profile picture"><img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail"></a>
                         </div>
                         <div class="col-md-4">
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -291,4 +293,6 @@
         <!-- /.container-fluid -->
     </div>
 {% endblock content%}
-{% block script%}{%endblock script%}
+{% block script%}
+<script src="{{asset('js/lightbox.min.js')}}"></script>
+{%endblock script%}

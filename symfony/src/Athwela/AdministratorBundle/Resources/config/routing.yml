@@ -89,6 +89,14 @@ athwela_administrator_readMessage:
     path:     /readMessage/{timeStamp}{name}
     defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:rejectOrgMessage }
 
+athwela_administrator_sendVolMessage:
+    path:     /sendVolMessage/
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:sendVolMsg }
+
+athwela_administrator_sendOrgMessage:
+    path:     /sendOrgMessage/
+    defaults: { _controller: AthwelaAdministratorBundle:ApprovalMessage:sendOrgMsg }
+
 
 
 #---------------------------------------------------------------------------------------------------#

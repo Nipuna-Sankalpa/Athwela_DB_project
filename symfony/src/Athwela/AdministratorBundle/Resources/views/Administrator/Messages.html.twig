@@ -124,18 +124,65 @@
                                             </div>
 
                                         </div>
-                                        <div>
-                                            <div class="col-md-2"> 
-                                                <button type="submit" class="btn btn-info">Search</button>
-                                            </div>
+                                        <div class="row">
                                             <div class="col-md-10">
                                                 <p class="text-justify"><span class="fa fa-asterisk "style="color: red"></span> Here you can search your previous messages under certain categories.if you wish to enter 
                                                     data into first date then you should fill the second date as well and vice versa.Because system expected to search messages using time period.
                                                     otherwise you can leave both dates.
                                                 </p>
                                             </div>
+                                            <div class="col-md-2"> 
+                                                <button type="submit" class="btn btn-info pull-right">Search</button>
+                                            </div>
+
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <i class="fa fa-comments"></i> Send
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <div class="form-group">
+
+                                    <div class="col-sm-6">
+                                        <h3>Send Volunteers</h3>
+                                        <form id="msgVol" action="{{path('athwela_administrator_sendVolMessage')}}" method="POST">
+
+                                            <input type="text" name="emailVol" id="msgRecieverVol" class="form-control" placeholder="Enter Recipient's Email"><br />
+                                            <input type="text" name="subjectVol" id="msgsubjectVol" class="form-control" placeholder="Enter Subject"><br />
+
+                                            <textarea name="messageVol" class="form-control" type="text" id="msgRecieverVol" placeholder="Enter message"></textarea>
+                                            <br />
+                                            <button class="btn btn-info pull-right" type="submit"> Send</button>
+
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <h3>Send Organization</h3>
+                                            <form id="msgOrg" action="{{path('athwela_administrator_sendOrgMessage')}}" method="POST">
+
+                                                <input type="text" name="emailOrg" id="msgRecieverOrg" class="form-control" placeholder="Enter Recipient's Email"><br />
+                                                <input type="text" name="subjectOrg" id="msgSubjectOrg" class="form-control" placeholder="Enter Subject"><br />
+
+                                                <textarea name="messageOrg" class="form-control" type="text" id="msgRecieverOrg" placeholder="Enter Message"></textarea>
+                                                <br />
+                                                <button class="btn btn-info pull-right" type="submit"> Send</button>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -258,7 +305,7 @@
                                 </p>
                             </div>
                         </div>
-
+    
                     {% endif %} #}
 
                 </div>
@@ -274,3 +321,6 @@
 
 
 {%endblock content%}
+{% block script%}
+
+{%endblock script%}

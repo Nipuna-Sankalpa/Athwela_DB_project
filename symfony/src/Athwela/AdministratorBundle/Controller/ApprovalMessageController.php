@@ -223,8 +223,8 @@ class ApprovalMessageController extends ContainerAware {
     }
 
     public function approveVolMessageAction($timeStamp) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Update::getInstance()->update($conn, 'vol_admin_msg', 'date', $timeStamp, array('msgStatus'), array('read'));
+
+        $temp = Update::getInstance()->update('vol_admin_msg', 'date', $timeStamp, array('msgStatus'), array('read'));
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_message');
             return new RedirectResponse($url);
@@ -234,8 +234,8 @@ class ApprovalMessageController extends ContainerAware {
     }
 
     public function rejectVolMessageAction($timeStamp) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Delete::getInstance()->deleteRow($conn, 'vol_admin_msg', 'date', $timeStamp);
+
+        $temp = Delete::getInstance()->deleteRow('vol_admin_msg', 'date', $timeStamp);
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_message');
             return new RedirectResponse($url);
@@ -245,8 +245,8 @@ class ApprovalMessageController extends ContainerAware {
     }
 
     public function rejectOrgMessageAction($timeStamp) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Delete::getInstance()->deleteRow($conn, 'org_admin_msg', 'date', $timeStamp);
+
+        $temp = Delete::getInstance()->deleteRow('org_admin_msg', 'date', $timeStamp);
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_message');
             return new RedirectResponse($url);
@@ -254,21 +254,90 @@ class ApprovalMessageController extends ContainerAware {
             die('Task Incompleted');
         }
     }
-    
-    public function readAction($name,$timesStamp){
-        $query="SELECT date,msg from("
+
+    public function readAction($name, $timesStamp) {
+        $query = "SELECT date,msg from("
                 . "selec"
                 . ")";
-        
     }
 
-
-        private function dateConvert($date) {
+    private function dateConvert($date) {
 
         $dateTime = new \DateTime($date);
         $formatted_date = date_format($dateTime, 'Y-m-d');
 
         return $formatted_date;
+    }
+
+    public function sendOrgMsgAction(Request $request) {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if ($request->getMethod('POST')) {
+            $o_ID = $request->get('emailOrg');
+            $query = "SELECT ID FROM organization  WHERE email='" . $o_ID . "'";
+            $result = CustomQuery::getInstance()->customQuery($query);
+
+            if ($result) {
+                while ($row = mysqli_fetch_row($result)) {
+                    $o_ID = $row[0];
+                }
+            }
+
+            $a_ID = $user->getEmail();
+
+            $query = "SELECT ID FROM admin  WHERE email='" . $a_ID . "'";
+            $result1 = CustomQuery::getInstance()->customQuery($query);
+
+            if ($result1) {
+                while ($row = mysqli_fetch_row($result1)) {
+                    $a_ID = $row[0];
+                }
+            }
+
+            $subject = $request->get('subjectOrg');
+            $message = $request->get('messageOrg');
+
+            $query = "INSERT INTO admin_org_messages (o_ID,a_ID,message,subject) VALUES ('$o_ID', '$a_ID','$message', '$subject')";
+            CustomQuery::getInstance()->customQuery($query);
+        } else {
+            die('ERROR');
+        }
+        return new RedirectResponse($this->container->get('router')->generate('athwela_administrator_message'));
+    }
+
+    public function sendVolMsgAction(Request $request) {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if ($request->getMethod('POST')) {
+            $v_ID = $request->get('emailVol');
+            $query = "SELECT ID FROM volunteer  WHERE email='" . $v_ID . "'";
+            $result = CustomQuery::getInstance()->customQuery($query);
+
+            if ($result) {
+                while ($row = mysqli_fetch_row($result)) {
+                    $v_ID = $row[0];
+                }
+            }
+
+            $a_ID = $user->getEmail();
+
+            $query = "SELECT ID FROM admin  WHERE email='" . $a_ID . "'";
+            $result1 = CustomQuery::getInstance()->customQuery($query);
+
+            if ($result1) {
+                while ($row = mysqli_fetch_row($result1)) {
+                    $a_ID = $row[0];
+                }
+            }
+
+
+            $subject = $request->get('subjectVol');
+            $message = $request->get('messageVol');
+
+            $query = "INSERT INTO admin_vol_messages (v_ID,a_ID,message,subject) VALUES ('$v_ID', '$a_ID','$message', '$subject')";
+            CustomQuery::getInstance()->customQuery($query);
+        } else {
+            die('ERROR');
+        }
+        return new RedirectResponse($this->container->get('router')->generate('athwela_administrator_message'));
     }
 
 }
