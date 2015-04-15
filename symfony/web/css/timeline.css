@@ -41,6 +41,15 @@ p.pull-right {
     padding-left: 20px;
 }
 
+.timeline-footer > p {
+    display: inline;
+    color: #5D9CEC;
+}
+
+.timeline-body > p {
+    text-align: justify;
+}
+
 /*///////////////////////////////////////////////////////////*/
 
 .timeline {

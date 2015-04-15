@@ -17,28 +17,10 @@
         <ul class="timeline">
             {% if loop.index0 is even %}
             <li>
-                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
-
-                    </div>
-                    <div class="timeline-body">
-                        <h4>{{ project.title }}</h4>
-                        <p>{{ project.description }}</p>
-
-                    </div>
-
-                    <div class="timeline-footer">
-                        <a><i class="glyphicon glyphicon-thumbs-up"></i></a>
-                        <a><i class="glyphicon glyphicon-share"></i></a>
-                        <a class="pull-right">Continuar Lendo</a>
-                    </div>
-                </div>
-            </li>
             {% else %}
-            <li  class="timeline-inverted">
-                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+            <li class="timeline-inverted">
+            {% endif %}
+                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{ project.posted_date }}" id=""></i></a></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
@@ -46,20 +28,18 @@
                     </div>
                     <div class="timeline-body">
                         <h4>{{ project.title }}</h4>
-                        <p>{{ project.description }}</p>
+                        <p>{{ project.description|length > 250 ? project.description|slice(0, 250) ~ '...' : project.description }}</p>
 
                     </div>
 
                     <div class="timeline-footer">
-                        <a><i class="glyphicon glyphicon-thumbs-up"></i></a>
+                        <p><i class="glyphicon glyphicon-calendar"></i>Start:{{ project.start_date }}</p>
                         <a><i class="glyphicon glyphicon-share"></i></a>
-                        <a class="pull-right">Continuar Lendo</a>
+                        <a class="pull-right">View more</a>
                     </div>
                 </div>
             </li>
-            {% endif %}
         </ul>
-
         {% endfor %}
     </div>
 
