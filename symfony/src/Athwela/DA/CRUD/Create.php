@@ -51,6 +51,21 @@ class Create {
                 return false;
             }
         }
-    }    
+        
+    }  
+    
+    public function insertMul($table,$index,$value) {
+
+            $conn = DBConnection::getInstance()->getConnection();
+            $query = "INSERT INTO $table VALUES ('" . $index . "' , '".$value."' )" ;
+            if ($conn->query($query) === TRUE) {
+                DBConnection::getInstance()->closeConnection($conn);
+                return true;
+            } else {
+                echo "Error: " . $query . "<br>" . $conn->error;
+                DBConnection::getInstance()->closeConnection($conn);
+                return false;
+            }
+        }
 
 }

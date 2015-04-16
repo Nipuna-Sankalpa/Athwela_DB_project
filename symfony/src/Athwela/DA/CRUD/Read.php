@@ -34,7 +34,6 @@ class Read {
         $conn = DBConnection::getInstance()->getConnection();
         $object = null;
         $result = $conn->query($query);
-
         if ($result) {
             while ($row = mysqli_fetch_row($result)) {
                 $object = $this->entityAssign($row, get_class($entity), $entity);
@@ -45,6 +44,77 @@ class Read {
             die($conn->error);
         }
     }
+    
+    public function readSpecific($column, $table, $index, $value) {
+        $query = "SELECT " . $column .  " FROM $table WHERE $index " . "=" . "'" . "$value" . "'";
+        $conn = DBConnection::getInstance()->getConnection();
+        $result = $conn->query($query);
+        DBConnection::getInstance()->closeConnection($conn);
+        
+        if($result)
+        {
+            $row = mysqli_fetch_row($result);
+            
+            return $row[0];
+        }else {
+            die($conn->error);
+        }
+    }
+    
+    public function readSkills($v_ID) {
+        $query = "SELECT name FROM skill NATURAL JOIN volunteer_skill WHERE skill.ID = volunteer_skill.s_ID AND volunteer_skill.v_ID = " . $v_ID ;
+        $conn = DBConnection::getInstance()->getConnection();
+        $result = $conn->query($query);
+        $mulVal=NULL;
+        $i = 0;
+        if ($result) {
+            while ($row = mysqli_fetch_row($result)) {
+                $mulVal[$i] = $row[0];
+                $i++;
+            }
+            DBConnection::getInstance()->closeConnection($conn);
+            return $mulVal;
+        } else {
+            die($conn->error);
+        }
+    }
+    
+    public function readAllSkills() {
+        $query = "SELECT name FROM skill";
+        $conn = DBConnection::getInstance()->getConnection();
+        $result = $conn->query($query);
+        $mulVal=NULL;
+        $i = 0;
+        if ($result) {
+            while ($row = mysqli_fetch_row($result)) {
+                $mulVal[$i] = $row[0];
+                $i++;
+            }
+            DBConnection::getInstance()->closeConnection($conn);
+            return $mulVal;
+        } else {
+            die($conn->error);
+        }
+    }
+    
+    public function readSpecificMul($col,$index, $Value, $table) {
+        $query = "SELECT $col FROM $table WHERE $index" . "=" . "'" . $Value . "';";
+        $conn = DBConnection::getInstance()->getConnection();
+        $result = $conn->query($query);
+        $mulVal=NULL;
+        $i = 0;
+        if ($result) {
+            while ($row = mysqli_fetch_row($result)) {
+                $mulVal[$i] = $row[1];
+                $i++;
+            }
+            DBConnection::getInstance()->closeConnection($conn);
+            return $mulVal;
+        } else {
+            die($conn->error);
+        }
+    }
+
 
     private function entityAssign($row, $class, $entity) {
         $temp = explode("\\", $class);

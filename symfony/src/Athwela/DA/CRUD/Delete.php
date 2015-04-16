@@ -33,8 +33,7 @@ class Delete {
     
     public function deleteRow($conn, $table, $index, $value) {
 
-        $query = "DELETE FROM $table WHERE $index = " . "'" . "$value" . "'";
-
+        $query = "DELETE FROM $table WHERE $index = " . "'" . " $value " . "'";
         if ($conn->query($query) === TRUE) {
             return true;
         } else {
