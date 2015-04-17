@@ -62,13 +62,13 @@ class Update {
    
     }
     
-    public function updateMobile($phoneNu,$id) { 
+    public function updateMobile($table,$phoneNu,$column,$id) { 
         $conn = DBConnection::getInstance()->getConnection();
-        Delete::getInstance()->deleteRow($conn,'volunteer_mobile','v_ID', $id);
+        Delete::getInstance()->deleteRow($conn,$table,$column, $id);
         DBConnection::getInstance()->closeConnection($conn);
         for ($i = 0; $i < sizeof($phoneNu)-1; $i++) {
             
-            Create::getInstance()->insertMul('volunteer_mobile',$id,$phoneNu[$i] );
+            Create::getInstance()->insertMul($table,$id,$phoneNu[$i]);
         }
    
     }
