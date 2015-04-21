@@ -24,7 +24,7 @@
 
     <div class="row" id="header">
         <div class="page-header">
-            <h1>Project Name</h1>
+            <h2>Project Name</h2>
         </div>
     </div>
 
@@ -120,7 +120,7 @@
                 <li><h4 class="listHead">Description</h4></li>
                 <div class="listItems text-justify">Project Description</div>
             </div>
-            <h4 class="columnFooter" style="padding: 0.3em;"><a>View more <span class="glyphicon glyphicon-play-circle"></span></a></h4>
+            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectDetail">View more <span class="glyphicon glyphicon-play-circle"></span></a></h4>
         </div>
         <div class="col-sm-4" id="com2">
             <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Status</h3>
@@ -136,7 +136,7 @@
                 <li><h4 class="listHead">Status</h4></li>
                 <div class="listItems text-justify">Project currently continuining</div>
             </div>
-            <h4 class="columnFooter" style="padding: 0.3em;"><a>View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
+            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectStatus">View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
 
         </div>
         <div class="col-sm-4" id="com3">
@@ -184,16 +184,59 @@
                 </div>
 
             </div>
-            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#">View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
+            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectGallery">View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
 
         </div>        
     </div>
-
+    <br />
     <div class="row" id="thirdRow">
-        <div id="projectDetail"></div>
-        <div id="projectStatus"></div>
-        <div id="projectGallery"></div>
+        <div id="projectDetail" class="row">
+            <h4 class="page-header">Project</h4>
+            <dl>
+                <dt>Title</dt>
+                <dd>- Project title</dd>
+                <dt>Type</dt>
+                <dd>- Project type</dd>
+                <dt>Hosted by</dt>
+                <dd>- Project hosted by company name</dd>
+                <dt>Description</dt>
+                <dd>- Project description</dd>
+            </dl>
+        </div>
+        <div id="projectStatus" class="row">
+            <h4 class="page-header">Status</h4>            
+            <div class="col-sm-4">
+                <dl>
+                    <dt>Date Posted</dt>
+                    <dd>- Project title</dd>
+                    <dt>Project End</dt>
+                    <dd>- Project type</dd>
+                    <dt>Vacancies</dt>
+                    <dd>- Duration</dd>
+                    <dt>Duration</dt>
+                    <dd>- Project description</dd>
+                    <dt>Status</dt>
+                    <dd>- Project description</dd>
+                </dl>  
+            </div>
+            <div class="col-sm-4">
+                <dl>
+                    <dt>Expected Skills</dt>
+                    <dd>- Project title</dd>
+                </dl>  
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div id="projectGallery" class="row">
+            <h4 class="page-header">Gallery</h4>
+            <div >
+                <div id="img1" class="col-sm-2">
+                    <a><img src="{{asset('img/test.jpg')}}" height="242" width="200" class="img-responsive img-rounded thumbnail" alt="img"></a>
+                </div>
+            </div>
+        </div>
     </div>
+
 
 
 {%endblock container%}

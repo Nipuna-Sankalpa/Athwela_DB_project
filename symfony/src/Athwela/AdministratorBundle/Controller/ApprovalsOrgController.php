@@ -15,7 +15,6 @@ namespace Athwela\AdministratorBundle\Controller;
  * 
  */
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Athwela\DA\DBConnection;
 use Athwela\DA\CRUD\Update;
 use Athwela\DA\CRUD\Delete;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -121,8 +120,8 @@ class ApprovalsOrgController extends ContainerAware {
     }
 
     public function approveOrgsAction($id) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Update::getInstance()->update($conn, 'Organization', 'ID', $id, array('status'), array('approved'));
+        
+        $temp = Update::getInstance()->update('Organization', 'ID', $id, array('status'), array('approved'));
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_organization');
             return new RedirectResponse($url);
@@ -132,8 +131,8 @@ class ApprovalsOrgController extends ContainerAware {
     }
 
     public function rejectOrgsAction($id) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Delete::getInstance()->deleteRow($conn, 'Organization', 'ID', $id);
+        
+        $temp = Delete::getInstance()->deleteRow('Organization', 'ID', $id);
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_organization');
             return new RedirectResponse($url);

@@ -30,7 +30,7 @@
                                             {% for newMsgVol in newMsgsVol %}
                                                 <div class="row">
                                                     <div class="col-sm-5">
-                                                        <li ><a data-toggle="collapse" href="#newmsgVol{{loop.index0}}" aria-expanded="false" aria-controls="newmsgVol{{loop.index0}}">{{newMsgVol.name}}</a></li>
+                                                        <li ><a data-toggle="modal" href="#" data-target="#newmsgVol{{loop.index0}}">{{newMsgVol.name}}</a></li>
                                                     </div >
                                                     <div class="col-sm-4">
                                                         <a href="#" ><i class="fa fa-calendar"></i> {{newMsgVol.timeStamp}}</a>
@@ -40,11 +40,27 @@
                                                         <a  style="margin-left: 1em;" href="{{path('athwela_administrator_rejectVolMessage',{'timeStamp':newMsgVol.fakeTS})}}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Delete"></span></a>
                                                     </div>
                                                 </div>
-                                                <div class="row collapse" id="newmsgVol{{loop.index0}}" style="margin-left: 0.3em;margin-top: 0.1em;margin-right:0.1em;">
-                                                    <div class="well">
-                                                        <p>{{newMsgVol.msg}}</p>
+                                                {#--------------------------------------------#}
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="newmsgVol{{loop.index0}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myModalLabel">From :{{newMsgVol.name}}</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{newMsgVol.msg}}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+
+                                                {#--------------------------------------------#}
                                             {% endfor %}
 
                                         {% else %}
@@ -59,7 +75,7 @@
                                             {% for newMsgOrg in newMsgsOrg %}
                                                 <div class="row">
                                                     <div class="col-sm-5">
-                                                        <li><a data-toggle="collapse" href="#newmsgOrg{{loop.index0}}" aria-expanded="false" aria-controls="newmsgOrg{{loop.index0}}" >{{newMsgOrg.name}}</a></li>
+                                                        <li><a data-toggle="collapse" href="#" data-target="#newmsgOrg{{loop.index0}}">{{newMsgOrg.name}}</a></li>
                                                     </div >
                                                     <div class="col-sm-4">
                                                         <a href="#" ><i class="fa fa-calendar"></i> {{newMsgOrg.timeStamp}}</a>
@@ -69,11 +85,26 @@
                                                         <a style="margin-left:1em;" href="{{path('athwela_administrator_rejectOrgMessage',{'timeStamp':newMsgOrg.fakeTS})}}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Delete"></span></a>
                                                     </div>
                                                 </div>
-                                                <div class="row collapse" id="newmsgOrg{{loop.index0}}" style="margin-left: 0.3em;margin-top: 0.1em;margin-right:0.1em;">
-                                                    <div class="well">
-                                                        <p>{{newMsgOrg.msg}}</p>
+
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="newmsgOrg{{loop.index0}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myModalLabel">From :{{newMsgOrg.name}}</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{newMsgOrg.msg}}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-info" data-dismiss="modal">Close</button>   
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+
+                                                {#--------------------------------------------#}
                                             {% endfor %}
 
                                         {% else %}
@@ -192,7 +223,6 @@
             </div>
             <div>
                 <a href="{{path('athwela_administrator_message',{'flag':TRUE})}}"><i class="fa fa-envelope fa-fw"></i> View all messages</a>
-
 
             </div>
             <br />

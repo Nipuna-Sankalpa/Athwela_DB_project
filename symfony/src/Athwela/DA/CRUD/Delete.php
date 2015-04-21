@@ -7,7 +7,7 @@
  */
 
 namespace Athwela\DA\CRUD;
-
+use Athwela\DA\DBConnection;
 /**
  * Description of Delete
  *

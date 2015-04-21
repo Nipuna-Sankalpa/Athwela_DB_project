@@ -9,17 +9,13 @@
 namespace Athwela\AdministratorBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Athwela\DA\DBConnection;
 use Athwela\DA\CRUD\Update;
 use Athwela\DA\CRUD\Delete;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Athwela\EntityBundle\Entity\orgAdminMsg;
-use Athwela\EntityBundle\Entity\volAdminMsg;
 use Athwela\AdministratorBundle\Entity\AdminOrgMsg;
 use Athwela\AdministratorBundle\Entity\AdminVolMsg;
 use Athwela\DA\CustomQuery\CustomQuery;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Description of ApprovalMessageController
@@ -212,8 +208,8 @@ class ApprovalMessageController extends ContainerAware {
     }
 
     public function approveOrgMessageAction($timeStamp) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Update::getInstance()->update($conn, 'org_admin_msg', 'date', $timeStamp, array('msgStatus'), array('read'));
+        
+        $temp = Update::getInstance()->update('org_admin_msg', 'date', $timeStamp, array('msgStatus'), array('read'));
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_message');
             return new RedirectResponse($url);
