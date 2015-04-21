@@ -7,7 +7,13 @@
  */
 
 namespace Athwela\DA\CRUD;
+
+
 use Athwela\DA\DBConnection;
+use Athwela\DA\CRUD\Read;
+use Athwela\DA\CRUD\Create;
+use Athwela\DA\CRUD\Delete;
+
 /**
  * Description of Update
  *
@@ -39,9 +45,41 @@ class Update {
             $column.=$updatedFields[$i] . "=" . "'" . $updatedValues[$i] . "',";
         }
         $column.=$updatedFields[sizeof($updatedFields) - 1] . "=" . "'" . $updatedValues[sizeof($updatedFields) - 1] . "'";
-
         $query = "UPDATE $table SET $column WHERE $index = " . "'" . "$value" . "'";
-        echo $query;
+        if ($conn->query($query) === TRUE) {
+            return true;
+        } else {
+            return $conn->error;
+        }
+    }
+    
+    public function updateSkills($skills,$id) { 
+        $conn = DBConnection::getInstance()->getConnection();
+        Delete::getInstance()->deleteRow($conn,'volunteer_skill','v_ID', $id);
+        DBConnection::getInstance()->closeConnection($conn);
+        
+        for ($i = 0; $i < sizeof($skills); $i++) {
+            $s_ID = Read::getInstance()->readSpecific('ID','skill','name', $skills[$i]);
+            Create::getInstance()->insertMul('volunteer_skill',$id,$s_ID );
+        }
+   
+    }
+    
+    public function updateMobile($table,$phoneNu,$column,$id) { 
+        $conn = DBConnection::getInstance()->getConnection();
+        Delete::getInstance()->deleteRow($conn,$table,$column, $id);
+        DBConnection::getInstance()->closeConnection($conn);
+        for ($i = 0; $i < sizeof($phoneNu)-1; $i++) {
+            
+            Create::getInstance()->insertMul($table,$id,$phoneNu[$i]);
+        }
+   
+    }
+    
+    
+    public function updateSpecific($table, $index, $value, $updatedField, $updatedValue) {
+        $conn = DBConnection::getInstance()->getConnection();
+        $query = "UPDATE $table SET $updatedField = '" . $updatedValue . "' WHERE $index = '" . $value . "'";
         if ($conn->query($query) === TRUE) {
             return true;
         } else {

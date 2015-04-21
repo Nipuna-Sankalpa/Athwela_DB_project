@@ -79,60 +79,100 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Organization Name:</label>
                             <div class="col-md-7">
-                                <input class="form-control" name="organization_name" type="text" placeholder="organization name">
+                                <input class="form-control" name="organization_name" type="text" placeholder="organization name" value="{{request['organization_name']}}">
                             </div>
                         </div>
                         {#-------------------- Description -----------------------#} 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Description:</label>
                             <div class="col-md-8">
-                                <textarea rows="6" cols="50" class="form-control" name="description" placeholder="description" type="text" ></textarea>
+                                <textarea rows="6" cols="50" class="form-control" name="description" placeholder="description" type="text">{{request['description']}}</textarea>
                             </div>
                         </div> 
 
                         {#-------------------- Phone Number -----------------------#} 
-
                         <div class="form-group">
-                                <label class="col-md-4 control-label">Phone Number:</label>
-                                <div class="col-md-5">
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                                <label class="col-md-12 control-label">Phone Number:</label> 
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-7" >
+                            
+                            {% for number in request['phoneNu'] %} 
+                                    {% if number != "" %}
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                              <input class="form-control" name="phoneNu[]" type="text" value="{{number}}">
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                            {% endfor %}
+                            
+                            <div class="form-group " >
+                                <div class="col-md-10">
                                   <input class="form-control" name="phoneNu[]" type="text" placeholder="phoneNu #1">
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-default addPhone" data-template="phoneNu">Add</button>
                                 </div>
-                            </div> 
+                            </div>
+                                                       
                             <div class="form-group hide" id="phoneNuTemplate">
-                                <div class="col-md-offset-4 col-md-5">
+                                <div class="col-md-10">
                                   <input class="form-control" name="phoneNu[]" type="text" >
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-default removeButton">Remove</button>
                                 </div>
-                            </div> 
+                            </div>
+                        </div>
+                        </div>
                         
                         
-                        {#-------------------- Fax Number -----------------------#} 
-
+                         {#-------------------- Fax Number -----------------------#} 
                         <div class="form-group">
-                                <label class="col-md-4 control-label">Fax Number:</label>
-                                <div class="col-md-5">
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                                <label class="col-md-12 control-label">Fax Number:</label> 
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-7" >
+                            
+                            {% for number in request['faxNu'] %} 
+                                    {% if number != "" %}
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                              <input class="form-control" name="faxNu[]" type="text" value="{{number}}">
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                            {% endfor %}
+                            
+                            <div class="form-group " >
+                                <div class="col-md-10">
                                   <input class="form-control" name="faxNu[]" type="text" placeholder="faxNu #1">
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-default addFax" data-template="faxNu">Add</button>
                                 </div>
-                            </div> 
+                            </div>
+                                                       
                             <div class="form-group hide" id="faxNuTemplate">
-                                <div class="col-md-offset-4 col-md-5">
+                                <div class="col-md-10">
                                   <input class="form-control" name="faxNu[]" type="text" >
                                 </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-default removeButton">Remove</button>
                                 </div>
                             </div>
+                        </div>
+                        </div>
  
                         
-                         {#-------------------- Address -----------------------#} 
+                        {#-------------------- Address -----------------------#} 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Address:</label>
                             <div class="col-md-8">
@@ -141,7 +181,7 @@
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Street:</label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="street" type="text" placeholder="street">
+                                <input class="form-control" name="street" type="text" placeholder="street" value="{{request['street']}}">
                                             </div>
                                         </div>
                                 
@@ -149,15 +189,15 @@
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">City:</label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="city" type="text" placeholder="city">
+                                    <input class="form-control" name="city" type="text" placeholder="city" value="{{request['city']}}">
                                             </div>
                                         </div>
                                 
                                         {#-------------------- Country -----------------------#} 
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Country:</label>
-                                            <div class="col-md-8">            
-        <div class="bfh-selectbox bfh-countries" data-name="country" data-country="US" data-flags="true" ></div>
+                                            <div class="col-md-8">
+                        <div class="bfh-selectbox bfh-countries" data-name="country" data-country="{{request['country']}}" data-flags="true"  ></div>
                                             </div>
                                         </div>
                                 
@@ -165,53 +205,6 @@
                             </div>
                         </div> 
                         
-                        {#-------------------- Expected Skills -----------------------#}
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Expected Skills:</label>
-                            <div class="col-md-8">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value=".Net" /> .Net
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="Java" /> Java
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="C" /> C/C++
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="PHP" /> PHP
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="Perl" /> Perl
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="Ruby" /> Ruby
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="Python" /> Python
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="Javascript" /> Javascript
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class=" col-md-8 col-md-offset-4 left">
                                 <button type ="submit" name = "contact" class="btn btn-default pull-right" >Update</button>
@@ -340,9 +333,6 @@
                     },
                     'phoneNu[]': {
                         validators: {
-                                notEmpty: {
-                                message: 'The phone number is required and cannot be empty'
-                                },
                                 digits: {
                                 message: 'The phone number can only consist of numbers'
                                 },
@@ -354,9 +344,6 @@
                         },
                     'faxNu[]': {
                         validators: {
-                                notEmpty: {
-                                message: 'The fax number is required and cannot be empty'
-                                },
                                 digits: {
                                 message: 'The fax number can only consist of numbers'
                                 },
