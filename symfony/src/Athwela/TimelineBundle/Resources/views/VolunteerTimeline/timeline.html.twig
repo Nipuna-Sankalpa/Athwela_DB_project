@@ -20,7 +20,7 @@
             {% else %}
             <li class="timeline-inverted">
             {% endif %}
-                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{ project.posted_date }}" id=""></i></a></div>
+                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{ project.posted_time }}" id=""></i></a></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
@@ -34,7 +34,7 @@
                     <div class="timeline-footer">
                         <p><i class="glyphicon glyphicon-calendar"></i>Start: {{ project.start_date }}</p>
                         <p><i class="glyphicon glyphicon-user"></i>Positions remaining: {{ project.volunteers_needed - project.no_of_filled_positions }}</p>
-                        <a class="pull-right">View more</a>
+                        <a class="pull-right" href="{{ path('show_project',{'ID':project.ID}) }}?ID={{ project.ID }}">View more</a>
                     </div>
                 </div>
             </li>
