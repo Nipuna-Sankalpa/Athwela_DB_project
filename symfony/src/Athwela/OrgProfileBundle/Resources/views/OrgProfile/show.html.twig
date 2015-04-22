@@ -92,7 +92,7 @@
                                     <dd>{{entity.street}}, {{entity.city}}, {{entity.country}}</dd><br/>   
                                     {%if mobile == null%}
                                         <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
-                                        <dd><i>No any mobile number to show</i></dd><br/>
+                                        <dd><i>Mobile number unavailable</i></dd><br/>
                                     {%endif%}
                                     {%if mobile != null%}
                                         {%for i in 0..((mobile|length)-1)%}
@@ -106,7 +106,7 @@
 
                                     {%if fax == null%}
                                         <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax :</dt>
-                                        <dd><i>No any fax number to show</i></dd><br/>
+                                        <dd><i>Fax number unavailable</i></dd><br/>
                                     {%endif%}
                                     {%if fax != null%}
                                         {%for i in 0..((fax|length)-1)%}                                        

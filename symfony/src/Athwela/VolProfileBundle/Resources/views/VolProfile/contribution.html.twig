@@ -32,7 +32,6 @@
             <hr>
             {%for i in 0..(contribution|length-1)%}
                 <div style="background-color: whitesmoke; width: 100%" class="img-responsive img-thumbnail">
-
                     <b>Project name: </b>{{contribution[i][0].title}} <br/>
                     <b>Description: </b>{{contribution[i][0].description}} <br/>
                     <b>Posted by: </b>{{contribution[i][2].name}}, {{contribution[i][2].street}}, {{contribution[i][2].city}}, {{contribution[i][2].country}} <br/>                    
@@ -44,7 +43,23 @@
         {%endif%}
         {%if contribution[0][0] == null%}  
             <div style="margin-top: 30px" class="img-responsive img-thumbnail">
-                <b>You have not contributed to any project. Surf our site to find suitable projects for you.</b>
+                {%if suggesstion[0] != null%}
+                    <b>You have not contributed to any project. Here are some suggestions for you.</b>
+                    {%for i in 0..(suggesstion|length-1)%}
+                        <div style="background-color: whitesmoke; width: 100%" class="img-responsive img-thumbnail">
+                            <b>Project name: </b>{{suggesstion[i].title}} <br/>
+                            <b>Description: </b>{{suggesstion[i].description}} <br/>
+                            <b>Posted on: </b>{{suggesstion[i].postedDate}} <br/>
+                            <b>Start date: </b>{{suggesstion[i].startDate}} <br/>
+                            <b>End date: </b>{{suggesstion[i].endDate}} <br/>
+                            <b>Number of remaining poistions: </b>{{suggesstion[i].volunteersNeeded - suggesstion[i].noOfFilledPositions}}
+                            <a class="btn btn-info" style="float: right">More>></a>                
+                        </div> 
+                        <hr/>
+                    {%endfor%}
+                {%else%}
+                    <b>You have not contributed to any project. Update your profile so that we could give you some suggesstions.</b>
+                {%endif%}
             </div>
         {%endif%}
     </div>

@@ -31,10 +31,12 @@ class VolProjectsController extends ContainerAware {
             $email = $user->getEmail();
         }        
         $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
-        $projects = $this->getProject($entity);        
+        $projects = $this->getProject($entity); 
+        $suggestions = $this->getSuggestions($entity);
         return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:ongoing.html.twig', array(
                     'entity' => $entity,
-                    'projects' => $projects
+                    'projects' => $projects,
+                    'suggesstion' => $suggestions
         ));
     }
     
@@ -75,9 +77,21 @@ class VolProjectsController extends ContainerAware {
         }        
         $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
         $contri = $this->getContribution($entity);
+        $suggestions = $this->getSuggestions($entity);
         return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:contribution.html.twig', array(
                     'entity' => $entity,
-                    'contribution' => $contri
+                    'contribution' => $contri,
+                    'suggesstion' => $suggestions
         ));
+    }
+    
+    public function getSuggestions($entity){
+        $i = 0; $temp[] = null;
+        $contribution = CustomQuery::getInstance()->customQuery('SELECT distinct(ps.p_ID) FROM project_skill ps, volunteer_skill vs where vs.s_ID = ps.s_ID and vs.v_ID = '.$entity->getId());
+        while ($row = mysqli_fetch_row($contribution)) {            
+            $temp[$i] = Read::getInstance()->read(new Project(), 'project', 'ID', $row[0]);        
+            $i++;
+        }
+        return $temp;
     }
 }
