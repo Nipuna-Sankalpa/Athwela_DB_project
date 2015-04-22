@@ -44,6 +44,11 @@ p.pull-right {
 .timeline-footer > p {
     display: inline;
     color: #5D9CEC;
+    padding-right: 15px;
+}
+
+.timeline-footer > p > i {
+    padding-right: 5px;
 }
 
 .timeline-body > p {
