@@ -16,9 +16,18 @@ use Athwela\TimelineBundle\Queries\TimelineQueryBuilder;
 class TimelineController extends Controller {
 
     public function indexAction(Request $request) {
-        return $this -> render('AthwelaTimelineBundle:VolunteerTimeline:timeline.html.twig', array(
-                        'projects' => $this -> getAvailableProjects()
-        ));
+
+        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ) {
+            return $this->render('AthwelaTimelineBundle:VolunteerTimeline:timeline.html.twig', array(
+                'projects' => $this->getAvailableProjects()
+            ));
+        }
+        else {
+            $router = $this->get('router');
+            $url = $router->generate('athwelalogin_user_homepage');
+
+            return $this->redirect($url);
+        }
     }
 
     private function getAvailableProjects() {
