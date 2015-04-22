@@ -11,4 +11,4 @@
 /bin/
 /composer.phar
 /.idea/
-/symfony/src/Athwela/DA/DBConnection.php
+/src/Athwela/DA/DBConnection.php
