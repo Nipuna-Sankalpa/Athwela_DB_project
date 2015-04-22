@@ -106,23 +106,4 @@ class VolProfileController extends ContainerAware {
         }
         return $temp;
     }
-
-//    public function deleteAction(Request $request, $id) {
-//        $this->createDeleteForm($request);
-//        
-//        return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:delete.html.twig');
-//    }
-//    
-//    public function createDeleteForm(Request $request){
-//        $user = $this->container->get('security.context')->getToken()->getUser();
-//        if ($request->getMethod() === 'GET' && $request->get('email') != NULL) {
-//            $email = $request->get('email');
-//        } else {
-//            $email = $user->getEmail();
-//        }
-//        $conn = DBConnection::getInstance()->getConnection();
-//        $entity = Read::getInstance()->read($conn, new Volunteer(), 'volunteer', 'email', $email);
-//        return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:delete.html.twig', array(
-//                    'entity' => $entity,));
-//    }
 }

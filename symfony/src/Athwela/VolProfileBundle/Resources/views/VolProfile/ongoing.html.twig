@@ -47,8 +47,24 @@
             {%endfor%}
         {%endif%}
         {%if projects[0][0] == null%}  
-            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
-                <b>You have no ongoing projects. Surf our site to find suitable projects for you.</b>
+            <div style="margin-top: 30px; width: 100%" class="img-responsive img-thumbnail">          
+                {%if suggesstion[0] != null%}
+                    <b>You have no any ongoing projects. Here are some suggestions for you.</b>
+                    {%for i in 0..(suggesstion|length-1)%}
+                        <div style="background-color: whitesmoke; width: 100%" class="img-responsive img-thumbnail">
+                            <b>Project name: </b>{{suggesstion[i].title}} <br/>
+                            <b>Description: </b>{{suggesstion[i].description}} <br/>
+                            <b>Posted on: </b>{{suggesstion[i].postedDate}} <br/>
+                            <b>Start date: </b>{{suggesstion[i].startDate}} <br/>
+                            <b>End date: </b>{{suggesstion[i].endDate}} <br/>
+                            <b>Number of remaining poistions: </b>{{suggesstion[i].volunteersNeeded - suggesstion[i].noOfFilledPositions}}
+                            <a class="btn btn-info" style="float: right">More>></a>                
+                        </div> 
+                        <hr/>
+                    {%endfor%}
+                {%else%}
+                    <b>You have no any ongoing projects. Update your profile so that we could give you some suggesstions.</b>
+                {%endif%}
             </div>
         {%endif%}
     </div>

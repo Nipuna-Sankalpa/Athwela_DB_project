@@ -1,18 +1,6 @@
 {%extends "::base.html.twig"%}
-
 {%block css%}
     <style>
-        .p-text{
-            color: whitesmoke;            
-            font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; 
-            width: 100px; 
-            text-align: center;
-            margin-left: 630px; 
-            margin-top: -32px; 
-            box-shadow: inset 0 -1px 1px rgba(0,0,0,0.5), /*bottom internal shadow*/
-                inset 0 1px 1px rgba(255,255,255,1); /*top internal highlight*/
-            border-radius: 10px;
-        }
     </style>
 {%endblock css%}
 
@@ -38,13 +26,12 @@
                             <div class="panel-body">
                                 <ul>
                                     <li><a href="{{path('vol_profile_ongoing')}}">Ongoing</a></li>
-                                    {%if notification[0]+notification[1] != 0%}
-                                        <li><a href="{{path('vol_profile_notification', {'amount':notification, 'email':entity.email})}}">Notifications <div style="width: 15px; height: 17px; background-color: red; margin-top: -17px; margin-left: 80px; color: white; text-align: center; font-size: 12px; border-radius: 5px;">{{notification[0]+notification[1]}}</div></a></li>
-                                    {% endif%}
-                                    {%if notification[0]+notification[1] == 0%}
+                                        {%if notification[0]+notification[1] != 0%}
+                                        <li><a href="{{path('vol_profile_notification', {'amount':notification, 'email':entity.email})}}">Notifications <span class="badge badge-danger" style="background-color: red">{{notification[0]+notification[1]}}</span></a></li>
+                                            {% endif%}
+                                            {%if notification[0]+notification[1] == 0%}
                                         <li><a href="{{path('vol_profile_notification', {'amount':0, 'email':entity.email})}}">Notifications</a></li>
-
-                                    {% endif%}
+                                        {% endif%}
                                     <li><a href="{{path('vol_profile_contribution')}}">Contribution</a></li>
 
                                 </ul>
@@ -76,16 +63,16 @@
                     <h2 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif;">{{entity.firstName}} {{entity.lastName}}</h2>
 
                     {%if entity.availability == 'available'%}
-                        <p style="background-color: mediumseagreen;" class="p-text">Available</p>  
+                        <span class="label label-success" title="This user has no ongoing projects">Available</span>                        
                     {% endif%}
-                    {%if entity.availability == 'unavailable'%}
-                        <p style="background-color: #FF9900;" class="p-text">Unavailable</p>  
+                    {%if entity.availability == 'pending'%}
+                        <span class="label label-warning" title="This user has not been approved yet by admin">Pending</span>
                     {% endif%}
                     {%if entity.availability == 'engaged'%}
-                        <p style="background-color: tomato;" class="p-text">Volunteering</p>  
+                        <span class="label label-danger" title="This user is currently engaged in projects">Volunteering</span>
                     {% endif%}
-
-                    <div class="panel-body" style="margin-top: 30px; margin-left: 20px">
+                    
+                    <div class="panel-body" style="margin-top: 10px; margin-left: 20px">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#personalSection">Personal and Contact</a></li>
                             <li><a data-toggle="tab" href="#educationSection">Education</a></li>                            
@@ -111,7 +98,7 @@
                                     <dd>{{entity.email|default('')}}</dd><br/>
                                     <dt><span class="glyphicon glyphicon-home"></span> Adress :</dt>
 
-                                   
+
 
                                     <dd>{{entity.street|default('')}}, {{entity.city|default('')}}, {{entity.country|default('')}}</dd><br/>
                                     {%if entitymobile == null%}
