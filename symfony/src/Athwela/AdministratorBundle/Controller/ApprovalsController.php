@@ -3,7 +3,6 @@
 namespace Athwela\AdministratorBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Athwela\DA\DBConnection;
 use Athwela\DA\CRUD\Read;
 use Athwela\DA\CRUD\Update;
 use Athwela\DA\CRUD\Delete;
@@ -22,11 +21,11 @@ class ApprovalsController extends ContainerAware {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $email = $user->getEmail();
         $userName = $user->getUsername();
+        $flag = $_GET['regComplete'];
 
-        $conn = DBConnection::getInstance()->getConnection();
-        $object = Read::getInstance()->read($conn, new Admin(), 'admin', 'email', $email);
+        $object = Read::getInstance()->read(new Admin(), 'admin', 'email', $email);
         if ($object === NULL) {
-            die($conn->error);
+            die('ERROR');
         }
         $messages = $this->getNewMessages();
         $projects = $this->getNewProjects();
@@ -40,6 +39,7 @@ class ApprovalsController extends ContainerAware {
                     'projects' => $projects,
                     'organizations' => $organizations,
                     'volunteers' => $volunteers,
+                    'regComplete' => $flag,
         ));
     }
 
@@ -151,8 +151,8 @@ class ApprovalsController extends ContainerAware {
     }
 
     public function approveVolsAction($email) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Update::getInstance()->update($conn, 'volunteer', 'email', $email, array('availability'), array('available'));
+
+        $temp = Update::getInstance()->update('volunteer', 'email', $email, array('availability'), array('available'));
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_volunteer');
             return new RedirectResponse($url);
@@ -162,8 +162,8 @@ class ApprovalsController extends ContainerAware {
     }
 
     public function rejectVolsAction($email) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Delete::getInstance()->deleteRow($conn, 'volunteer', 'email', $email);
+
+        $temp = Delete::getInstance()->deleteRow('volunteer', 'email', $email);
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_volunteer');
             return new RedirectResponse($url);
@@ -177,7 +177,7 @@ class ApprovalsController extends ContainerAware {
                     select ID,msg,date,msgStatus from vol_admin_msg 
                     union all
                     select ID,msg,date,msgStatus from org_admin_msg 
-                    )as a where a.msgStatus="."'"."notRead"."'";
+                    )as a where a.msgStatus=" . "'" . "notRead" . "'";
 
         $result = CustomQuery::getInstance()->customQuery($query);
 

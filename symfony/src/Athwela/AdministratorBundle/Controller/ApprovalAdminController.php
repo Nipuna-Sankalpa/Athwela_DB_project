@@ -10,11 +10,13 @@ namespace Athwela\AdministratorBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use FOS\UserBundle\Model\UserInterface;
+use Athwela\DA\CRUD\Create;
 
 /**
  * Description of ApprovalAdminController
@@ -113,10 +115,9 @@ class ApprovalAdminController extends ContainerAware {
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-        $flag="blocked";
+        $flag = "blocked";
         $url = $this->container->get('router')->generate('athwela_administrator_admin', array('flag' => $flag));
         return new RedirectResponse($url);
-
     }
 
     /**
@@ -145,6 +146,25 @@ class ApprovalAdminController extends ContainerAware {
 
     protected function getEngine() {
         return $this->container->getParameter('fos_user.template.engine');
+    }
+
+    public function sendDatabaseAction(Request $request) {
+        if ($request->getMethod() == 'POST') {
+
+            $first_name = $request->get('first_name');
+            $last_name = $request->get('last_name');
+            $street = $request->get('street');
+            $city = $request->get('city');
+            $email = $this->container->get('security.context')->getToken()->getUser()->getEmail();
+            $country = $request->get('country');
+
+            $data = array('3', $first_name, $last_name, $street, $city, $country, $email, '');
+            var_dump($data);
+            Create::getInstance()->create($data, 'admin');
+            $flag = "unblock";
+            $url = $this->container->get('router')->generate('athwela_administrator_adminDash', array('regComplete' => $flag));
+            return new RedirectResponse($url);
+        }
     }
 
 }

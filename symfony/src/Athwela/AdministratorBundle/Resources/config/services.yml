@@ -2,3 +2,8 @@ services:
 #    athwela_administrator.example:
 #        class: Athwela\AdministratorBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    athwela_admin_user.registration.form:
+        class: Athwela\AdministratorBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: admin_registration }
+            

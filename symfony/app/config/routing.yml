@@ -1,3 +1,7 @@
+athwela_project:
+    resource: "@AthwelaProjectBundle/Resources/config/routing.yml"
+    prefix:   /projects
+
 org_profile:
     resource: "@OrgProfileBundle/Resources/config/routing.yml"
     prefix:   /orgProfile
