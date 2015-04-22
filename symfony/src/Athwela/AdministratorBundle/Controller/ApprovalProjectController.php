@@ -9,7 +9,6 @@
 namespace Athwela\AdministratorBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Athwela\DA\DBConnection;
 use Athwela\DA\CRUD\Update;
 use Athwela\DA\CRUD\Delete;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -141,8 +140,8 @@ class ApprovalProjectController extends ContainerAware {
     }
 
     public function approveProjectAction($id) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Update::getInstance()->update($conn, 'project', 'ID', $id, array('status'), array('approved'));
+        
+        $temp = Update::getInstance()->update('project', 'ID', $id, array('status'), array('approved'));
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_project');
             return new RedirectResponse($url);
@@ -152,8 +151,8 @@ class ApprovalProjectController extends ContainerAware {
     }
 
     public function rejectProjectAction($id) {
-        $conn = DBConnection::getInstance()->getConnection();
-        $temp = Delete::getInstance()->deleteRow($conn, 'project', 'ID', $id);
+       
+        $temp = Delete::getInstance()->deleteRow('project', 'ID', $id);
         if ($temp) {
             $url = $this->container->get('router')->generate('athwela_administrator_project');
             return new RedirectResponse($url);

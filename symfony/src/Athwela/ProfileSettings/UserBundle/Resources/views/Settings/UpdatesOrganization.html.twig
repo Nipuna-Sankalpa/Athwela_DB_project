@@ -204,43 +204,6 @@
                                         
                             </div>
                         </div> 
-
-                        
-                                        {#-------------------- Expected Skills -----------------------#}
-                            <div class="form-group">
- 
-                                    <label class="col-md-4 control-label"> Expected Skills:</label>
-                        
-                             <div class = "col-md-8">
-   
-                                {% for number in skills %} 
-                                        {% set foo = "" %}
-                                            {% for select in request['programs']  %} 
-
-                                                {% if number == select %}
-                                                        {% set foo = "contain" %}
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="programs[]" value={{number}} checked="checked"> {{number}}
-                                                            </label>
-                                                        </div>
-
-                                                {% endif %}
-
-                                            {% endfor %}
-
-                                                {% if foo == "" %}
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="programs[]" value={{number}}> {{number}}
-                                                        </label>
-                                                    </div>
-                                                {% endif %}
-
-                                {% endfor %}
-                                 
-                             </div>  
-                            </div>
                         
                         <div class="form-group">
                             <div class=" col-md-8 col-md-offset-4 left">

@@ -79,5 +79,4 @@ fos_user:
     registration:
         form:
             type: athwela_user_registration
-#        form:
-#            type: athwela_user_change_password
+    

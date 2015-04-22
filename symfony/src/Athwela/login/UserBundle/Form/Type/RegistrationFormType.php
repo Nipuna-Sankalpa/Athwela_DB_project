@@ -12,8 +12,13 @@ class RegistrationFormType extends AbstractType {
         $builder->add('status', 'choice', array(
             'choices' => array('ROLE_ORG' => 'Organization', 'ROLE_VOL' => 'Volunteer'),
             'required' => true,
-            'label'=>'Select your role'
+            'label'=>'Select your role',
         ))
+                ->add('roleStatus','checkbox',array(
+                    'label'=>'Select role',
+                    'required'=>TRUE,
+                    
+                ))
         ;
     }
 

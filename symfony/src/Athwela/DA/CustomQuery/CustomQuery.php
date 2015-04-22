@@ -7,6 +7,7 @@
  */
 
 namespace Athwela\DA\CustomQuery;
+
 use Athwela\DA\DBConnection;
 
 /**
@@ -17,7 +18,7 @@ use Athwela\DA\DBConnection;
 class CustomQuery {
 
     private function __construct() {
-
+        
     }
 
     public static function getInstance() {
@@ -31,13 +32,13 @@ class CustomQuery {
     }
 
     public function customQuery($query) {
-        $conn = DBConnection::getInstance() -> getConnection();
+        $conn = DBConnection::getInstance()->getConnection();
         $result = $conn->query($query);
 
         if ($result) {
             return $result;
         } else {
-            
+
             die($conn->error);
         }
     }
