@@ -92,6 +92,7 @@ class VolunteerController extends Controller {
             Update::getInstance()->updateSkills($data['programs'], $id);
             Update::getInstance()->updateMobile('volunteer_mobile', $data['phoneNu'], 'v_ID', $id);
         }
+        
         $skills = Read::getInstance()->readAllSkills(); // all skills
         $first_name = Read::getInstance()->readSpecific('first_name', 'volunteer', 'ID', $id);
         $last_name = Read::getInstance()->readSpecific('last_name', 'volunteer', 'ID', $id);

@@ -24,7 +24,7 @@
 
     <div class="row" id="header">
         <div class="page-header">
-            <h2>Project Name</h2>
+            <h2>{{project.title}}</h2>
         </div>
     </div>
 
@@ -89,7 +89,7 @@
                     <h3 class="columnHeader text-right">Misc</h3>
                     <ul>
                         <li>Volunteers</li>
-                        <li>Ongoing</li>
+                        <li>{{project.status}}</li>
 
                     </ul>
                 </div>
@@ -112,13 +112,13 @@
             <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Project</h3>
             <div style="overflow: hidden;height:305px;">
                 <li><h4 class="listHead">Title</h4></li>
-                <div class="listItems text-justify">Project Title</div>
+                <div class="listItems text-justify">{{project.title}}</div>
                 <li><h4 class="listHead">Type</h4></li>
-                <div class="listItems text-justify">Project Type</div>
+                <div class="listItems text-justify">{{type.name}}</div>
                 <li><h4 class="listHead">Host By</h4></li>
-                <div class="listItems text-justify">Project Host by</div>
+                <div class="listItems text-justify">{{org.name}}</div>
                 <li><h4 class="listHead">Description</h4></li>
-                <div class="listItems text-justify">Project Description</div>
+                <div class="listItems text-justify">{{project.description}}</div>
             </div>
             <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectDetail">View more <span class="glyphicon glyphicon-play-circle"></span></a></h4>
         </div>
@@ -126,15 +126,17 @@
             <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Status</h3>
             <div style="overflow: hidden;height:305px;">
                 <li><h4 class="listHead">Date Posted</h4></li>
-                <div class="listItems text-justify">Project Title</div>
+                <div class="listItems text-justify">{{project.postedDate}}</div>
                 <li><h4 class="listHead">Project Ends</h4></li>
-                <div class="listItems text-justify">Project Type</div>
+                <div class="listItems text-justify">{{project.endDate}}</div>
                 <li><h4 class="listHead">Number of vacancies</h4></li>
-                <div class="listItems text-justify">Project Host by</div>
-                <li><h4 class="listHead">Duration</h4></li>
-                <div class="listItems text-justify">Duration</div>
+                <div class="listItems text-justify">{{project.volunteersNeeded}}</div>
+                {% if duration!=NULL%}
+                    <li><h4 class="listHead">Duration</h4></li>
+                    <div class="listItems text-justify">{{duration}}</div>
+                {% endif %}
                 <li><h4 class="listHead">Status</h4></li>
-                <div class="listItems text-justify">Project currently continuining</div>
+                <div class="listItems text-justify">{{project.status}}</div>
             </div>
             <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectStatus">View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
 
@@ -194,13 +196,15 @@
             <h4 class="page-header">Project</h4>
             <dl>
                 <dt>Title</dt>
-                <dd>- Project title</dd>
+                <dd>- {{project.title}}</dd>
                 <dt>Type</dt>
-                <dd>- Project type</dd>
+                <dd>- {{type.name}}</dd>
+                <dd>- {{type.description}}</dd>
                 <dt>Hosted by</dt>
-                <dd>- Project hosted by company name</dd>
+                <dd>- Project hosted by {{org.name}}</dd>
+                <dd>- Email:- {{org.email}}</dd>
                 <dt>Description</dt>
-                <dd>- Project description</dd>
+                <dd>- {{project.description}}</dd>
             </dl>
         </div>
         <div id="projectStatus" class="row">
@@ -208,21 +212,27 @@
             <div class="col-sm-4">
                 <dl>
                     <dt>Date Posted</dt>
-                    <dd>- Project title</dd>
+                    <dd>- {{project.postedDate}}</dd>
                     <dt>Project End</dt>
-                    <dd>- Project type</dd>
+                    <dd>- {{project.endDate}}</dd>
                     <dt>Vacancies</dt>
-                    <dd>- Duration</dd>
+                    <dd>- {{project.volunteersNeeded}}</dd>
                     <dt>Duration</dt>
-                    <dd>- Project description</dd>
+                    <dd>- {{duration}}</dd>
                     <dt>Status</dt>
-                    <dd>- Project description</dd>
+                    <dd>- {{project.status}}</dd>
                 </dl>  
             </div>
             <div class="col-sm-4">
                 <dl>
-                    <dt>Expected Skills</dt>
-                    <dd>- Project title</dd>
+                    {% if skills != NULL%}
+                        <dt>Expected Skills</dt>
+                        <p>
+                            {% for skill in skills%}
+                                <span style="margin: 0.3em;" class="textColumnModule">{{skill.name}}</span>
+                            {% endfor%}
+                        </p>
+                    {% endif %}
                 </dl>  
             </div>
             <div class="col-sm-4"></div>
