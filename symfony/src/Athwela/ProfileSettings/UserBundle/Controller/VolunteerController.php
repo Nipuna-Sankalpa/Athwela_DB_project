@@ -70,6 +70,7 @@ class VolunteerController extends Controller {
 
     public function updatesAction(Request $request, $id) {
 
+        print_r($request);
         $data = $this->getRequest()->request->all();
         if(array_key_exists('file',$data))
         {
