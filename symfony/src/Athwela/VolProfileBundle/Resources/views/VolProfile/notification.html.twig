@@ -1,4 +1,9 @@
 {%extends "::base.html.twig"%}
+
+{% block css %}
+    <link href="{{asset('css/timeline.css')}}" rel="stylesheet">
+{% endblock %}
+
 {%block items%}
     <ul class="nav navbar-nav">
         <li>
@@ -24,51 +29,78 @@
 {%endblock items%}
 
 {% block container -%}
-    <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;">
+    <div class="col-md-12 container">
         {%if notification[1] != 0%}
-            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+            <div style="margin-top: 30px; font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;" class="img-responsive img-thumbnail">
                 <b>You have <label style="color: red">{{notification[1]}}</label> unread notification(s)!</b>
             </div>
             <hr>
             {%for i in 0..(projects|length-1)%}
-                <div style="background-color: whitesmoke" class="img-responsive img-thumbnail">
-                    Congradulations! You have been volunteered by <label style="color: green">{{projects[i][1].name}}, {{projects[i][1].street}}, {{projects[i][1].city}}, {{projects[i][1].country}}</label> for it's project
-                    titled as <label style="color: green">{{projects[i][0].title}}</label>.
-                    <a href="#" value="" class="btn btn-info" style="margin-bottom: 5px; margin-right: 50px">More>><a/>
-                </div>
-                <hr>
+                <ul class="timeline">
+                    {% if loop.index0 is even %}
+                        <li>
+                        {% else %}
+                        <li class="timeline-inverted">
+                        {% endif %}
+                        <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="Request was accepted on: {{projects[i][2]}}" id=""></i></a></div>
+                        <div class="timeline-panel">                            
+                            <div class="timeline-body">
+                                <h4>{{ projects[i][0].title }}</h4>
+                                <p><label>Congradulations! You have been volunteered by</label> <label style="color: green">{{projects[i][1].name}}, {{projects[i][1].street}}, {{projects[i][1].city}}, {{projects[i][1].country}}</label></p>
+                            </div>
+                            <div class="timeline-footer">
+                                <p><i class="glyphicon glyphicon-calendar"></i>Start:{{ projects[i][0].startDate }}</p>
+                                <a class="btn btn-info" style="float: right" href="{{path('show_project', {'ID':projects[i][0].id})}}">View more</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             {%endfor%}
         {%endif%}
         {%if notification[1] == 0%}  
-            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
-                <b>You have no unread notifications!</b>
+            <div style="margin-top: 30px; font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;" class="img-responsive img-thumbnail">
+                <b>You have no unread notifications!</b>                
             </div>
+            <hr/>
         {%endif%}
 
     </div>
-    <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;">
+    <div class="col-md-12 container">
         {%if notification[0] != 0%}
-            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+            <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px; margin-top: 30px" class="img-responsive img-thumbnail">
                 <b>You have <label style="color: red">{{notification[0]}}</label> unread message(s)!</b>
             </div>   
             <hr>
             {%for i in 0..(messages|length-1)%}
-                <div style="background-color: whitesmoke" class="img-responsive img-thumbnail">
-                    <label>From: {{messages[i][1]}} (Admin) </label>
-                    <label>At: {{messages[i][2]}}</label><br/>
-                    <label>Subject: {{messages[i][4]}}</label><br/>
-                    <label>Your admin says: {{messages[i][3]}}</label> 
-                    <a href="{{path('vol_profile_message', {'email' : entity.email})}}" class="btn btn-success" style="margin-top: 30px; float: right">Reply</a>
-                </div>
-                <hr>
+                <ul class="timeline">
+                    {% if loop.index0 is even %}
+                        <li>
+                        {% else %}
+                        <li class="timeline-inverted">
+                        {% endif %}
+                        <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This message was sent at: {{messages[i][2]}}" id=""></i></a></div>
+                        <div class="timeline-panel">                            
+                            <div class="timeline-body">
+                                <h4>From: {{messages[i][1]}} (Admin)</h4>
+                                <label style="margin-left: 20px">Subject: {{messages[i][4]}}</label>
+                                <p>Your admin says: {{messages[i][3]}}</p>
+                            </div>
+                            <div class="timeline-footer">
+                                <p><i class="glyphicon glyphicon-ab"></i></p>
+                                <a class="btn btn-info" style="float: right" href="{{path('vol_profile_message', {'email' : entity.email})}}">Reply</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <hr/>
             {%endfor%}
         {%endif%}
         {%if notification[0] == 0%}
-            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+            <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px; margin-top: 30px" class="img-responsive img-thumbnail">
                 <b>You have no unread messages!</b>
             </div>   
         {%endif%}
-        <br/>
-        <a href="{{path('vol_profile_message', {'email' : entity.email})}}" class="btn btn-success" style="margin-top: 30px">Send a new message</a>
+        <br/>        
     </div>
+        <a href="{{path('vol_profile_message', {'email' : entity.email})}}" class="btn btn-success" style="margin-top: 30px; margin-left: 20px">Send a new message</a>
 {%endblock%}

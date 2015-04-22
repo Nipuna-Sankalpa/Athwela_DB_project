@@ -1,4 +1,9 @@
 {%extends "::base.html.twig"%}
+
+{% block css %}
+    <link href="{{asset('css/timeline.css')}}" rel="stylesheet">
+{% endblock %}
+
 {%block items%}
     <ul class="nav navbar-nav">
         <li>
@@ -24,37 +29,67 @@
 {%endblock items%}
 
 {% block container -%}
-    <div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px;">
+    <div class="col-md-12 container">
         {%if contribution[0][0] != null and contribution|length != 0%}            
             <div style="margin-top: 30px" class="img-responsive img-thumbnail">
                 You have contributed to <label style="color: red">{{contribution|length}}</label> projects so far!
             </div>
-            <hr>
+            <hr/>
             {%for i in 0..(contribution|length-1)%}
-                <div style="background-color: whitesmoke; width: 100%" class="img-responsive img-thumbnail">
-                    <b>Project name: </b>{{contribution[i][0].title}} <br/>
-                    <b>Description: </b>{{contribution[i][0].description}} <br/>
-                    <b>Posted by: </b>{{contribution[i][2].name}}, {{contribution[i][2].street}}, {{contribution[i][2].city}}, {{contribution[i][2].country}} <br/>                    
-                    <b>Your contribution: </b>{{contribution[i][1]}} 
-                    <a class="btn btn-info" style="float: right">More>></a>
-                </div>   
-                <hr>
+                <ul class="timeline">
+                    {% if loop.index0 is even %}
+                        <li>
+                        {% else %}
+                        <li class="timeline-inverted">
+                        {% endif %}
+                        <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{contribution[i][0].postedDate}}" id=""></i></a></div>
+                        <div class="timeline-panel">                            
+                            <div class="timeline-body">
+                                <h4>{{ contribution[i][0].title }}</h4>
+                                <p>{{ contribution[i][0].description|length > 250 ? contribution[i][0].description|slice(0, 250) ~ '...' : contribution[i][0].description }}</p>
+                                <label style="margin-left: 20px">Contribution: {{contribution[i][1]}}</label>
+                                <label style="margin-left: 20px">Posted by: {{contribution[i][2].name}}, {{contribution[i][2].street}}, {{contribution[i][2].city}}, {{contribution[i][2].country}}</label>
+                            </div>
+
+                            <div class="timeline-footer">
+                                <p><i class="glyphicon glyphicon-calendar"></i>Start:{{ contribution[i][0].startDate }}</p>
+                                <a class="btn btn-info" style="float: right" href="{{path('show_project', {'ID':contribution[i][0].id})}}">View more</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             {%endfor%}
         {%endif%}
         {%if contribution[0][0] == null%}  
-            <div style="margin-top: 30px" class="img-responsive img-thumbnail">
+            <div class="col-md-12 container">          
                 {%if suggesstion[0] != null%}
-                    <b>You have not contributed to any project. Here are some suggestions for you.</b>
+                    <div  style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px; margin-top: 30px" class="img-responsive img-thumbnail">
+                        <b>You have not contributed to any project. Here are some suggestions for you.</b>
+                    </div>
+                    <hr/>
                     {%for i in 0..(suggesstion|length-1)%}
-                        <div style="background-color: whitesmoke; width: 100%" class="img-responsive img-thumbnail">
-                            <b>Project name: </b>{{suggesstion[i].title}} <br/>
-                            <b>Description: </b>{{suggesstion[i].description}} <br/>
-                            <b>Posted on: </b>{{suggesstion[i].postedDate}} <br/>
-                            <b>Start date: </b>{{suggesstion[i].startDate}} <br/>
-                            <b>End date: </b>{{suggesstion[i].endDate}} <br/>
-                            <b>Number of remaining poistions: </b>{{suggesstion[i].volunteersNeeded - suggesstion[i].noOfFilledPositions}}
-                            <a class="btn btn-info" style="float: right">More>></a>                
-                        </div> 
+                        <ul class="timeline">
+                            {% if loop.index0 is even %}
+                                <li>
+                                {% else %}
+                                <li class="timeline-inverted">
+                                {% endif %}
+                                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{suggesstion[i].postedDate}}" id=""></i></a></div>
+                                <div class="timeline-panel">                            
+                                    <div class="timeline-body">
+                                        <h4>{{ suggesstion[i].title }}</h4>
+                                        <p>{{ suggesstion[i].description|length > 250 ? suggesstion[i].description|slice(0, 250) ~ '...' : suggesstion[i].description }}</p>
+
+                                    </div>
+
+                                    <div class="timeline-footer">
+                                        <p><i class="glyphicon glyphicon-calendar"></i>Start:{{ suggesstion[i].startDate }}</p>
+                                        <p>   <i class="glyphicon glyphicon-ok"></i>Remaining :{{ suggesstion[i].volunteersNeeded - suggesstion[i].noOfFilledPositions }}</p>
+                                        <a class="btn btn-info" style="float: right">View more</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                         <hr/>
                     {%endfor%}
                 {%else%}
