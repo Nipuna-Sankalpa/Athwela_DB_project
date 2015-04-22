@@ -10,6 +10,7 @@ use Athwela\EntityBundle\Entity\Organization;
 use Athwela\ProjectBundle\Entity\ProjectSkill;
 use Athwela\ProjectBundle\Entity\ProjectType;
 use Athwela\ProjectBundle\Entity\ProjectImg;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProjectController extends ContainerAware {
 
@@ -20,14 +21,14 @@ class ProjectController extends ContainerAware {
         $type = NULL;
         $img = NULL;
         $duration = NULL;
-        
+
         $project = Read::getInstance()->read(new Project(), 'project', 'ID', $ID);
         $querySkill = "SELECT * FROM `project_skill`,`skill` where project_skill.s_ID=skill.ID and project_skill.p_ID='$ID'";
         $queryType = "SELECT project.t_ID as t_ID,project.ID as p_ID,type.name,type.description FROM type,project where type.ID=project.t_ID and project.ID='$ID'";
         $queryImg = "SELECT * FROM project_img where p_ID='$ID'";
         $customQuery = "SELECT DATEDIFF(end_date,start_date) from project where ID='$ID'";
         $queryOrg = "select organization.ID,organization.name,organization.email from organization,project where project.o_ID='" . $project->getO_ID() . "'";
-        
+
         $resultSkill = CustomQuery::getInstance()->customQuery($querySkill);
         $resultType = CustomQuery::getInstance()->customQuery($queryType);
         $resultImg = CustomQuery::getInstance()->customQuery($queryImg);
@@ -100,6 +101,43 @@ class ProjectController extends ContainerAware {
                     'org' => $org,
                     'duration' => $duration,
         ));
+    }
+
+    public function createProjectAction(Request $request) {
+        $skill = NULL;
+        $types = NULL;
+
+        if ($request->getMethod() == 'POST') {
+            
+        } else {
+
+            $query1 = "SELECT name FROM skill";
+            $query2 = "SELECT name FROM type";
+            $result1 = CustomQuery::getInstance()->customQuery($query1);
+            $result2 = CustomQuery::getInstance()->customQuery($query2);
+
+            if ($result1) {
+                $i = 0;
+                while ($row = mysqli_fetch_row($result1)) {
+
+                    $skill[$i] = $row[0];
+                    $i++;
+                }
+            }
+            if ($result2) {
+                $i = 0;
+                while ($row = mysqli_fetch_row($result2)) {
+
+                    $types[$i] = $row[0];
+                    $i++;
+                }
+            }
+
+            return $this->container->get('templating')->renderResponse('AthwelaProjectBundle:Project:EditProfile.html.twig', array(
+                        'skills' => $skill,
+                        'types' => $types
+            ));
+        }
     }
 
 }

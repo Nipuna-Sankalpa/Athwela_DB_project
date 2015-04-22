@@ -5,3 +5,7 @@ athwela_project_homepage:
 show_project:
     path:     /{ID}
     defaults: { _controller: AthwelaProjectBundle:Project:showProject }
+    
+create_project:
+    path:     /create/
+    defaults: { _controller: AthwelaProjectBundle:Project:createProject }

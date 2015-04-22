@@ -94,16 +94,18 @@
                     </ul>
                 </div>
             </div>
-            <div id="comp3" class="row textColumnModule">
-                <div id="settings">
-                    <h3 class="columnHeader text-right">Settings</h3>
-                    <ul>
-                        <li>Update Project</li>
-                        <li>Delete Project</li>
-                        <li>Edit Gallery</li>
-                    </ul>
+            {% if flag != NULL%}
+                <div id="comp3" class="row textColumnModule">
+                    <div id="settings">
+                        <h3 class="columnHeader text-right">Settings</h3>
+                        <ul>
+                            <li>Update Project</li>
+                            <li>Delete Project</li>
+                            <li>Edit Gallery</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            {% endif%}
         </div>
     </div>
 
@@ -194,6 +196,7 @@
     <div class="row" id="thirdRow">
         <div id="projectDetail" class="row">
             <h4 class="page-header">Project</h4>
+            <div class="col-sm-7">
             <dl>
                 <dt>Title</dt>
                 <dd>- {{project.title}}</dd>
@@ -206,6 +209,10 @@
                 <dt>Description</dt>
                 <dd>- {{project.description}}</dd>
             </dl>
+            </div>
+            <div class="col-sm-5">
+                <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset('img/blankProPic.jpg')}}">
+            </div>
         </div>
         <div id="projectStatus" class="row">
             <h4 class="page-header">Status</h4>            
@@ -226,10 +233,10 @@
             <div class="col-sm-4">
                 <dl>
                     {% if skills != NULL%}
-                        <dt>Expected Skills</dt>
+                        <dt style="margin-bottom: 0.5em;">Expected Skills</dt>
                         <p>
                             {% for skill in skills%}
-                                <span style="margin: 0.3em;" class="textColumnModule">{{skill.name}}</span>
+                                <span style="margin: 0.3em;padding: 0.3em" class="textColumnModule">{{skill.name}}</span>
                             {% endfor%}
                         </p>
                     {% endif %}
@@ -247,12 +254,9 @@
         </div>
     </div>
 
-
-
 {%endblock container%}
 
 
 {%block js%}
-
     <script src="{{asset('js/lightbox.min.js')}}"></script>
 {%endblock js%}

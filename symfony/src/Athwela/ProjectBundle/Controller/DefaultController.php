@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AthwelaProjectBundle:Project:profile.html.twig');
+        return $this->render('AthwelaProjectBundle:Project:EditProfile.html.twig');
     }
 }
