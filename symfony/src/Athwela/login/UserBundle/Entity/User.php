@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser {
 
-    
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -22,20 +21,31 @@ class User extends BaseUser {
      */
     protected $id;
     protected $status;
+    protected $roleStatus;
+
+    public function getRoleStatus() {
+        return $this->roleStatus;
+    }
+
+    public function setRoleStatus($roleStatus) {
+
+        if ($roleStatus == 'ROLE_ADMIN') {
+            $this->setRoles(array('ROLE_ADMIN'));
+        }
+    }
 
     public function getstatus() {
         return $this->status;
     }
 
     public function setstatus($status) {
-        echo $status;
-        if ($status == 'ROLE_ORG') {
 
+        if ($status == 'ROLE_ORG') {
             $this->setRoles(array('ROLE_ORG'));
         } else if ($status == 'ROLE_VOL') {
             $this->setRoles(array('ROLE_VOL'));
-        } else if ($status == 'ROLE_SUPER_ADMIN') {
-            $this->setRoles(array('ROLE_SUPER_ADMIN'));
+        } else if ($status == 'ROLE_ADMIN') {
+            $this->setRoles(array('ROLE_ADMIN'));
         }
     }
 

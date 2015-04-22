@@ -1,0 +1,258 @@
+{% extends '::base.html.twig'%}
+{%block css%}
+    <link href="{{asset('css/customProject.css')}}" rel="stylesheet"/>
+    <link href="{{asset('css/lightbox.css')}}" rel="stylesheet" />
+{% endblock css%}
+
+
+{% block items%}
+    <ul class="nav navbar-nav">
+
+        <li><a href="{{path('vol_profile_show', { 'email': app.user.email })}}"><span class="glyphicon glyphicon-user"></span> {{app.user.username}}</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-th-large"></span> Timeline</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Profile Settings</a></li>
+        <li><a href="{{path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
+    </ul>
+
+{% endblock items%}
+
+
+
+
+{%block container%}
+
+    <div class="row" id="header">
+        <div class="page-header">
+            <h2>{{project.title}}</h2>
+        </div>
+    </div>
+
+    <div class="row" id="firstRow">
+        <div id="crousel" class="col-md-9" style="margin-bottom: 2em;">
+
+            {#---------------------------crousel starts----------------------------------------#}
+
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="{{asset('img/test.jpg')}}" alt="">
+                        <div class="carousel-caption">
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="{{asset('img/test.jpg')}}" alt="">
+                        <div class="carousel-caption">
+                            <p>Nipuna Sankalpa</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="{{asset('img/test.jpg')}}" alt="">
+                        <div class="carousel-caption">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+        </div>
+        {#----------------------------crousal ends-----------------------------------------#}
+
+        <div id="compBoxes" class="col-md-2 col-md-offset-1">
+            <div class="row textColumnModule" id="comp1">
+                <h3 class="columnHeader text-right">Join</h3>
+                <p style="padding: 0.5em;">click the the link given below to hold hand with us</p>
+                <h4 class="text-right columnFooter" style="padding: 0.3em;"><a><span class="glyphicon glyphicon-play-circle"></span></a></h4>
+            </div>
+            <div id="comp2" class="row textColumnModule">
+                <div id="settings">
+                    <h3 class="columnHeader text-right">Misc</h3>
+                    <ul>
+                        <li>Volunteers</li>
+                        <li>{{project.status}}</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div id="comp3" class="row textColumnModule">
+                <div id="settings">
+                    <h3 class="columnHeader text-right">Settings</h3>
+                    <ul>
+                        <li>Update Project</li>
+                        <li>Delete Project</li>
+                        <li>Edit Gallery</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="secondRow">
+        <div class="col-sm-4" id="com1">
+            <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Project</h3>
+            <div style="overflow: hidden;height:305px;">
+                <li><h4 class="listHead">Title</h4></li>
+                <div class="listItems text-justify">{{project.title}}</div>
+                <li><h4 class="listHead">Type</h4></li>
+                <div class="listItems text-justify">{{type.name}}</div>
+                <li><h4 class="listHead">Host By</h4></li>
+                <div class="listItems text-justify">{{org.name}}</div>
+                <li><h4 class="listHead">Description</h4></li>
+                <div class="listItems text-justify">{{project.description}}</div>
+            </div>
+            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectDetail">View more <span class="glyphicon glyphicon-play-circle"></span></a></h4>
+        </div>
+        <div class="col-sm-4" id="com2">
+            <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Status</h3>
+            <div style="overflow: hidden;height:305px;">
+                <li><h4 class="listHead">Date Posted</h4></li>
+                <div class="listItems text-justify">{{project.postedDate}}</div>
+                <li><h4 class="listHead">Project Ends</h4></li>
+                <div class="listItems text-justify">{{project.endDate}}</div>
+                <li><h4 class="listHead">Number of vacancies</h4></li>
+                <div class="listItems text-justify">{{project.volunteersNeeded}}</div>
+                {% if duration!=NULL%}
+                    <li><h4 class="listHead">Duration</h4></li>
+                    <div class="listItems text-justify">{{duration}}</div>
+                {% endif %}
+                <li><h4 class="listHead">Status</h4></li>
+                <div class="listItems text-justify">{{project.status}}</div>
+            </div>
+            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectStatus">View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
+
+        </div>
+        <div class="col-sm-4" id="com3">
+            <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Gallery</h3>
+            <div style="overflow: hidden;height:305px;padding: 1em;">
+
+                <div class="media">
+                    <div class="media-left">
+                        <a href="{{asset('img/test.jpg')}}" data-lightbox="img" data-title="">
+                            <img class="media-object img-rounded"  src="{{asset('img/test.jpg')}}" height="72px" width="72px" alt="1">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><span class="glyphicon glyphicon-map-marker"> :</span> Location</h4>
+                        <h4 class="media-heading"><span class="glyphicon glyphicon-camera"> :</span> Caption</h4>
+
+                    </div>
+
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="{{asset('img/test.jpg')}}" data-lightbox="img" data-title="">
+                            <img class="media-object img-rounded" src="{{asset('img/test.jpg')}}" height="72px" width="72px" alt="1">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><span class="glyphicon glyphicon-map-marker"> :</span> Location</h4>
+                        <h4 class="media-heading"><span class="glyphicon glyphicon-camera"> :</span> Caption</h4>
+
+                    </div>
+
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="{{asset('img/test.jpg')}}" data-lightbox="img" data-title="">
+                            <img class="media-object img-rounded" src="{{asset('img/test.jpg')}}" height="72px" width="72px" alt="1">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><span class="glyphicon glyphicon-map-marker"> :</span> Location</h4>
+                        <h4 class="media-heading"><span class="glyphicon glyphicon-camera"> :</span> Caption</h4>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectGallery">View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
+
+        </div>        
+    </div>
+    <br />
+    <div class="row" id="thirdRow">
+        <div id="projectDetail" class="row">
+            <h4 class="page-header">Project</h4>
+            <dl>
+                <dt>Title</dt>
+                <dd>- {{project.title}}</dd>
+                <dt>Type</dt>
+                <dd>- {{type.name}}</dd>
+                <dd>- {{type.description}}</dd>
+                <dt>Hosted by</dt>
+                <dd>- Project hosted by {{org.name}}</dd>
+                <dd>- Email:- {{org.email}}</dd>
+                <dt>Description</dt>
+                <dd>- {{project.description}}</dd>
+            </dl>
+        </div>
+        <div id="projectStatus" class="row">
+            <h4 class="page-header">Status</h4>            
+            <div class="col-sm-4">
+                <dl>
+                    <dt>Date Posted</dt>
+                    <dd>- {{project.postedDate}}</dd>
+                    <dt>Project End</dt>
+                    <dd>- {{project.endDate}}</dd>
+                    <dt>Vacancies</dt>
+                    <dd>- {{project.volunteersNeeded}}</dd>
+                    <dt>Duration</dt>
+                    <dd>- {{duration}}</dd>
+                    <dt>Status</dt>
+                    <dd>- {{project.status}}</dd>
+                </dl>  
+            </div>
+            <div class="col-sm-4">
+                <dl>
+                    {% if skills != NULL%}
+                        <dt>Expected Skills</dt>
+                        <p>
+                            {% for skill in skills%}
+                                <span style="margin: 0.3em;" class="textColumnModule">{{skill.name}}</span>
+                            {% endfor%}
+                        </p>
+                    {% endif %}
+                </dl>  
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div id="projectGallery" class="row">
+            <h4 class="page-header">Gallery</h4>
+            <div >
+                <div id="img1" class="col-sm-2">
+                    <a><img src="{{asset('img/test.jpg')}}" height="242" width="200" class="img-responsive img-rounded thumbnail" alt="img"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{%endblock container%}
+
+
+{%block js%}
+
+    <script src="{{asset('js/lightbox.min.js')}}"></script>
+{%endblock js%}
