@@ -21,7 +21,7 @@ class DBConnection {
     }
 
     public static function getInstance() {
-        static $instance = null;
+        $instance = null;
         if ($instance === null) {
             $instance = new DBConnection();
         }

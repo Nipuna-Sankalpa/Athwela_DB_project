@@ -28,8 +28,12 @@
     <div class="row">
         <div class="col-md-3">
 
-            <div id="image">                
+            <div id="image">
+                {% if proImg==null%}
                 <img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail">
+                {% else %}
+                <img src="{{asset(proImg)}}" class="img-responsive img-thumbnail">
+                {% endif %}
             </div>
 
             <div id="navBox" style="margin-top: 20px;">
@@ -93,13 +97,13 @@
                                     {%if mobile == null%}
                                         <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
                                         <dd><i>Mobile number unavailable</i></dd><br/>
-                                    {%endif%}
-                                    {%if mobile != null%}
-                                        {%for i in 0..((mobile|length)-1)%}
+                                    {% endif %}
+                                    {% if mobile != null%}
+                                        {% for i in 0..((mobile|length)-1)%}
                                             <dt><span class="glyphicon glyphicon-phone"></span> Mobile {{i+1}} :</dt>
                                             <dd>{{mobile[i]}}</dd><br/>
-                                        {%endfor%}
-                                    {%endif%}
+                                        {% endfor %}
+                                    {% endif %}
                                     
                                     <dt><span class="glyphicon glyphicon-envelope"></span> Email :</dt>
                                     <dd><i>{{entity.email}}</i></dd><br/>
@@ -107,13 +111,13 @@
                                     {%if fax == null%}
                                         <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax :</dt>
                                         <dd><i>Fax number unavailable</i></dd><br/>
-                                    {%endif%}
+                                    {% endif %}
                                     {%if fax != null%}
                                         {%for i in 0..((fax|length)-1)%}                                        
                                             <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax {{i+1}} :</dt>
                                             <dd>{{fax[i]}}</dd><br/>  
-                                        {%endfor%}
-                                    {%endif%}
+                                        {% endfor %}
+                                    {% endif %}
                                 </dl>
                             </div>
                         </div>
@@ -122,4 +126,4 @@
             </form>
         </div>
     </div>
-{%endblock container%}
+{% endblock container%}

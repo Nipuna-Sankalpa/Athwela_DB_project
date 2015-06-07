@@ -18,6 +18,15 @@ class ProjectImg {
     private $ID;
     private $URL;
     private $Code;
+    private $caption;
+
+    public function getCaption() {
+        return $this->caption;
+    }
+
+    public function setCaption($caption) {
+        $this->caption = $caption;
+    }
 
     public function getID() {
         return $this->ID;

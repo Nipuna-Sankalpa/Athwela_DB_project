@@ -7,7 +7,9 @@
  */
 
 namespace Athwela\DA\CRUD;
+
 use Athwela\DA\DBConnection;
+
 /**
  * Description of Delete
  *
@@ -16,6 +18,7 @@ use Athwela\DA\DBConnection;
 class Delete {
 
     //put your code here
+
 
     private function __construct() {
         

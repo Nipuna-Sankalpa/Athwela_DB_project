@@ -36,20 +36,28 @@ class VolProfileController extends ContainerAware {
 
 
         $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
-        if (!$entity) {
-            $form = $this->container->get('fos_user.change_password.form');
-            return $this->container->get('templating')->renderResponse('AthwelaProfileSettingsUserBundle:Settings:SettingsVolunteer.html.' . $this->container->getParameter('fos_user.template.engine'), ['form' => $form->createView(), 'id' => $user->getId(), 'entity' => $entity]);
-        }
+
         $entitymobile = Read::getInstance()->readMul('v_ID', $entity->getId(), 'volunteer_mobile');
         $edu = $this->getEdu($entity);
         $skill = $this->getSkills($entity);
         $interest = $this->getInterestedAreas($entity);
         $notification = $this->getNotificationCount($entity);
+  
+        $query = "SELECT image FROM volunteer WHERE email=" . "'" . $email . "'";
+        $result = CustomQuery::getInstance()->customQuery($query);
+        $proImg = null;
+
+        if ($result) {
+            while ($row = mysqli_fetch_row($result)) {
+                $proImg = $row[0];
+            }
+        }
 
         return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:show.html.twig', array(
                     'entity' => $entity,
                     'entitymobile' => $entitymobile,
                     'edu' => $edu,
+                    'proImg' => $proImg,
                     'skills' => $skill,
                     'interests' => $interest,
                     'notification' => $notification
@@ -106,4 +114,5 @@ class VolProfileController extends ContainerAware {
         }
         return $temp;
     }
+
 }

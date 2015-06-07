@@ -5,3 +5,7 @@ athwelalogin_user_homepage:
 data_base:
     path:     /dataBase
     defaults: { _controller: AthwelaloginUserBundle:Default:index }
+
+Athwela_register:
+    path:     /register
+    defaults: { _controller: AthwelaloginUserBundle:Registration:register }

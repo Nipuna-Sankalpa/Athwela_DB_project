@@ -13,7 +13,17 @@ class Organization {
      * @var string
      */
     private $name;
+    private $img;
+    
+    public function getImg() {
+        return $this->img;
+    }
 
+    public function setImg($img) {
+        $this->img = $img;
+    }
+
+    
     /**
      * @var string
      */
