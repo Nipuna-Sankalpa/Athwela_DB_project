@@ -14,16 +14,21 @@ use Athwela\DA\CustomQuery\CustomQuery;
 use Symfony\Component\HttpFoundation\Request;
 use Athwela\AdministratorBundle\Entity\SearchVol;
 
+
 class ApprovalsController extends ContainerAware {
 
-    public function adminDashAction() {
+    public function adminDashAction(Request $request) {
 
         $user = $this->container->get('security.context')->getToken()->getUser();
         $email = $user->getEmail();
         $userName = $user->getUsername();
-        $flag = $_GET['regComplete'];
+        $flag = null;
+        if ($request->getMethod() === 'GET' && $request->get('regComplete')) {
+            $flag = $request->get('regComplete');
+        }
 
         $object = Read::getInstance()->read(new Admin(), 'admin', 'email', $email);
+
         if ($object === NULL) {
             die('ERROR');
         }
@@ -32,11 +37,22 @@ class ApprovalsController extends ContainerAware {
         $organizations = $this->getNewOrganizations();
         $volunteers = $this->getNewVolunteers();
 
+        $proPic = null;
+        $query = "SELECT image FROM admin WHERE email='$email'";
+
+        $result = CustomQuery::getInstance()->customQuery($query);
+        if ($result) {
+            while ($row = mysqli_fetch_row($result)) {
+                $proPic = $row[0];
+            }
+        }
+
         return $this->container->get('templating')->renderResponse('AthwelaAdministratorBundle:Administrator:adminDashBoard.html.twig', array(
                     'user' => $object,
                     'userName' => $userName,
                     'messages' => $messages,
                     'projects' => $projects,
+                    'proPic' => $proPic,
                     'organizations' => $organizations,
                     'volunteers' => $volunteers,
                     'regComplete' => $flag,

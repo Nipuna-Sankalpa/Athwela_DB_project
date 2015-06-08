@@ -49,7 +49,7 @@ class ChangePasswordFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'FOS\UserBundle\Form\Model\ChangePassword',
-            'intention'  => 'change_password',
+            'intention'  => 'change_password'
         ));
     }
 
