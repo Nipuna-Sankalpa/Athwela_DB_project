@@ -27,7 +27,7 @@ class ApprovalProjectController extends ContainerAware {
 
     public function adminProjectAction(Request $request) {
 
-        $query = "SELECT title,ID,posted_date FROM project WHERE status=" . "'" . "pending" . "'";
+        $query = "SELECT title,ID,posted_time FROM project WHERE status=" . "'" . "pending" . "'";
         $query1 = "SELECT name FROM type";
         $result = CustomQuery::getInstance()->customQuery($query);
         $result1 = CustomQuery::getInstance()->customQuery($query1);
@@ -59,8 +59,8 @@ class ApprovalProjectController extends ContainerAware {
             if ($result) {
                 while ($row = mysqli_fetch_row($result)) {
                     $allProjects[$i] = new ProjectView();
-                    $allProjects[$i]->seTitle($row[0]);
-                    $allProjects[$i]->setsetOrg_name($row[1]);
+                    $allProjects[$i]->setTitle($row[0]);
+                    $allProjects[$i]->setOrg_name($row[1]);
                     $allProjects[$i]->setProject_status($row[2]);
                     $i++;
                 }

@@ -8,7 +8,6 @@
 
 namespace Athwela\DA\CRUD;
 
-
 use Athwela\DA\DBConnection;
 use Athwela\DA\CRUD\Read;
 use Athwela\DA\CRUD\Create;
@@ -23,6 +22,7 @@ class Update {
 
     //put your code here
 
+
     private function __construct() {
         
     }
@@ -35,9 +35,9 @@ class Update {
         return $instance;
     }
 
-    //ex:- update($conn,table name,condition affected column,value of the index,array(fields whic are about to update),array( update values))
+//ex:- update($conn,table name,condition affected column,value of the index,array(fields whic are about to update),array( update values))
 //values and fields which are about to update shuold lie on same sequence 
-    
+
     public function update($table, $index, $value, $updatedFields, $updatedValues) {
         $column = null;
         $conn = DBConnection::getInstance()->getConnection();
@@ -52,31 +52,28 @@ class Update {
             return $conn->error;
         }
     }
-    
-    public function updateSkills($skills,$id) { 
+
+    public function updateSkills($skills, $id) {
         $conn = DBConnection::getInstance()->getConnection();
-        Delete::getInstance()->deleteRow($conn,'volunteer_skill','v_ID', $id);
+        Delete::getInstance()->deleteRow('volunteer_skill', 'v_ID', $id);
         DBConnection::getInstance()->closeConnection($conn);
-        
+
         for ($i = 0; $i < sizeof($skills); $i++) {
-            $s_ID = Read::getInstance()->readSpecific('ID','skill','name', $skills[$i]);
-            Create::getInstance()->insertMul('volunteer_skill',$id,$s_ID );
+            $s_ID = Read::getInstance()->readSpecific('ID', 'skill', 'name', $skills[$i]);
+            Create::getInstance()->insertMul('volunteer_skill', $id, $s_ID);
         }
-   
     }
-    
-    public function updateMobile($table,$phoneNu,$column,$id) { 
+
+    public function updateMobile($table, $phoneNu, $column, $id) {
         $conn = DBConnection::getInstance()->getConnection();
-        Delete::getInstance()->deleteRow($conn,$table,$column, $id);
+        Delete::getInstance()->deleteRow($table, $column, $id);
         DBConnection::getInstance()->closeConnection($conn);
-        for ($i = 0; $i < sizeof($phoneNu)-1; $i++) {
-            
-            Create::getInstance()->insertMul($table,$id,$phoneNu[$i]);
+        for ($i = 0; $i < sizeof($phoneNu) - 1; $i++) {
+
+            Create::getInstance()->insertMul($table, $id, $phoneNu[$i]);
         }
-   
     }
-    
-    
+
     public function updateSpecific($table, $index, $value, $updatedField, $updatedValue) {
         $conn = DBConnection::getInstance()->getConnection();
         $query = "UPDATE $table SET $updatedField = '" . $updatedValue . "' WHERE $index = '" . $value . "'";

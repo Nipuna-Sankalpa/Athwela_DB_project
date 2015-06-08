@@ -7,7 +7,7 @@
 {%block items%}
     <ul class="nav navbar-nav">
         <li><a href="{{path('athwela_timeline_volunteer')}}"><span class="glyphicon glyphicon-user"></span> Timeline </a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Profile Settings </a></li>
+        <li><a href="{{path('volunteer_profile_settings',{'id':app.user.id})}}"><span class="glyphicon glyphicon-cog"></span> Profile Settings</a></li>
         <li><a href="{{path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
     </ul>
@@ -17,8 +17,12 @@
     <div style="margin-left: 1100px"></div>
     <div class="row">        
         <div class="col-md-3">
-            <div id="image">                
-                <img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail">
+            <div id="image">
+                {% if proImg == null%}
+                    <img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail">
+                {% else%}
+                    <img src="{{asset(proImg)}}" class="img-responsive img-thumbnail">
+                {% endif %}
             </div>                  
             <div id="navBox" style="margin-top: 20px;">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

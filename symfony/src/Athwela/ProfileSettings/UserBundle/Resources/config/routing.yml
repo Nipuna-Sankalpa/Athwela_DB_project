@@ -7,8 +7,8 @@ organization_profile_settings:
 organization_profile_updates:
     path:     /organization/profile/updates/{id}
     defaults: { _controller: AthwelaProfileSettingsUserBundle:Organization:updates}
-    requirements: { _method: post }
+    requirements: { _method: post|get }
 volunteer_profile_updates:
     path:     /volunteer/profile/updates/{id}
     defaults: { _controller: AthwelaProfileSettingsUserBundle:Volunteer:updates}
-    requirements: { _method: post }
+    requirements: { _method: post|get  }

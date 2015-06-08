@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use FOS\UserBundle\Model\UserInterface;
 use Athwela\DA\CRUD\Create;
+use Athwela\DA\CustomQuery\CustomQuery;
 
 /**
  * Description of ApprovalAdminController
@@ -155,13 +156,19 @@ class ApprovalAdminController extends ContainerAware {
             $last_name = $request->get('last_name');
             $street = $request->get('street');
             $city = $request->get('city');
-            $email = $this->container->get('security.context')->getToken()->getUser()->getEmail();
             $country = $request->get('country');
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            
+            $ID = $user->getId();
+            $email = $user->getEmail();
+//            $query = "INSERT INTO admin ('ID','email') VALUES ('$ID','$email');";
+//            CustomQuery::getInstance()->customQuery($query);
 
-            $data = array('3', $first_name, $last_name, $street, $city, $country, $email, '');
-            var_dump($data);
+            $data = array($ID, $first_name, $last_name, $street, $city, $country, $email, '');
+
             Create::getInstance()->create($data, 'admin');
             $flag = "unblock";
+
             $url = $this->container->get('router')->generate('athwela_administrator_adminDash', array('regComplete' => $flag));
             return new RedirectResponse($url);
         }

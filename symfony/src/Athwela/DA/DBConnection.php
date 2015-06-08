@@ -21,7 +21,7 @@ class DBConnection {
     }
 
     public static function getInstance() {
-        static $instance = null;
+        $instance = null;
         if ($instance === null) {
             $instance = new DBConnection();
         }
@@ -39,7 +39,7 @@ class DBConnection {
 //open a connection with athwela dataBase
 
     public function getConnection() {
-        $connection = mysqli_connect('localhost', 'root', '', 'athwela');
+        $connection = mysqli_connect('localhost', 'root', '0713899213', 'athwela');
 
         if ($connection) {
             return $connection;
