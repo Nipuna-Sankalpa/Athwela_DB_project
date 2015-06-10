@@ -20,9 +20,9 @@ org_profile_message_send:
     requirements: { _method: post|delete }
     
 org_profile_ongoing:
-    path:     /ongoing
+    path:     /{email}/ongoing
     defaults: {_controller: OrgProfileBundle:OrgProject:ongoing }
     
 org_profile_posted:
-    path:     /posted
+    path:     /{email}/posted
     defaults: {_controller: OrgProfileBundle:OrgProject:posted }
