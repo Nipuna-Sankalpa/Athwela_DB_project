@@ -23,62 +23,125 @@
     </ul>
 {%endblock items%}
 
-{% block container%}
-    <title>{{entity.name}} - <h3>{{entity.description}}</h3></title>
-    <div class="row">
-        <div class="col-md-3">
-
-            <div id="image">                
-                <img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail">
-            </div>
-
-            <div id="navBox" style="margin-top: 20px;">
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-info">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Projects
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                <ul>
-                                    <li><a href="{{path('org_profile_posted')}}">Posted</a></li>
-                                    <li><a href="#">Create</a></li>
-                                    <li><a href="{{path('org_profile_ongoing')}}">Ongoing</a></li>
-                                    {%if amount != 0%}
-                                        <li><a href="{{path('org_profile_notification', {'email':entity.email})}}">Notifications <div style="width: 15px; height: 17px; background-color: red; margin-top: -17px; margin-left: 80px; color: white; text-align: center; font-size: 12px; border-radius: 5px;">{{amount}}</div></a></li>
-                                    {%endif%}
-                                    {%if amount == 0%}
-                                        <li><a href="{{path('org_profile_notification', {'email':entity.email})}}">Notifications</a></li>
-                                    {%endif%}
-                                </ul>
-                            </div>
-                        </div>
+{% block container%}    
+    <div class="container">
+        <div class="jumbotron" style="background-color: darkcyan; height: auto">
+            <div class="row">
+                <div class="col-md-3">
+                    <div id="image">
+                        {% if proImg==null%}
+                            <img src="{{asset('img/blankProPic.jpg')}}" class="img-responsive img-thumbnail">
+                        {% else %}
+                            <img src="{{asset(proImg)}}" class="img-responsive img-thumbnail">
+                        {% endif %}  
                     </div>
-                    <div class="panel panel-info">
-                        <div class="panel-heading" role="tab" id="headingTwo">
-                            <h4 class="panel-title">
-                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                    Setup Profile
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                            <div class="panel-body">
-                                <ul>
-                                    <li><a href="#">Edit</a></li>
-                                </ul>
+                </div>
+                <div class="col-md-8">
+                    <p><h1 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; margin-top: -10px; color: white">{{entity.name}}</h1></p>
+                    <h4 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; color: white"><i>{{entity.description}}</i></h4>
+                    <dt><h4 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; color: gold; margin-top: 60px"><span class="glyphicon glyphicon-envelope"></span>  {{entity.email}}</h4></dt> 
+                    <dt><h4 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif; color: gold"><span class="glyphicon glyphicon-home"></span>  {{entity.street}}, {{entity.city}}, {{entity.country}}</h4></dt>
+
+                </div>
+            </div>   
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div id="navBox" style="margin-top: 0px;">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-info">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Projects<span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <ul>
+                                        <li><a href="{{path('org_profile_posted', {'email':entity.email})}}">Posted</a></li>
+                                        {%if app.user.email == entity.email%}
+                                            <li><a href="#">Create</a></li>
+                                        {%endif%}
+
+                                        <li><a href="{{path('org_profile_ongoing', {'email':entity.email})}}">Ongoing</a></li>
+                                            {%if app.user.email == entity.email%}
+                                                {%if amount != 0%}
+                                                <li><a href="{{path('org_profile_notification', {'email':entity.email})}}">Notifications <div style="width: 15px; height: 17px; background-color: red; margin-top: -17px; margin-left: 80px; color: white; text-align: center; font-size: 12px; border-radius: 5px;">{{amount}}</div></a></li>
+                                                    {%endif%}
+                                                    {%if amount == 0%}
+                                                <li><a href="{{path('org_profile_notification', {'email':entity.email})}}">Notifications</a></li>
+                                                {%endif%}
+                                            {%endif%}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+                        {%if app.user.email == entity.email%}
+                            <div class="panel panel-info">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">                                    
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                            Setup Profile
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li><a href="#">Edit</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {%endif%}
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <form class="form-signin" method="POST" action="#" data-validate="parsley">
+
+            <div class="col-mid-8">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-info" style="width: 850px; margin-left: 300px">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                    Contacts<span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                {%if mobile == null%}
+                                    <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
+                                    <dd><i>Mobile number unavailable</i></dd><br/>
+                                {% endif %}
+                                {% if mobile != null%}
+                                    {% for i in 0..((mobile|length)-1)%}
+                                        <dt><span class="glyphicon glyphicon-phone"></span> Mobile {{i+1}} :</dt>
+                                        <dd>{{mobile[i]}}</dd><br/>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div style="margin-top: -315px; margin-left: 600px">
+                                {%if fax == null%}
+                                    <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax :</dt>
+                                    <dd><i>Fax number unavailable</i></dd><br/>
+                                {% endif %}
+                                {%if fax != null%}
+                                    {%for i in 0..((fax|length)-1)%}                                        
+                                        <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax {{i+1}} :</dt>
+                                        <dd>{{fax[i]}}</dd><br/>  
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+
+            </div>
+            {#<form class="form-signin" method="POST" action="#" data-validate="parsley">
                 <div class="col-md-8">              
                     <h2 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif;">{{entity.name}}</h2>
                     <div class="panel-body">
@@ -93,13 +156,13 @@
                                     {%if mobile == null%}
                                         <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
                                         <dd><i>Mobile number unavailable</i></dd><br/>
-                                    {%endif%}
-                                    {%if mobile != null%}
-                                        {%for i in 0..((mobile|length)-1)%}
+                                    {% endif %}
+                                    {% if mobile != null%}
+                                        {% for i in 0..((mobile|length)-1)%}
                                             <dt><span class="glyphicon glyphicon-phone"></span> Mobile {{i+1}} :</dt>
                                             <dd>{{mobile[i]}}</dd><br/>
-                                        {%endfor%}
-                                    {%endif%}
+                                        {% endfor %}
+                                    {% endif %}
                                     
                                     <dt><span class="glyphicon glyphicon-envelope"></span> Email :</dt>
                                     <dd><i>{{entity.email}}</i></dd><br/>
@@ -107,19 +170,19 @@
                                     {%if fax == null%}
                                         <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax :</dt>
                                         <dd><i>Fax number unavailable</i></dd><br/>
-                                    {%endif%}
+                                    {% endif %}
                                     {%if fax != null%}
                                         {%for i in 0..((fax|length)-1)%}                                        
                                             <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax {{i+1}} :</dt>
                                             <dd>{{fax[i]}}</dd><br/>  
-                                        {%endfor%}
-                                    {%endif%}
+                                        {% endfor %}
+                                    {% endif %}
                                 </dl>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </form>#}
+        </div>        
     </div>
-{%endblock container%}
+{% endblock container%}

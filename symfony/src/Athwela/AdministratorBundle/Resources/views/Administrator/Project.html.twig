@@ -26,7 +26,7 @@
 
                                 {%if newProjects!= null%}
                                     {% for project in newProjects %}
-                                        <div class="well well-sm col-sm-6">
+                                        <div class="well well-sm col-sm-6" style="margin: 0.5em;">
                                             <div class="col-xs-4">
                                                 <li><a href="#">{{project.title}}</a></li>
                                             </div>
@@ -37,7 +37,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                                
                                     {% endfor %}
+                                    
                                 {% else %}
                                     <div>
                                         <li><h4 class="text-center">No new Projects !</h4></li>
@@ -94,7 +96,7 @@
 
             </div>
 
-            <div><a href="#"><i class="fa fa-tasks fa-fw"></i> View all projects</a></div>
+            <div><a href="{{path('athwela_administrator_project',{'flag':TRUE})}}"><i class="fa fa-tasks fa-fw"></i> View all projects</a></div>
 
 
             <div class="row">

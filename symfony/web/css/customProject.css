@@ -1,12 +1,4 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Apr 12, 2015, 11:04:26 PM
-    Author     : Yellow Flash
-*/
+
 .navbar {
     margin-bottom: 0;
 
@@ -23,8 +15,6 @@ and open the template in the editor.
     color: #838287;
     margin-bottom: 2em;
     /*border: 2px solid darkgrey;*/
-
-
 
 }
 .columnHeader{
@@ -48,9 +38,6 @@ and open the template in the editor.
 
 }
 
-body {
-    background-color: rgba(230,230,230,0.2);
-}
 .listHead{
     margin-left: 0.5em;
     
@@ -59,3 +46,9 @@ body {
 .listItems{
     margin-left: 3em;
 }
+
+.panel-default > .panel-heading {
+	background-color: #B5B5B5;
+
+}
+

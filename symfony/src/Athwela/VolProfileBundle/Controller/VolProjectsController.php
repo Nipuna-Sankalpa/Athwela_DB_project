@@ -42,7 +42,7 @@ class VolProjectsController extends ContainerAware {
     
     public function getProject($entity){
         $i = 0; $temp[][] = null;
-        $projects = CustomQuery::getInstance()->customQuery('select p.title, p.description, p.start_date, p.end_date, p.posted_time, p.o_ID, vp.contribution, p.ID from project p, volunteer_project vp, organization o where vp.p_ID = p.ID and p.o_ID = o.ID and p.status = "ongoing" and vp.v_ID = '.$entity->getId());
+        $projects = CustomQuery::getInstance()->customQuery('select p.title, p.description, p.start_date, p.end_date, p.posted_date, p.o_ID, vp.contribution, p.ID from project p, volunteer_project vp, organization o where vp.p_ID = p.ID and p.o_ID = o.ID and p.status = "ongoing" and vp.v_ID = '.$entity->getId());
         while ($row = mysqli_fetch_row($projects)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];

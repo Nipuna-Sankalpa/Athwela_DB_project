@@ -59,8 +59,8 @@ class ApprovalProjectController extends ContainerAware {
             if ($result) {
                 while ($row = mysqli_fetch_row($result)) {
                     $allProjects[$i] = new ProjectView();
-                    $allProjects[$i]->seTitle($row[0]);
-                    $allProjects[$i]->setsetOrg_name($row[1]);
+                    $allProjects[$i]->setTitle($row[0]);
+                    $allProjects[$i]->setOrg_name($row[1]);
                     $allProjects[$i]->setProject_status($row[2]);
                     $i++;
                 }

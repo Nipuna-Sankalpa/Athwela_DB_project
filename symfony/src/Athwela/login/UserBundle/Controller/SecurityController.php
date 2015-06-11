@@ -14,10 +14,30 @@ namespace Athwela\login\UserBundle\Controller;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
 use Athwela\login\UserBundle\Form\Type\RegistrationFormType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SecurityController extends ContainerAware {
 
     public function loginAction() {
+
+        $securityContext = $this->container->get('security.context');
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if ($securityContext->isGranted('ROLE_ADMIN')) {
+            $url = $this->container->get('router')->generate('athwela_administrator_adminDash', array('regComplete' => 'blocked'));
+            return new RedirectResponse($url);
+        }
+
+        if ($securityContext->isGranted('ROLE_ORG')) {
+            $url = $this->container->get('router')->generate('org_profile_show', array('email' => $user->getEmail()));
+            return new RedirectResponse($url);
+        }
+
+        if ($securityContext->isGranted('ROLE_VOL')) {
+            $url = $this->container->get('router')->generate('vol_profile_show', array('email' => $user->getEmail()));
+            return new RedirectResponse($url);
+        }
+
         $request = $this->container->get('request');
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();

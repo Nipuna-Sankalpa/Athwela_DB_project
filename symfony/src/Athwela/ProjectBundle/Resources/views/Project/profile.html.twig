@@ -2,6 +2,7 @@
 {%block css%}
     <link href="{{asset('css/customProject.css')}}" rel="stylesheet"/>
     <link href="{{asset('css/lightbox.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/jquery.circliful.css')}}" rel="stylesheet" />
 {% endblock css%}
 
 
@@ -15,21 +16,19 @@
 
     {#</ul>#}
 
+
 {#{% endblock items%}#}
+
+{#{% endblock items %}#}
 
 
 
 
 {%block container%}
 
-    <div class="row" id="header">
-        <div class="page-header">
-            <h2>{{project.title}}</h2>
-        </div>
-    </div>
-
     <div class="row" id="firstRow">
-        <div id="crousel" class="col-md-9" style="margin-bottom: 2em;">
+
+        <div id="crousel" class="col-md-10" style="margin-bottom: 2em;">
 
             {#---------------------------crousel starts----------------------------------------#}
 
@@ -78,7 +77,7 @@
         </div>
         {#----------------------------crousal ends-----------------------------------------#}
 
-        <div id="compBoxes" class="col-md-2 col-md-offset-1">
+        <div id="compBoxes" class="col-md-2">
             <div class="row textColumnModule" id="comp1">
                 <h3 class="columnHeader text-right">Join</h3>
                 <p style="padding: 0.5em;">Want to make a difference in the world? If yes, join with us and give a helping hand by clicking the link given below</p>
@@ -88,160 +87,314 @@
                 <div id="settings">
                     <h3 class="columnHeader text-right">Misc</h3>
                     <ul>
-                        <li>Volunteers</li>
-                        <li>{{project.status}}</li>
+                        <a href="#regVols" data-toggle="modal" ><li>Volunteers </li></a>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><li>Gallery </li></a>
+                        <a href="#fullProjProfile" data-toggle="modal"><li>Full project profile </li></a>
 
                     </ul>
                 </div>
             </div>
-            <div id="comp3" class="row textColumnModule">
-                <div id="settings">
-                    <h3 class="columnHeader text-right">Settings</h3>
-                    <ul>
-                        <li>Update Project</li>
-                        <li>Delete Project</li>
-                        <li>Edit Gallery</li>
-                    </ul>
+            {% if flag != NULL%}
+                <div id="comp3" class="row textColumnModule">
+                    <div id="settings">
+                        <h3 class="columnHeader text-right">Settings</h3>
+                        <ul>
+                            <li>Update Project</li>
+                            <li>Delete Project</li>
+                            <li>Edit Gallery</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div id="comp3" class="row textColumnModule">
+                    <div id="settings">
+                        <h3 class="columnHeader text-right">States</h3>
+                        <ul>
+                            <li>{{project.status}} project</li>
+                            <li>Start : 01.02.2015</li>
+                            <li>end : 01.03.2015</li>
+                            <li>volunteers required</li>
+                        </ul>
+                    </div>
+                </div>
+
+            {% endif%}
         </div>
     </div>
 
     <div class="row" id="secondRow">
-        <div class="col-sm-4" id="com1">
-            <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Project</h3>
-            <div style="overflow: hidden;height:305px;">
-                <li><h4 class="listHead">Title</h4></li>
-                <div class="listItems text-justify">{{project.title}}</div>
-                <li><h4 class="listHead">Type</h4></li>
-                <div class="listItems text-justify">{{type.name}}</div>
-                <li><h4 class="listHead">Host By</h4></li>
-                <div class="listItems text-justify">{{org.name}}</div>
-                <li><h4 class="listHead">Description</h4></li>
-                <div class="listItems text-justify">{{project.description}}</div>
+
+        <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#project" aria-controls="project" role="tab" data-toggle="tab">Project </a></li>
+                <li role="presentation"><a href="#state" aria-controls="state" role="tab" data-toggle="tab">States </a></li>
+                <li role="presentation"><a href="#organization" aria-controls="organization" role="tab" data-toggle="tab">Organization</a></li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active fade in" id="project" style="padding: 1em;">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <li><h4 class="listHead">Title</h4></li>
+                                <div class="listItems text-justify">{{project.title}}</div>
+                                <li><h4 class="listHead">Type</h4></li>
+                                <div class="listItems text-justify">{{type.name}}</div>
+                                <li><h4 class="listHead">Host By</h4></li>
+                                <div class="listItems text-justify"><a href="#organization" aria-controls="organization" role="tab" data-toggle="tab">{{org.name}}</a></div>
+                                <li><h4 class="listHead">Description</h4></li>
+                            </div>
+
+                            <div class="col-sm-5">
+                                {% if org.img == NULL%}
+                                    <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset('img/blankProPic.jpg')}}">
+                                {% else %}
+                                    <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset(org.img)}}">
+                                {%endif %}
+                            </div>
+
+                        </div>
+                        <div class="listItems text-justify">{{project.description}}</div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="state" style="padding: 1em;">
+
+                    <div >
+                        <div class="col-sm-4">
+
+                            <li><h4 class="listHead">Date Posted</h4></li>
+                            <div class="listItems text-justify">- {{project.postedDate}}</div>
+                            <li><h4 class="listHead">Project End</h4></li>
+                            <div class="listItems text-justify">- {{project.endDate}}</div>
+                            <li><h4 class="listHead">Total Vacancies</h4></li>
+                            <div class="listItems text-justify">- {{totVol}}</div>
+
+                            <li><h4 class="listHead">Duration</h4></li>
+                            <div class="listItems text-justify">- {{duration}}</div>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <li><h4 class="listHead">Status</h4></li>
+                            <div class="listItems text-justify">- {{project.status}}</div>
+                            <dl>
+                                {% if skills != NULL%}
+                                    <li><h4 class="listHead">Expected Skills</h4></li>
+                                    <p>
+                                        {% for skill in skills%}
+                                            <span style="margin: 0.3em;padding: 0.3em" class="textColumnModule">{{skill.name}}</span>
+                                        {% endfor%}
+                                    </p>
+                                {% endif %}
+                            </dl>  
+                        </div>
+                        <div class="col-sm-4">
+                            <li><h4 class="listHead">Vacancies remains</h4></li>
+                            <div id="myStat" data-dimension="180" data-text="{{project.volunteersNeeded}}" data-info=""  data-width="17" data-fontsize="38" data-percent="" data-fgcolor="#61a9dc" data-bgcolor="#eee" data-fill="#ddd" data-total="{{totVol}}" data-part="{{project.volunteersNeeded}}" data-icon="long-arrow-up" data-icon-size="28" data-icon-color="#fff"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="organization" style="padding: 1em;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <li><h4 class="listHead">Organization Name</h4></li>
+                            <div class="listItems text-justify">- {{org.name}}</div>
+                            <li><h4 class="listHead">Organization Email</h4></li>
+                            <div class="listItems text-justify">- {{org.email}}</div>
+                            <li><h4 class="listHead">Organization Location</h4></li>
+                            <div class="listItems text-justify">- {{org.street}}</div>
+                            <div class="listItems text-justify">- {{org.city}}</div>
+                        </div>
+                        <div class="col-md-5">
+                            {% if org.img != null %}
+                                <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset(org.img)}}">
+                            {% else %}
+                                <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset('img/blankProPic.jpg')}}">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a href="{{path('org_profile_show',{'email':org.email})}}"> View more >></a>
+                    </div>
+                </div>
+
             </div>
-            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectDetail">View more <span class="glyphicon glyphicon-play-circle"></span></a></h4>
+
         </div>
-        <div class="col-sm-4" id="com2">
-            <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Status</h3>
-            <div style="overflow: hidden;height:305px;">
-                <li><h4 class="listHead">Date Posted</h4></li>
-                <div class="listItems text-justify">{{project.postedDate}}</div>
-                <li><h4 class="listHead">Project Ends</h4></li>
-                <div class="listItems text-justify">{{project.endDate}}</div>
-                <li><h4 class="listHead">Number of vacancies</h4></li>
-                <div class="listItems text-justify">{{project.volunteersNeeded}}</div>
-                {% if duration!=NULL%}
-                    <li><h4 class="listHead">Duration</h4></li>
-                    <div class="listItems text-justify">{{duration}}</div>
-                {% endif %}
-                <li><h4 class="listHead">Status</h4></li>
-                <div class="listItems text-justify">{{project.status}}</div>
-            </div>
-            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectStatus">View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
 
-        </div>
-        <div class="col-sm-4" id="com3">
-            <h3 class="columnHeader text-right" style="border-bottom: 1px solid #CCCCCC;">Gallery</h3>
-            <div style="overflow: hidden;height:305px;padding: 1em;">
-
-                <div class="media">
-                    <div class="media-left">
-                        <a href="{{asset('img/test.jpg')}}" data-lightbox="img" data-title="">
-                            <img class="media-object img-rounded"  src="{{asset('img/test.jpg')}}" height="72px" width="72px" alt="1">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading"><span class="glyphicon glyphicon-map-marker"> :</span> Location</h4>
-                        <h4 class="media-heading"><span class="glyphicon glyphicon-camera"> :</span> Caption</h4>
-
-                    </div>
-
-                </div>
-                <div class="media">
-                    <div class="media-left">
-                        <a href="{{asset('img/test.jpg')}}" data-lightbox="img" data-title="">
-                            <img class="media-object img-rounded" src="{{asset('img/test.jpg')}}" height="72px" width="72px" alt="1">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading"><span class="glyphicon glyphicon-map-marker"> :</span> Location</h4>
-                        <h4 class="media-heading"><span class="glyphicon glyphicon-camera"> :</span> Caption</h4>
-
-                    </div>
-
-                </div>
-                <div class="media">
-                    <div class="media-left">
-                        <a href="{{asset('img/test.jpg')}}" data-lightbox="img" data-title="">
-                            <img class="media-object img-rounded" src="{{asset('img/test.jpg')}}" height="72px" width="72px" alt="1">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading"><span class="glyphicon glyphicon-map-marker"> :</span> Location</h4>
-                        <h4 class="media-heading"><span class="glyphicon glyphicon-camera"> :</span> Caption</h4>
-
-                    </div>
-
-                </div>
-
-            </div>
-            <h4 class="columnFooter" style="padding: 0.3em;"><a href="#projectGallery">View more <span class="glyphicon glyphicon-play-circle text-right"></span></a></h4>
-
-        </div>        
     </div>
-    <br />
-    <div class="row" id="thirdRow">
-        <div id="projectDetail" class="row">
-            <h4 class="page-header">Project</h4>
-            <dl>
-                <dt>Title</dt>
-                <dd>- {{project.title}}</dd>
-                <dt>Type</dt>
-                <dd>- {{type.name}}</dd>
-                <dd>- {{type.description}}</dd>
-                <dt>Hosted by</dt>
-                <dd>- Project hosted by {{org.name}}</dd>
-                <dd>- Email:- {{org.email}}</dd>
-                <dt>Description</dt>
-                <dd>- {{project.description}}</dd>
-            </dl>
-        </div>
-        <div id="projectStatus" class="row">
-            <h4 class="page-header">Status</h4>            
-            <div class="col-sm-4">
-                <dl>
-                    <dt>Date Posted</dt>
-                    <dd>- {{project.postedDate}}</dd>
-                    <dt>Project End</dt>
-                    <dd>- {{project.endDate}}</dd>
-                    <dt>Vacancies</dt>
-                    <dd>- {{project.volunteersNeeded}}</dd>
-                    <dt>Duration</dt>
-                    <dd>- {{duration}}</dd>
-                    <dt>Status</dt>
-                    <dd>- {{project.status}}</dd>
-                </dl>  
+    <hr />
+    <div class="row">
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Gallery<span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        {% if img == NULL%}
+                            <p class="listHead"> Gallery is empty </p>
+                        {% else %}
+                            {% for image in img%}
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="{{asset(image)}}" alt="images">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Caption</h4>
+                                        <p>{{image.caption}}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <dl>
-                    {% if skills != NULL%}
-                        <dt>Expected Skills</dt>
-                        <p>
-                            {% for skill in skills%}
-                                <span style="margin: 0.3em;" class="textColumnModule">{{skill.name}}</span>
-                            {% endfor%}
-                        </p>
-                    {% endif %}
-                </dl>  
-            </div>
-            <div class="col-sm-4"></div>
         </div>
-        <div id="projectGallery" class="row">
-            <h4 class="page-header">Gallery</h4>
-            <div >
-                <div id="img1" class="col-sm-2">
-                    <a><img src="{{asset('img/test.jpg')}}" height="242" width="200" class="img-responsive img-rounded thumbnail" alt="img"></a>
+
+
+    </div>
+
+
+    <div>
+        <!-- Modal -->
+        <div class="modal fade" id="regVols" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Registered volunteers</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        {%if regVols != NULL%}
+                            {% for regVol in regVols%}
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="{{path('vol_profile_show',{'email':regVol.email})}}">
+                                            <img class="media-object thumbnail" src="{{asset(regVol.image)}}" alt="img" height="64" width="64">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{regVol.name}}</h4>
+                                        <div>{{regVol.email}}</div>
+                                        <p>{{regVol.contribution}}</p>
+
+                                    </div>
+                                </div>
+                            {%endfor%}
+                        {% else %}
+                            <div>There are no registered volunteers available</div>
+                        {%endif%}
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bs-example-modal-lg" id="fullProjProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Full Project Profile</h4>
+                    </div>
+                    <div class="modal-body" >
+                        <div class="row" style="padding: 1em;">
+                            <div class="row" >
+                                <div class="col-sm-7">
+                                    <li><h4 class="listHead">Title</h4></li>
+                                    <div class="listItems text-justify">{{project.title}}</div>
+                                    <li><h4 class="listHead">Type</h4></li>
+                                    <div class="listItems text-justify">{{type.name}}</div>
+                                    <li><h4 class="listHead">Host By</h4></li>
+                                    <div class="listItems text-justify"><a href="#organization" aria-controls="organization" role="tab" data-toggle="tab">{{org.name}}</a></div>
+                                    <li><h4 class="listHead">Description</h4></li>
+                                </div>
+
+                                <div class="col-sm-5">
+                                    {% if org.img == NULL%}
+                                        <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset('img/blankProPic.jpg')}}">
+                                    {% else %}
+                                        <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset(org.img)}}">
+                                    {%endif %}
+                                </div>
+
+                            </div>
+                            <div class="listItems text-justify">{{project.description}}</div>
+                        </div>
+                        <div class="row" style="padding: 1em;">
+                            <div class="col-sm-4">
+
+                                <li><h4 class="listHead">Date Posted</h4></li>
+                                <div class="listItems text-justify">- {{project.postedDate}}</div>
+                                <li><h4 class="listHead">Project End</h4></li>
+                                <div class="listItems text-justify">- {{project.endDate}}</div>
+                                <li><h4 class="listHead">Total Vacancies</h4></li>
+                                <div class="listItems text-justify">- {{totVol}}</div>
+
+                                <li><h4 class="listHead">Duration</h4></li>
+                                <div class="listItems text-justify">- {{duration}}</div>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <li><h4 class="listHead">Status</h4></li>
+                                <div class="listItems text-justify">- {{project.status}}</div>
+                                <dl>
+                                    {% if skills != NULL%}
+                                        <li><h4 class="listHead">Expected Skills</h4></li>
+                                        <p>
+                                            {% for skill in skills%}
+                                                <span style="margin: 0.3em;padding: 0.3em" class="textColumnModule">{{skill.name}}</span>
+                                            {% endfor%}
+                                        </p>
+                                    {% endif %}
+                                </dl>  
+                            </div>
+
+                        </div>
+                        <div class="row" style="padding: 1em;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <li><h4 class="listHead">Organization Name</h4></li>
+                                    <div class="listItems text-justify">- {{org.name}}</div>
+                                    <li><h4 class="listHead">Organization Email</h4></li>
+                                    <div class="listItems text-justify">- {{org.email}}</div>
+                                    <li><h4 class="listHead">Organization Location</h4></li>
+                                    <div class="listItems text-justify">- {{org.street}}</div>
+                                    <div class="listItems text-justify">- {{org.city}}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    {% if org.img == NULL%}
+                                        <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset('img/blankProPic.jpg')}}">
+                                    {% else %}
+                                        <img class="img-responsive img-thumbnail" height="180px" width="180px" src="{{asset(org.img)}}">
+                                    {%endif %}
+                                </div>
+                            </div>
+                            <div style="padding: 1em;">
+                                <a href="{{path('org_profile_show',{'email':org.email})}}"> View more >></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -255,4 +408,11 @@
 {%block js%}
 
     <script src="{{asset('js/lightbox.min.js')}}"></script>
+    <script src="{{asset('js/jquery.circliful.min.js')}}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#myStat').circliful();
+        });
+    </script>
 {%endblock js%}

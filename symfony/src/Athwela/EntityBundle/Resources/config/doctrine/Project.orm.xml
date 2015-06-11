@@ -16,7 +16,7 @@
     <field name="endDate" type="date" column="end_date" nullable="false"/>
     <field name="volunteersNeeded" type="integer" column="volunteers_needed" nullable="false"/>
     <field name="noOfFilledPositions" type="integer" column="no_of_filled_positions" nullable="false"/>
-    <field name="postedDate" type="timestamp" column="posted_time" nullable="false"/>
+    <field name="postedDate" type="timestamp" column="posted_date" nullable="false"/>
     <many-to-one field="o" target-entity="Organization">
       <join-columns>
         <join-column name="o_ID" referenced-column-name="ID"/>
