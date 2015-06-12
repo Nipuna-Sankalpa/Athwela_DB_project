@@ -19,8 +19,10 @@
 
         <!-- Custom CSS -->
         <link href="{{asset('AdminDashBoardComponents/dist/css/sb-admin-2.css')}}" rel="stylesheet">
-
-        <link href="{{asset('AdminDashBoardComponents/dist/css/ihover.css')}}" rel="stylesheet">
+        <link href="{{asset('css/ihover.css')}}" rel="stylesheet">
+        <link href="{{asset('css/formValidation.min.css')}}" rel="stylesheet">
+        <link href="{{asset('BootstrapFormHelpers/dist/css/bootstrap-formhelpers.min.css')}}" rel="stylesheet">
+        
     {%block customCss%}{%endblock customCss%}
 
     <!-- Custom Fonts -->
@@ -404,8 +406,17 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('AdminDashBoardComponents/dist/js/sb-admin-2.js')}}"></script>
+    
+     <script src={{asset('js/jquery-1.11.2.min.js')}}></script>
+    <script src={{asset('js/formValidation.min.js')}}></script>
+    <script src={{asset('js/framework/bootstrap.min.js')}}></script>
+    <script src={{asset('js/moment.min.js')}}></script>
+    <script src={{asset('js/bootstrap-datetimepicker.min.js')}}></script>  
+    <script src={{asset('BootstrapFormHelpers/dist/js/bootstrap-formhelpers.min.js')}}></script>  
 
-{%block script%}{% endblock script%}
+{%block script%}
+
+{% endblock script%}
 </body>
 
 </html>

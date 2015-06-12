@@ -27,7 +27,7 @@ class ApprovalProjectController extends ContainerAware {
 
     public function adminProjectAction(Request $request) {
 
-        $query = "SELECT title,ID,posted_time FROM project WHERE status=" . "'" . "pending" . "'";
+        $query = "SELECT title,ID,posted_date FROM project WHERE status=" . "'" . "pending" . "'";
         $query1 = "SELECT name FROM type";
         $result = CustomQuery::getInstance()->customQuery($query);
         $result1 = CustomQuery::getInstance()->customQuery($query1);
