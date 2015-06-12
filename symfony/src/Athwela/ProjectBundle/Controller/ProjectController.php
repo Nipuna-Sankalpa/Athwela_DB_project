@@ -11,7 +11,6 @@ use Athwela\ProjectBundle\Entity\ProjectSkill;
 use Athwela\ProjectBundle\Entity\ProjectType;
 use Athwela\ProjectBundle\Entity\ProjectImg;
 use Athwela\ProjectBundle\Entity\RegVols;
-use Symfony\Component\HttpFoundation\Request;
 
 class ProjectController extends ContainerAware {
 
@@ -120,7 +119,6 @@ class ProjectController extends ContainerAware {
             die('you are not authorized to view this page');
         }
 
-
         return $this->container->get('templating')->renderResponse('AthwelaProjectBundle:Project:profile.html.twig', array(
                     'project' => $project,
                     'flag' => $flag,
@@ -130,45 +128,10 @@ class ProjectController extends ContainerAware {
                     'org' => $org,
                     'totVol' => $total,
                     'duration' => $duration,
-                    'regVols'=>$regVol,
+                    'regVols' => $regVol,
         ));
     }
 
-    public function createProjectAction(Request $request) {
-        $skill = NULL;
-        $types = NULL;
-
-        if ($request->getMethod() == 'POST') {
-            
-        } else {
-
-            $query1 = "SELECT name FROM skill";
-            $query2 = "SELECT name FROM type";
-            $result1 = CustomQuery::getInstance()->customQuery($query1);
-            $result2 = CustomQuery::getInstance()->customQuery($query2);
-
-            if ($result1) {
-                $i = 0;
-                while ($row = mysqli_fetch_row($result1)) {
-
-                    $skill[$i] = $row[0];
-                    $i++;
-                }
-            }
-            if ($result2) {
-                $i = 0;
-                while ($row = mysqli_fetch_row($result2)) {
-
-                    $types[$i] = $row[0];
-                    $i++;
-                }
-            }
-
-            return $this->container->get('templating')->renderResponse('AthwelaProjectBundle:Project:EditProfile.html.twig', array(
-                        'skills' => $skill,
-                        'types' => $types
-            ));
-        }
-    }
+    
 
 }

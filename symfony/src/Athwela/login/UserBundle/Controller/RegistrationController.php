@@ -39,12 +39,12 @@ class RegistrationController extends ContainerAware {
             $role = $user->getRoles();
 
             $ID = $user->getId();
-            $email=$user->getEmail();
+            $email = $user->getEmail();
 
 
             $authUser = false;
             if ($confirmationEnabled) {
-                $this->container->get('session')->set('fos_user_send_confirmation_email/email',$email );
+                $this->container->get('session')->set('fos_user_send_confirmation_email/email', $email);
                 $route = 'fos_user_registration_check_email';
             } else {
                 $authUser = true;

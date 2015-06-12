@@ -6,6 +6,6 @@ show_project:
     path:     /{ID}
     defaults: { _controller: AthwelaProjectBundle:Project:showProject }
     
-create_project:
-    path:     /create/
-    defaults: { _controller: AthwelaProjectBundle:Project:createProject }
+project_settings:
+    path:     /createProject
+    defaults: { _controller: AthwelaProjectBundle:Settings:create}

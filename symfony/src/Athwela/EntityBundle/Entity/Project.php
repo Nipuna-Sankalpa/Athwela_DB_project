@@ -13,6 +13,15 @@ class Project {
      * @var string
      */
     private $title;
+    private $skill;
+
+    function getSkill() {
+        return $this->skill;
+    }
+
+    function setSkill($skill) {
+        $this->skill = $skill;
+    }
 
     public function setId($id) {
         $this->id = $id;
@@ -429,9 +438,5 @@ class Project {
      * @var \Athwela\EntityBundle\Entity\Type
      */
     private $t;
-
-
-
-   
 
 }
