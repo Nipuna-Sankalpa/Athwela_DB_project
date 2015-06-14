@@ -28,7 +28,7 @@ class Update {
     }
 
     public static function getInstance() {
-        $instance = null;
+        static $instance = null;
         if ($instance === null) {
             $instance = new Update();
         }

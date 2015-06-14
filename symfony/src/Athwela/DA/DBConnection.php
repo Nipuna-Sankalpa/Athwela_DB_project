@@ -39,7 +39,7 @@ class DBConnection {
 //open a connection with athwela dataBase
 
     public function getConnection() {
-        $connection = mysqli_connect('localhost', 'root', 'dilini', 'athwela');
+        $connection = mysqli_connect('localhost', 'root', '', 'athwela7');
 
         if ($connection) {
             return $connection;
