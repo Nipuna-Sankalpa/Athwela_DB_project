@@ -36,4 +36,10 @@ class TimelineController extends Controller {
 
         return $projects;
     }
+
+    private function getProjectBanners(){
+        $qbuilder = new TimelineQueryBuilder();
+        $images = $qbuilder -> getTimelinePostImages();
+        return $images;
+    }
 }
