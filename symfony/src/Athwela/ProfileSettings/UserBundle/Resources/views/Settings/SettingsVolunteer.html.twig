@@ -8,7 +8,7 @@
 {%block items%}
     <ul class="nav navbar-nav">
         <li><a href="{{path('athwela_timeline_volunteer')}}"><span class="glyphicon glyphicon-book"></span>Timeline</a></li>
-        <li><a href="{{path('vol_profile_show')}}"><span class="glyphicon glyphicon-user"></span>{{app.user.username}}</a></li>
+        <li><a href="{{path('vol_profile_show', {'email':app.user.email})}}"><span class="glyphicon glyphicon-user"></span>{{app.user.username}}</a></li>
         <li><a href="{{path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
 {%endblock items%}

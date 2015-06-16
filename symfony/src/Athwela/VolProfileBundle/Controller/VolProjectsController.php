@@ -48,7 +48,7 @@ class VolProjectsController extends ContainerAware {
                 $temp[$i][$index] = $row[$index];
             }
             $temp[$i][5] = Read::getInstance()->read(new Organization(), 'organization', 'ID', $row[5]);
-            CustomQuery::getInstance()->customQuery('Update volunteer_project set status = "Seen" where project_ID = '.$row[7].' and volunteer_ID = ' . $entity->getId() . ' and accepted_at = "' . $row[2] . '"');
+            CustomQuery::getInstance()->customQuery('Update volunteer_project set status = "Seen" where project_ID = '.$row[7].' and volunteer_ID = ' . $entity->getId() . ' and accepted_at = "' . $row[2] . '"');            
             $i++;
         }
         return $temp;
@@ -62,7 +62,7 @@ class VolProjectsController extends ContainerAware {
                 $temp[$i][$index] = $row[$index];
             }
             $temp[$i][0] = Read::getInstance()->read(new Project(), 'project', 'ID', $row[0]);            
-            $temp[$i][2] = Read::getInstance()->read(new Organization(), 'organization', 'ID', $row[2]);            
+            $temp[$i][2] = Read::getInstance()->read(new Organization(), 'organization', 'ID', $row[2]); 
             $i++;
         }
         return $temp;

@@ -8,7 +8,7 @@
             <a href="#">Services</a>
         </li>
         <li>
-            <a href="{{path('vol_profile_show')}}">Profile</a>
+            <a href="{{path('vol_profile_show', {'email' : entity.email})}}">Profile</a>
         </li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>

@@ -13,7 +13,7 @@
             <a href="#">Services</a>
         </li>
         <li>
-            <a href="{{path('vol_profile_show')}}">Profile</a>
+            <a href="{{path('vol_profile_show', {'email' : entity.email})}}">Profile</a>
         </li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
@@ -76,20 +76,19 @@
                                 {% endif %}
                                 <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{suggesstion[i].postedDate}}" id=""></i></a></div>
                                 <div class="timeline-panel">      
-                                    <div class="timeline-heading">
-                                        <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
-                                    </div>
-                                    <div class="timeline-body">
-                                        <h4>{{ suggesstion[i].title }}</h4>
-                                        <p>{{ suggesstion[i].description|length > 250 ? suggesstion[i].description|slice(0, 250) ~ '...' : suggesstion[i].description }}</p>
+                                    <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
+                                </div>
+                                <div class="timeline-body">
+                                    <h4>{{ suggesstion[i].title }}</h4>
+                                    <p>{{ suggesstion[i].description|length > 250 ? suggesstion[i].description|slice(0, 250) ~ '...' : suggesstion[i].description }}</p>
 
-                                    </div>
+                                </div>
 
-                                    <div class="timeline-footer">
-                                        <p><i class="glyphicon glyphicon-calendar"></i>Start:{{ suggesstion[i].startDate }}</p>
-                                        <p>   <i class="glyphicon glyphicon-ok"></i>Remaining :{{ suggesstion[i].volunteersNeeded - suggesstion[i].noOfFilledPositions }}</p>
-                                        <a class="btn btn-info" style="float: right" href="{{path('show_project', {'ID':suggesstion[i].id})}}">View more</a>
-                                    </div>
+                                <div class="timeline-footer">
+                                    <p><i class="glyphicon glyphicon-calendar"></i>Start:{{ suggesstion[i].startDate }}</p>
+                                    <p>   <i class="glyphicon glyphicon-ok"></i>Remaining :{{ suggesstion[i].volunteersNeeded - suggesstion[i].noOfFilledPositions }}</p>
+                                    <a class="btn btn-info" style="float: right" href="{{path('show_project', {'ID':suggesstion[i].id})}}">View more</a>
+                                </div>
                                 </div>
                             </li>
                         </ul>

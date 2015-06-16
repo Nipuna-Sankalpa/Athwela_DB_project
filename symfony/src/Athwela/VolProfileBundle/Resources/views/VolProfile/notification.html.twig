@@ -13,13 +13,15 @@
             <a href="#">Services</a>
         </li>
         <li>
-            <a href="{{path('vol_profile_show')}}">Profile</a>
+            <a href="{{path('vol_profile_show', {'email':entity.email})}}">Profile</a>
         </li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Profile Settings</a></li>
+                {%if entity.id == app.user.id%}
                 <li><a href="#">Change Password</a></li>
+                {%endif%}
                 <li><a href="{{path('athwela_timeline_volunteer')}}">Timeline</a></li>
                 <li class="divider"></li>
                 <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>

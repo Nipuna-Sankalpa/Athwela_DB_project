@@ -14,7 +14,9 @@
 {%block items%}
     <ul class="nav navbar-nav">
         <li><a href="{{path('athwela_timeline_volunteer')}}"><span class="glyphicon glyphicon-user"></span> Timeline </a></li>
-        <li><a href="{{path('volunteer_profile_settings',{'id':app.user.id})}}"><span class="glyphicon glyphicon-cog"></span> Profile Settings</a></li>
+        {%if app.user.email == entity.email%}
+            <li><a href="{{path('volunteer_profile_settings',{'id':app.user.id})}}"><span class="glyphicon glyphicon-cog"></span> Profile Settings</a></li>
+        {%endif%}
         <li><a href="{{path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
         {#</ul>#}

@@ -1,9 +1,7 @@
 {%extends "::base.html.twig"%}
-
 {% block css %}
     <link href="{{asset('css/timeline.css')}}" rel="stylesheet">
 {% endblock %}
-
 {%block items%}
     <ul class="nav navbar-nav">
         <li>
@@ -13,14 +11,13 @@
             <a href="#">Services</a>
         </li>
         <li>
-            <a href="{{path('vol_profile_show', {'email' : entity.email})}}">Profile</a>
+            <a href="{{path('fos_user_security_logout')}}">Logout</a>
         </li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="{{path('volunteer_profile_updates', {'id' : entity.id})}}">Profile Settings</a></li>
-                <li><a href="#">Change Password</a></li>
-                <li><a href="{{path('athwela_timeline_volunteer')}}">Timeline</a></li>
+                <li><a href="{{path('organization_profile_settings', {'id' : app.user.id})}}">Profile Settings</a></li>
+                <li><a href="{{path('org_profile_show')}}">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
             </ul>
@@ -28,42 +25,45 @@
     </ul>
 {%endblock items%}
 
-{% block container -%}
+{% block container -%}    
     <div class="col-md-12 container">
-        {%if projects[0][0] != null and projects|length != 0%}            
+        {%if requests[0][0] != null and requests|length != 0%}            
             <div  style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; font-size: 20px; margin-top: 30px" class="img-responsive img-thumbnail">
-                You have <label style="color: red">{{projects|length}}</label> project(s)!
+                You have <label style="color: red">{{requests|length}}</label> requests!
             </div>
             <hr>
-            {%for i in 0..(projects|length-1)%}
+            {%for i in 0..(requests|length-1)%}
                 <ul class="timeline">
                     {% if loop.index0 is even %}
                         <li>
                         {% else %}
                         <li class="timeline-inverted">
                         {% endif %}
-                        <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{projects[i][4]}}" id=""></i></a></div>
-                        <div class="timeline-panel">    
+                        <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" id=""></i></a></div>
+                        <div class="timeline-panel">   
                             <div class="timeline-heading">
                                 <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
                             </div>
                             <div class="timeline-body">
-                                <h4>{{ projects[i][0] }}</h4>
-                                <p>{{ projects[i][1]|length > 250 ? projects[i][1]|slice(0, 250) ~ '...' : projects[i][1] }}</p>
+                                <h3><a >{{ requests[i][1].firstName }} {{ requests[i][1].lastName }}</a> wants to join the following project</h3>
+                                <h4>{{ requests[i][0].title }}</h4>
+                                <p>{{ requests[i][0].description|length > 250 ? requests[i][0].description|slice(0, 250) ~ '...' : requests[i][0].description }}</p>
                             </div>
-
+                            
                             <div class="timeline-footer">
-                                <p><i class="glyphicon glyphicon-calendar"></i>Start:{{ projects[i][2] }}</p>
-                                <a class="btn btn-info" style="float: right" href="{{path('show_project', {'ID':projects[i][7]})}}">View more</a>
+                                <input type="text" name="contribution" class="form-control" placeholder="Assign Contribution"/>
+                                <a class="btn btn-success" style="float: right" href="{{path('vol_request_accepted', {'ID' : app.user.id})}}" id="accept">Accept</a>
+                                <a class="btn btn-danger" style="float: right" href="{{path('vol_request_rejected', {'ID' : app.user.id})}}" id="reject">Reject</a>
+                                <a class="btn btn-Info" style="float: right" href="{{path('vol_profile_show', {'email' : requests[i][1].email})}}" id="reject">View Profile</a>
                             </div>
                         </div>
                     </li>
                 </ul>
             {% endfor %}
         {%endif%}
-        {%if projects[0][0] == null%}  
+        {%if requests[0][0] == null%}  
             <div style="margin-top: 30px" class="img-responsive img-thumbnail">
-                <b>You have no past projects.</b>
+                <b>You have no requests.</b>
             </div>
         {%endif%}
     </div>

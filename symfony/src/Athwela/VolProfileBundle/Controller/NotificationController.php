@@ -91,7 +91,7 @@ class NotificationController extends ContainerAware {
             for ($index = 0; $index < count($row); $index++) {
                 $messages[$i][$index] = $row[$index];
             }            
-            CustomQuery::getInstance()->customQuery('Update admin_vol_messages set msgStatus = "Read" where volunteer_ID = ' . $entity->getId() . ' and sent_time = "' . $row[2] . '"');
+            CustomQuery::getInstance()->customQuery('Update admin_vol_messages set msgStatus = "Read" where volunteer_ID = ' . $entity->getId() . ' and sent_time = "' . $row[0] . '"');
 
             $i++;
         }

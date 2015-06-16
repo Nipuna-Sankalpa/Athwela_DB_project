@@ -26,14 +26,13 @@ class VolProfileController extends ContainerAware {
 //    when you use this method to show profile other than the one who has already logged in symply pass his/her email
 //    along with the route.
 
-    public function showAction(Request $request) {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if ($request->getMethod() === 'GET' && $request->get('email') != NULL) {
-            $email = $request->get('email');
-        } else {
-            $email = $user->getEmail();
-        }
-
+    public function showAction(Request $request, $email) {
+//        $user = $this->container->get('security.context')->getToken()->getUser();
+//        if ($request->getMethod() === 'GET' && $request->get('email') != NULL) {
+//            $email = $request->get('email');
+//        } else {
+//            $email = $user->getEmail();
+//        }
 
         $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
 

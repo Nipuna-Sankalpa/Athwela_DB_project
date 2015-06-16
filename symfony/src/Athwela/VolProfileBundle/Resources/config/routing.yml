@@ -3,7 +3,7 @@ vol_profile_homepage:
     defaults: { _controller: VolProfileBundle:Default:index }
     
 vol_profile_show:
-    path:     /show
+    path:     /show/{email}
     defaults: {_controller: VolProfileBundle:VolProfile:show }
     
 vol_profile_notification:

@@ -5,7 +5,7 @@
             <a href="#">About</a>
         </li>
         <li>
-            <a href="#">Services</a>
+            <a href="{{path('vol_request_accept')}}">Requests</a>
         </li>
         <li>
             <a href="{{path('fos_user_security_logout')}}">Logout</a>
@@ -13,11 +13,12 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-user"> {{ app.user.username }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="#">Profile Settings</a></li>
-                <li><a href="#">Change Password</a></li>
+                {%if app.user.email == entity.email%}
+                    <li><a href="{{path('organization_profile_settings', {'id' : app.user.id})}}">Profile Settings</a></li>
+                {%endif%}
                 <li><a href="{{path('org_profile_show')}}">Profile</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
             </ul>
         </li>
     </ul>
@@ -91,7 +92,7 @@
                                 <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
                                     <div class="panel-body">
                                         <ul>
-                                            <li><a href="#">Edit</a></li>
+                                            <li><a href="{{path('organization_profile_settings',{'id':app.user.id})}}">Edit</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -138,51 +139,8 @@
                             </div>
                         </div>
                     </div>
-                </div>               
-
+                </div>   
             </div>
-            {#<form class="form-signin" method="POST" action="#" data-validate="parsley">
-                <div class="col-md-8">              
-                    <h2 style="font-family:  Trebuchet MS, Arial, Helvetica, sans-serif;">{{entity.name}}</h2>
-                    <div class="panel-body">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#personalSection">Profile and Contact</a></li>                            
-                        </ul>
-                        <div class="tab-content">
-                            <div id="personalSection" class="tab-pane fade in active">
-                                <dl class="dl-horizontal" style="margin-top: 10px">
-                                    <dt><span class="glyphicon glyphicon-home" ></span> Address :</dt>
-                                    <dd>{{entity.street}}, {{entity.city}}, {{entity.country}}</dd><br/>   
-                                    {%if mobile == null%}
-                                        <dt><span class="glyphicon glyphicon-phone"></span> Mobile :</dt>
-                                        <dd><i>Mobile number unavailable</i></dd><br/>
-                                    {% endif %}
-                                    {% if mobile != null%}
-                                        {% for i in 0..((mobile|length)-1)%}
-                                            <dt><span class="glyphicon glyphicon-phone"></span> Mobile {{i+1}} :</dt>
-                                            <dd>{{mobile[i]}}</dd><br/>
-                                        {% endfor %}
-                                    {% endif %}
-                                    
-                                    <dt><span class="glyphicon glyphicon-envelope"></span> Email :</dt>
-                                    <dd><i>{{entity.email}}</i></dd><br/>
-
-                                    {%if fax == null%}
-                                        <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax :</dt>
-                                        <dd><i>Fax number unavailable</i></dd><br/>
-                                    {% endif %}
-                                    {%if fax != null%}
-                                        {%for i in 0..((fax|length)-1)%}                                        
-                                            <dt><span class="glyphicon glyphicon-phone-alt"></span> Fax {{i+1}} :</dt>
-                                            <dd>{{fax[i]}}</dd><br/>  
-                                        {% endfor %}
-                                    {% endif %}
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>#}
         </div>        
     </div>
 {% endblock container%}

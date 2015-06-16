@@ -26,3 +26,15 @@ org_profile_ongoing:
 org_profile_posted:
     path:     /{email}/posted
     defaults: {_controller: OrgProfileBundle:OrgProject:posted }
+    
+vol_request_accept:
+    path:     /accept
+    defaults: {_controller: OrgProfileBundle:Acceptance:accept }
+    
+vol_request_accepted:
+    path:     /accepted/{ID}
+    defaults: {_controller: OrgProfileBundle:Acceptance:accepted }
+    
+vol_request_rejected:
+    path:     /rejected/{ID}
+    defaults: {_controller: OrgProfileBundle:Acceptance:rejected }
