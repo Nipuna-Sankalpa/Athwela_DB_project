@@ -14,11 +14,13 @@
 
 namespace Athwela\VolProfileBundle\Controller;
 
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Athwela\EntityBundle\Entity\Volunteer;
 use Athwela\DA\CRUD\Read;
 use Athwela\DA\CustomQuery\CustomQuery;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class VolProfileController extends ContainerAware {
 
@@ -26,8 +28,8 @@ class VolProfileController extends ContainerAware {
 //    when you use this method to show profile other than the one who has already logged in symply pass his/her email
 //    along with the route.
 
+
     public function showAction(Request $request, $email) {
-//        $user = $this->container->get('security.context')->getToken()->getUser();
 //        if ($request->getMethod() === 'GET' && $request->get('email') != NULL) {
 //            $email = $request->get('email');
 //        } else {

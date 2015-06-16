@@ -29,12 +29,14 @@ class SecurityController extends ContainerAware {
         }
 
         if ($securityContext->isGranted('ROLE_ORG')) {
-            $url = $this->container->get('router')->generate('org_profile_show', array('email' => $user->getEmail()));
+//            $url = $this->container->get('router')->generate('org_profile_show', array('email' => $user->getEmail()));
+            $url = $this->container->get('router')->generate('org_profile_show');
             return new RedirectResponse($url);
         }
 
         if ($securityContext->isGranted('ROLE_VOL')) {
-            $url = $this->container->get('router')->generate('vol_profile_show', array('email' => $user->getEmail()));
+//            $url = $this->container->get('router')->generate('vol_profile_show', array('email' => $user->getEmail()));
+            $url = $this->container->get('router')->generate('vol_profile_show');
             return new RedirectResponse($url);
         }
 
