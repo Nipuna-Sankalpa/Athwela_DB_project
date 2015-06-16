@@ -42,13 +42,13 @@ class VolProjectsController extends ContainerAware {
     
     public function getProject($entity){
         $i = 0; $temp[][] = null;
-        $projects = CustomQuery::getInstance()->customQuery('select p.title, p.description, p.start_date, p.end_date, p.posted_date, p.o_ID, vp.contribution, p.ID from project p, volunteer_project vp, organization o where vp.p_ID = p.ID and p.o_ID = o.ID and p.status = "ongoing" and vp.v_ID = '.$entity->getId());
+        $projects = CustomQuery::getInstance()->customQuery('select p.title, p.description, p.start_date, p.end_date, p.posted_date, p.organization_ID, vp.contribution, p.ID from project p, volunteer_project vp, organization o where vp.project_ID = p.ID and p.organization_ID = o.ID and p.status = "ongoing" and vp.volunteer_ID = '.$entity->getId());
         while ($row = mysqli_fetch_row($projects)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
             }
             $temp[$i][5] = Read::getInstance()->read(new Organization(), 'organization', 'ID', $row[5]);
-            CustomQuery::getInstance()->customQuery('Update volunteer_project set status = "Seen" where p_ID = '.$row[7].' and v_ID = ' . $entity->getId() . ' and accepted_at = "' . $row[2] . '"');
+            CustomQuery::getInstance()->customQuery('Update volunteer_project set status = "Seen" where project_ID = '.$row[7].' and volunteer_ID = ' . $entity->getId() . ' and accepted_at = "' . $row[2] . '"');
             $i++;
         }
         return $temp;
@@ -56,7 +56,7 @@ class VolProjectsController extends ContainerAware {
     
     public function getContribution($entity){
         $i = 0; $temp[][] = null;
-        $contribution = CustomQuery::getInstance()->customQuery('select p_ID, contribution, p.o_ID from volunteer_project vp, project p where p.ID = vp.p_ID and vp.v_ID = '.$entity->getId());
+        $contribution = CustomQuery::getInstance()->customQuery('select project_ID, contribution, p.organization_ID from volunteer_project vp, project p where p.ID = vp.project_ID and vp.volunteer_ID = '.$entity->getId());
         while ($row = mysqli_fetch_row($contribution)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
@@ -87,7 +87,7 @@ class VolProjectsController extends ContainerAware {
     
     public function getSuggestions($entity){
         $i = 0; $temp[] = null;
-        $contribution = CustomQuery::getInstance()->customQuery('SELECT distinct(ps.p_ID) FROM project_skill ps, volunteer_skill vs where vs.s_ID = ps.s_ID and vs.v_ID = '.$entity->getId());
+        $contribution = CustomQuery::getInstance()->customQuery('SELECT project_ID FROM suggestions where volunteer_ID = '.$entity->getId());
         while ($row = mysqli_fetch_row($contribution)) {            
             $temp[$i] = Read::getInstance()->read(new Project(), 'project', 'ID', $row[0]);        
             $i++;

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Organization
  *
- * @ORM\Table(name="organization", indexes={@ORM\Index(name="a_ID", columns={"a_ID"})})
+ * @ORM\Table(name="organization", indexes={@ORM\Index(name="admin_ID", columns={"admin_ID"})})
  * @ORM\Entity
  */
 class Organization
@@ -61,7 +61,7 @@ class Organization
      *
      * @ORM\ManyToOne(targetEntity="Athwela\EntityBundle\Entity\Admin")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="a_ID", referencedColumnName="ID")
+     *   @ORM\JoinColumn(name="admin_ID", referencedColumnName="ID")
      * })
      */
     private $a;

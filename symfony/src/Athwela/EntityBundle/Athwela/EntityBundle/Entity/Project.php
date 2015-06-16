@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Project
  *
- * @ORM\Table(name="project", indexes={@ORM\Index(name="o_ID", columns={"o_ID"}), @ORM\Index(name="t_ID", columns={"t_ID"}), @ORM\Index(name="a_ID", columns={"a_ID"})})
+ * @ORM\Table(name="project", indexes={@ORM\Index(name="organization_ID", columns={"organization_ID"}), @ORM\Index(name="type_ID", columns={"type_ID"}), @ORM\Index(name="admin_ID", columns={"admin_ID"})})
  * @ORM\Entity
  */
 class Project
@@ -82,7 +82,7 @@ class Project
      *
      * @ORM\ManyToOne(targetEntity="Athwela\EntityBundle\Entity\Organization")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="o_ID", referencedColumnName="ID")
+     *   @ORM\JoinColumn(name="organization_ID", referencedColumnName="ID")
      * })
      */
     private $o;
@@ -92,7 +92,7 @@ class Project
      *
      * @ORM\ManyToOne(targetEntity="Athwela\EntityBundle\Entity\Admin")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="a_ID", referencedColumnName="ID")
+     *   @ORM\JoinColumn(name="admin_ID", referencedColumnName="ID")
      * })
      */
     private $a;
@@ -102,7 +102,7 @@ class Project
      *
      * @ORM\ManyToOne(targetEntity="Athwela\EntityBundle\Entity\Type")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="t_ID", referencedColumnName="ID")
+     *   @ORM\JoinColumn(name="type_ID", referencedColumnName="ID")
      * })
      */
     private $t;
@@ -120,10 +120,10 @@ class Project
      * @ORM\ManyToMany(targetEntity="Athwela\EntityBundle\Entity\Skill", inversedBy="p")
      * @ORM\JoinTable(name="project_skill",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="p_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="project_ID", referencedColumnName="ID")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="s_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="skill_ID", referencedColumnName="ID")
      *   }
      * )
      */

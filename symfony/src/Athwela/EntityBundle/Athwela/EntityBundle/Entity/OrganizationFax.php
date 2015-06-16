@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * OrganizationFax
  *
- * @ORM\Table(name="organization_fax", indexes={@ORM\Index(name="IDX_9BAE928B75EB2001", columns={"o_ID"})})
+ * @ORM\Table(name="organization_fax", indexes={@ORM\Index(name="IDX_9BAE928B75EB2001", columns={"organization_ID"})})
  * @ORM\Entity
  */
 class OrganizationFax
@@ -28,7 +28,7 @@ class OrganizationFax
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Athwela\EntityBundle\Entity\Organization")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="o_ID", referencedColumnName="ID")
+     *   @ORM\JoinColumn(name="organization_ID", referencedColumnName="ID")
      * })
      */
     private $o;

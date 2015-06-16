@@ -13,6 +13,25 @@ class Project {
      * @var string
      */
     private $title;
+    private $skill;
+    private $type;
+    
+    function getType() {
+        return $this->type;
+    }
+
+    function setType($type) {
+        $this->type = $type;
+    }
+
+    
+    function getSkill() {
+        return $this->skill;
+    }
+
+    function setSkill($skill) {
+        $this->skill = $skill;
+    }
 
     public function setId($id) {
         $this->id = $id;
@@ -33,28 +52,28 @@ class Project {
      */
     private $startDate;
 
-    public function getO_ID() {
-        return $this->o_ID;
+    public function getorganization_ID() {
+        return $this->organization_ID;
     }
 
-    public function getA_ID() {
-        return $this->a_ID;
+    public function getadmin_ID() {
+        return $this->admin_ID;
     }
 
-    public function getT_ID() {
-        return $this->t_ID;
+    public function gettype_ID() {
+        return $this->type_ID;
     }
 
-    public function setO_ID($o_ID) {
-        $this->o_ID = $o_ID;
+    public function setorganization_ID($organization_ID) {
+        $this->organization_ID = $organization_ID;
     }
 
-    public function setA_ID($a_ID) {
-        $this->a_ID = $a_ID;
+    public function setadmin_ID($admin_ID) {
+        $this->admin_ID = $admin_ID;
     }
 
-    public function setT_ID($t_ID) {
-        $this->t_ID = $t_ID;
+    public function settype_ID($type_ID) {
+        $this->type_ID = $type_ID;
     }
 
     /**
@@ -85,17 +104,17 @@ class Project {
     /**
      * @var \Athwela\EntityBundle\Entity\Organization
      */
-    private $o_ID;
+    private $organization_ID;
 
     /**
      * @var \Athwela\EntityBundle\Entity\Admin
      */
-    private $a_ID;
+    private $admin_ID;
 
     /**
      * @var \Athwela\EntityBundle\Entity\Type
      */
-    private $t_ID;
+    private $type_ID;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -299,7 +318,7 @@ class Project {
      * @return Project
      */
     public function setO(\Athwela\EntityBundle\Entity\Organization $o = null) {
-        $this->o_ID = $o;
+        $this->organization_ID = $o;
 
         return $this;
     }
@@ -310,7 +329,7 @@ class Project {
      * @return \Athwela\EntityBundle\Entity\Organization 
      */
     public function getO() {
-        return $this->o_ID;
+        return $this->organization_ID;
     }
 
     /**
@@ -320,7 +339,7 @@ class Project {
      * @return Project
      */
     public function setA(\Athwela\EntityBundle\Entity\Admin $a = null) {
-        $this->a_ID = $a;
+        $this->admin_ID = $a;
 
         return $this;
     }
@@ -331,7 +350,7 @@ class Project {
      * @return \Athwela\EntityBundle\Entity\Admin 
      */
     public function getA() {
-        return $this->a_ID;
+        return $this->admin_ID;
     }
 
     /**
@@ -341,7 +360,7 @@ class Project {
      * @return Project
      */
     public function setT(\Athwela\EntityBundle\Entity\Type $t = null) {
-        $this->t_ID = $t;
+        $this->type_ID = $t;
 
         return $this;
     }
@@ -352,7 +371,7 @@ class Project {
      * @return \Athwela\EntityBundle\Entity\Type 
      */
     public function getT() {
-        return $this->t_ID;
+        return $this->type_ID;
     }
 
     /**
@@ -429,9 +448,5 @@ class Project {
      * @var \Athwela\EntityBundle\Entity\Type
      */
     private $t;
-
-
-
-   
 
 }

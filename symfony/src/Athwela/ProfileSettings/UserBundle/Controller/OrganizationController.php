@@ -17,8 +17,8 @@ class OrganizationController extends Controller {
 
         $organization_name = Read::getInstance()->readSpecific('name', 'organization', 'ID', $id);
         $description = Read::getInstance()->readSpecific('description', 'organization', 'ID', $id);
-        $phoneNu = Read::getInstance()->readMul('o_ID', $id, 'organization_mobile');
-        $faxNu = Read::getInstance()->readMul('o_ID', $id, 'organization_fax');
+        $phoneNu = Read::getInstance()->readMul('organization_ID', $id, 'organization_mobile');
+        $faxNu = Read::getInstance()->readMul('organization_ID', $id, 'organization_fax');
         $street = Read::getInstance()->readSpecific('street', 'organization', 'ID', $id);
         $city = Read::getInstance()->readSpecific('city', 'organization', 'ID', $id);
         $country = Read::getInstance()->readSpecific('country', 'organization', 'ID', $id);
@@ -76,8 +76,8 @@ class OrganizationController extends Controller {
         Update::getInstance()->updateSpecific('organization', 'ID', $id, 'city', $data['city']);
         Update::getInstance()->updateSpecific('organization', 'ID', $id, 'street', $data['street']);
         Update::getInstance()->updateSpecific('organization', 'ID', $id, 'country', $data['country']);
-        Update::getInstance()->updateMobile('organization_mobile', $data['phoneNu'], 'o_ID', $id);
-        Update::getInstance()->updateMobile('organization_fax', $data['phoneNu'], 'o_ID', $id);
+        Update::getInstance()->updateMobile('organization_mobile', $data['phoneNu'], 'organization_ID', $id);
+        Update::getInstance()->updateMobile('organization_fax', $data['phoneNu'], 'organization_ID', $id);
 
 
         $user = $this->container->get('security.context')->getToken()->getUser();

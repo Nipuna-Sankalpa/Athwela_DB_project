@@ -39,12 +39,8 @@
         {%endif%}
         <div style="width: 500px; height: 100px; text-align: left">
             <form class="form-signin" method="POST" action="{{path('vol_profile_message_send', {'email':entity.email})}}" data-validate="parsley">
-                To: <br>
-                <select name="admin" class="form-control" placeholder="Select an admin">
-                    {%for i in 0..admins|length-1%}
-                        <option value="{{i+1}}">{{admins[i]}}</option>
-                    {%endfor%}
-                </select>
+                To:<br>
+                <input type="text" class="form-control" value="Admin" disabled="true"/>                
                 <br>
 
                 Subject: <br>

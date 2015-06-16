@@ -51,7 +51,7 @@ class OrgProfileController extends ContainerAware {
 
     public function getNotificationCount($entity) {
         $temp = 0;
-        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_org_messages where msgStatus = "notRead" and o_ID = ' . $entity->getId());
+        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_org_messages where msgStatus = "notRead" and organization_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($notification1)) {
             $temp = $row[0];
         }

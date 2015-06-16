@@ -24,7 +24,7 @@ class Read {
     }
 
     public static function getInstance() {
-        $instance = null;
+        static $instance = null;
         if ($instance === null) {
             $instance = new Read();
         }
@@ -64,8 +64,8 @@ class Read {
         }
     }
 
-    public function readSkills($v_ID) {
-        $query = "SELECT name FROM skill NATURAL JOIN volunteer_skill WHERE skill.ID = volunteer_skill.s_ID AND volunteer_skill.v_ID = " . $v_ID;
+    public function readSkills($volunteer_ID) {
+        $query = "SELECT name FROM skill NATURAL JOIN volunteer_skill WHERE skill.ID = volunteer_skill.skill_ID AND volunteer_skill.volunteer_ID = " . $volunteer_ID;
         $conn = DBConnection::getInstance()->getConnection();
         $result = $conn->query($query);
         $mulVal = NULL;
@@ -145,7 +145,7 @@ class Read {
             $organization = $entity;
             $organization->setID($row[0]);
             $organization->setEmail($row[1]);
-            $organization->setA_ID($row[2]);
+            $organization->setadmin_ID($row[2]);
             $organization->setName($row[3]);
             $organization->setDescription($row[4]);
             $organization->setStreet($row[5]);
@@ -159,9 +159,9 @@ class Read {
             $project = $entity;
 
             $project->setID($row[0]);
-            $project->setA_ID($row[1]);
-            $project->setT_ID($row[2]);
-            $project->setO_ID($row[3]);
+            $project->setadmin_ID($row[1]);
+            $project->settype_ID($row[2]);
+            $project->setorganization_ID($row[3]);
             $project->setTitle($row[4]);
             $project->setDescription($row[5]);
             $project->setStatus($row[6]);
@@ -187,7 +187,7 @@ class Read {
             $volunteer = $entity;
 
             $volunteer->setId($row[0]);
-            $volunteer->setA_ID($row[1]);
+            $volunteer->setadmin_ID($row[1]);
             $volunteer->setFirstName($row[2]);
             $volunteer->setLastName($row[3]);
             $volunteer->setStreet($row[4]);

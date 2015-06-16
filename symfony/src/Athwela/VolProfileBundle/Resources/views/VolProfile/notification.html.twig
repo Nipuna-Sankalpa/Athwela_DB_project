@@ -81,9 +81,9 @@
                         <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This message was sent at: {{messages[i][2]}}" id=""></i></a></div>
                         <div class="timeline-panel">                            
                             <div class="timeline-body">
-                                <h4>From: {{messages[i][1]}} (Admin)</h4>
-                                <label style="margin-left: 20px">Subject: {{messages[i][4]}}</label>
-                                <p>Your admin says: {{messages[i][3]}}</p>
+                                <h4>From: Admin</h4>
+                                <p><b>Subject:</b> {{messages[i][3]}}</p>
+                                <p style="margin-top: -15px"><b>Message:</b> {{messages[i][2]}}</p>
                             </div>
                             <div class="timeline-footer">
                                 <p><i class="glyphicon glyphicon-ab"></i></p>
@@ -92,7 +92,6 @@
                         </div>
                     </li>
                 </ul>
-                <hr/>
             {%endfor%}
         {%endif%}
         {%if notification[0] == 0%}

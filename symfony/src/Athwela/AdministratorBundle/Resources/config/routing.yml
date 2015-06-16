@@ -134,4 +134,8 @@ athwela_administrator_regMore:
     path:     /register123
     defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:sendDatabase }  
 
+athwela_administrator_adminUpdate:
+    path:     /adminUpdate
+    defaults: { _controller: AthwelaAdministratorBundle:AdminSettings:updates} 
+    requirements: { _method: post|get }
 #----------------------------------------------------------------------------------------#

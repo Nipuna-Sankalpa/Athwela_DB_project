@@ -63,17 +63,17 @@ class Volunteer {
      */
     private $id;
 
-    public function getA_ID() {
-        return $this->a_ID;
+    public function getadmin_ID() {
+        return $this->admin_ID;
     }
-    public function setA_ID($a_ID) {
-        return $this->a_ID=$a_ID;
+    public function setadmin_ID($admin_ID) {
+        return $this->admin_ID=$admin_ID;
     }
 
     /**
      * @var \Athwela\EntityBundle\Entity\Admin
      */
-    private $a_ID;
+    private $admin_ID;
 
     /**
      * @var \Doctrine\Common\Collections\Collection

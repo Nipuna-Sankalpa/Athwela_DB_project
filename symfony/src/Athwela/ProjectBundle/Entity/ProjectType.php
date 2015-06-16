@@ -15,17 +15,17 @@ namespace Athwela\ProjectBundle\Entity;
  */
 class ProjectType {
 
-    private $t_ID;
-    private $p_ID;
+    private $type_ID;
+    private $project_ID;
     private $name;
     private $description;
 
-    public function getT_ID() {
-        return $this->t_ID;
+    public function gettype_ID() {
+        return $this->type_ID;
     }
 
-    public function getP_ID() {
-        return $this->p_ID;
+    public function getproject_ID() {
+        return $this->project_ID;
     }
 
     public function getName() {
@@ -36,12 +36,12 @@ class ProjectType {
         return $this->description;
     }
 
-    public function setT_ID($t_ID) {
-        $this->t_ID = $t_ID;
+    public function settype_ID($type_ID) {
+        $this->type_ID = $type_ID;
     }
 
-    public function setP_ID($p_ID) {
-        $this->p_ID = $p_ID;
+    public function setproject_ID($project_ID) {
+        $this->project_ID = $project_ID;
     }
 
     public function setName($name) {

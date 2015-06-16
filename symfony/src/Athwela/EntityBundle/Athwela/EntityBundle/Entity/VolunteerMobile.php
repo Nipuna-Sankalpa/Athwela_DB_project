@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * VolunteerMobile
  *
- * @ORM\Table(name="volunteer_mobile", indexes={@ORM\Index(name="IDX_6FF2DE0D58FA3814", columns={"v_ID"})})
+ * @ORM\Table(name="volunteer_mobile", indexes={@ORM\Index(name="IDX_6FF2DE0D58FA3814", columns={"volunteer_ID"})})
  * @ORM\Entity
  */
 class VolunteerMobile
@@ -28,7 +28,7 @@ class VolunteerMobile
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Athwela\EntityBundle\Entity\Volunteer")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="v_ID", referencedColumnName="ID")
+     *   @ORM\JoinColumn(name="volunteer_ID", referencedColumnName="ID")
      * })
      */
     private $v;

@@ -23,7 +23,11 @@
                 <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{ project.posted_date }}" id=""></i></a></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
+                        {% if project.img_URL == '' %}
                         <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
+                        {% else %}
+                        <img class="img-responsive" src="{{ asset(project.img_URL) }}" />
+                        {% endif %}
                     </div>
                     <div class="timeline-body">
                         <h4>{{ project.title }}</h4>

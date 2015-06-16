@@ -15,12 +15,9 @@
 namespace Athwela\OrgProfileBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Athwela\EntityBundle\Entity\Volunteer;
 use Athwela\EntityBundle\Entity\Organization;
-use Athwela\EntityBundle\Entity\Project;
 use Athwela\DA\CRUD\Read;
 use Athwela\DA\CustomQuery\CustomQuery;
-use Symfony\Component\HttpFoundation\Request;
 
 class OrgProjectController extends ContainerAware {
     public function ongoingAction($email){
@@ -55,7 +52,7 @@ class OrgProjectController extends ContainerAware {
 
     public function getProject($email){
         $i = 0; $temp[][] = null;
-        $projects = CustomQuery::getInstance()->customQuery('SELECT p.title, p.description, p.start_date, p.end_date, p.posted_date, p.volunteers_needed, p.no_of_filled_positions, p.ID FROM `project` p, organization o where p.o_ID = o.ID and p.status = "ongoing" and o.email = "'.$email.'"');
+        $projects = CustomQuery::getInstance()->customQuery('SELECT p.title, p.description, p.start_date, p.end_date, p.posted_date, p.volunteers_needed, p.no_of_filled_positions, p.ID FROM `project` p, organization o where p.organization_ID = o.ID and p.status = "ongoing" and o.email = "'.$email.'"');
         while ($row = mysqli_fetch_row($projects)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
@@ -66,7 +63,7 @@ class OrgProjectController extends ContainerAware {
     }
     public function getAllProject($email){
         $i = 0; $temp[][] = null;
-        $projects = CustomQuery::getInstance()->customQuery('SELECT p.title, p.description, p.start_date, p.end_date, p.posted_date, p.volunteers_needed, p.no_of_filled_positions, p.ID FROM project p, organization o where p.o_ID = o.ID and o.email = "'.$email.'"');
+        $projects = CustomQuery::getInstance()->customQuery('SELECT p.title, p.description, p.start_date, p.end_date, p.posted_date, p.volunteers_needed, p.no_of_filled_positions, p.ID FROM project p, organization o where p.organization_ID = o.ID and o.email = "'.$email.'"');
         while ($row = mysqli_fetch_row($projects)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];

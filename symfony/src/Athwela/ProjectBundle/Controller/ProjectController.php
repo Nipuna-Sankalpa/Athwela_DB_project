@@ -11,7 +11,6 @@ use Athwela\ProjectBundle\Entity\ProjectSkill;
 use Athwela\ProjectBundle\Entity\ProjectType;
 use Athwela\ProjectBundle\Entity\ProjectImg;
 use Athwela\ProjectBundle\Entity\RegVols;
-use Symfony\Component\HttpFoundation\Request;
 
 class ProjectController extends ContainerAware {
 
@@ -28,12 +27,14 @@ class ProjectController extends ContainerAware {
 
 
         $project = Read::getInstance()->read(new Project(), 'project', 'ID', $ID);
-        $querySkill = "SELECT * FROM `project_skill`,`skill` where project_skill.s_ID=skill.ID and project_skill.p_ID='$ID'";
-        $queryType = "SELECT project.t_ID as t_ID,project.ID as p_ID,type.name,type.description FROM type,project where type.ID=project.t_ID and project.ID='$ID'";
-        $queryImg = "SELECT * FROM project_img where p_ID='$ID'";
+        
+        
+        $querySkill = "SELECT * FROM `project_skill`,`skill` where project_skill.skill_ID=skill.ID and project_skill.project_ID='$ID'";
+        $queryType = "SELECT project.type_ID as type_ID,project.ID as project_ID,type.name,type.description FROM type,project where type.ID=project.type_ID and project.ID='$ID'";
+        $queryImg = "SELECT * FROM project_img where project_ID='$ID'";
         $customQuery = "SELECT DATEDIFF(end_date,start_date),(project.volunteers_needed+project.no_of_filled_positions) as total from project where ID='$ID'";
-        $queryOrg = "select organization.ID,organization.name,organization.email,organization.image,organization.street,organization.city from organization,project where project.o_ID=organization.ID AND project.o_ID='" . $project->getO_ID() . "'";
-        $queryRegVols = "SELECT volunteer.email,volunteer_project.contribution,CONCAT(volunteer.first_name,' ',volunteer.last_name) as name,volunteer.image from volunteer natural join volunteer_project WHERE volunteer_project.p_ID='$ID' AND volunteer_project.status='Seen' ";
+        $queryOrg = "select organization.ID,organization.name,organization.email,organization.image,organization.street,organization.city from organization,project where project.organization_ID=organization.ID AND project.organization_ID='" . $project->getorganization_ID() . "'";
+        $queryRegVols = "SELECT volunteer.email,volunteer_project.contribution,CONCAT(volunteer.first_name,' ',volunteer.last_name) as name,volunteer.image from volunteer natural join volunteer_project WHERE volunteer_project.project_ID='$ID' AND volunteer_project.status='Seen' ";
 
 
         $resultSkill = CustomQuery::getInstance()->customQuery($querySkill);
@@ -71,8 +72,8 @@ class ProjectController extends ContainerAware {
         if ($resultType) {
             while ($row = mysqli_fetch_row($resultType)) {
                 $type = new ProjectType();
-                $type->setT_ID($row[0]);
-                $type->setP_ID($row[1]);
+                $type->settype_ID($row[0]);
+                $type->setproject_ID($row[1]);
                 $type->setName($row[2]);
                 $type->setDescription($row[3]);
             }
@@ -120,7 +121,6 @@ class ProjectController extends ContainerAware {
             die('you are not authorized to view this page');
         }
 
-
         return $this->container->get('templating')->renderResponse('AthwelaProjectBundle:Project:profile.html.twig', array(
                     'project' => $project,
                     'flag' => $flag,
@@ -130,45 +130,16 @@ class ProjectController extends ContainerAware {
                     'org' => $org,
                     'totVol' => $total,
                     'duration' => $duration,
-                    'regVols'=>$regVol,
+                    'regVols' => $regVol,
         ));
     }
 
-    public function createProjectAction(Request $request) {
-        $skill = NULL;
-        $types = NULL;
-
-        if ($request->getMethod() == 'POST') {
-            
-        } else {
-
-            $query1 = "SELECT name FROM skill";
-            $query2 = "SELECT name FROM type";
-            $result1 = CustomQuery::getInstance()->customQuery($query1);
-            $result2 = CustomQuery::getInstance()->customQuery($query2);
-
-            if ($result1) {
-                $i = 0;
-                while ($row = mysqli_fetch_row($result1)) {
-
-                    $skill[$i] = $row[0];
-                    $i++;
-                }
-            }
-            if ($result2) {
-                $i = 0;
-                while ($row = mysqli_fetch_row($result2)) {
-
-                    $types[$i] = $row[0];
-                    $i++;
-                }
-            }
-
-            return $this->container->get('templating')->renderResponse('AthwelaProjectBundle:Project:EditProfile.html.twig', array(
-                        'skills' => $skill,
-                        'types' => $types
-            ));
-        }
+    public function updateVolAction($ID){
+        
+        
+        
+        
     }
+    
 
 }

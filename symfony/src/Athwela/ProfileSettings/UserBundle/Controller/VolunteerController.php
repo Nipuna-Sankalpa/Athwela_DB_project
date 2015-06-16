@@ -27,13 +27,13 @@ class VolunteerController extends Controller {
         $street = Read::getInstance()->readSpecific('street', 'volunteer', 'ID', $id);
         $city = Read::getInstance()->readSpecific('city', 'volunteer', 'ID', $id);
         $country = Read::getInstance()->readSpecific('country', 'volunteer', 'ID', $id);
-        $i_ID = Read::getInstance()->readSpecific('i_ID', 'volunteer_education', 'v_ID', $id);
-        $institute = Read::getInstance()->readSpecific('name', 'institute', 'ID', $i_ID);
-        $start_date = Read::getInstance()->readSpecific('start_date', 'volunteer_education', 'v_ID', $id);
-        $end_date = Read::getInstance()->readSpecific('end_date', 'volunteer_education', 'v_ID', $id);
-        $degree = Read::getInstance()->readSpecific('degree', 'volunteer_education', 'v_ID', $id);
+        $institute_ID = Read::getInstance()->readSpecific('institute_ID', 'volunteer_education', 'volunteer_ID', $id);
+        $institute = Read::getInstance()->readSpecific('name', 'institute', 'ID', $institute_ID);
+        $start_date = Read::getInstance()->readSpecific('start_date', 'volunteer_education', 'volunteer_ID', $id);
+        $end_date = Read::getInstance()->readSpecific('end_date', 'volunteer_education', 'volunteer_ID', $id);
+        $degree = Read::getInstance()->readSpecific('degree', 'volunteer_education', 'volunteer_ID', $id);
         $programs = Read::getInstance()->readSkills($id);   // selected skills
-        $phoneNu = Read::getInstance()->readMul('v_ID', $id, 'volunteer_mobile');
+        $phoneNu = Read::getInstance()->readMul('volunteer_ID', $id, 'volunteer_mobile');
 
 
         $params = array('first_name' => $first_name, 'last_name' => $last_name, 'birthday' => $birthday, 'phoneNu' => $phoneNu, 'gender' => $gender, 'street' => $street, 'city' => $city, 'country' => $country, 'institute' => $institute, 'start_date' => $start_date, 'end_date' => $end_date, 'degree' => $degree, 'programs' => $programs, 'skills' => $skills);
@@ -67,7 +67,7 @@ class VolunteerController extends Controller {
 
         /*         * ****** change password ********** */
 
-        $form = $form = $this->container->get('fos_user.change_password.form');
+        $form = $this->container->get('fos_user.change_password.form');
 
 
         /*         * **************** */
@@ -94,13 +94,13 @@ class VolunteerController extends Controller {
             Update::getInstance()->updateSpecific('volunteer', 'ID', $id, 'street', $data['street']);
             Update::getInstance()->updateSpecific('volunteer', 'ID', $id, 'city', $data['city']);
             Update::getInstance()->updateSpecific('volunteer', 'ID', $id, 'country', $data['country']);
-            $i_ID = Read::getInstance()->readSpecific('ID', 'institute', 'name', $data['institute']);
-            Update::getInstance()->updateSpecific('volunteer_education', 'v_ID', $id, 'i_ID', $i_ID);
-            Update::getInstance()->updateSpecific('volunteer_education', 'v_ID', $id, 'start_date', $data['start_date']);
-            Update::getInstance()->updateSpecific('volunteer_education', 'v_ID', $id, 'end_date', $data['end_date']);
-            Update::getInstance()->updateSpecific('volunteer_education', 'v_ID', $id, 'degree', $data['degree']);
+            $institute_ID = Read::getInstance()->readSpecific('ID', 'institute', 'name', $data['institute']);
+            Update::getInstance()->updateSpecific('volunteer_education', 'volunteer_ID', $id, 'institute_ID', $institute_ID);
+            Update::getInstance()->updateSpecific('volunteer_education', 'volunteer_ID', $id, 'start_date', $data['start_date']);
+            Update::getInstance()->updateSpecific('volunteer_education', 'volunteer_ID', $id, 'end_date', $data['end_date']);
+            Update::getInstance()->updateSpecific('volunteer_education', 'volunteer_ID', $id, 'degree', $data['degree']);
             Update::getInstance()->updateSkills($data['programs'], $id);
-            Update::getInstance()->updateMobile('volunteer_mobile', $data['phoneNu'], 'v_ID', $id);
+            Update::getInstance()->updateMobile('volunteer_mobile', $data['phoneNu'], 'volunteer_ID', $id);
         }
 
         $user = $this->container->get('security.context')->getToken()->getUser();

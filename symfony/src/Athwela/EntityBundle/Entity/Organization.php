@@ -45,17 +45,17 @@ class Organization {
     /**
      * @var string
      */
-    private $a_ID;
+    private $admin_ID;
     private $street;
 
     /**
      * @var string
-     */public function getA_ID() {
-        return $this->a_ID;
+     */public function getadmin_ID() {
+        return $this->admin_ID;
     }
 
-    public function setA_ID($a_ID) {
-        $this->a_ID = $a_ID;
+    public function setadmin_ID($admin_ID) {
+        $this->admin_ID = $admin_ID;
     }
 
     private $city;

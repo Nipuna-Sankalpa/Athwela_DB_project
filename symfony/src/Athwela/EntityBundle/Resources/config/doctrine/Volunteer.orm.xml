@@ -2,7 +2,7 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="Athwela\EntityBundle\Entity\Volunteer" table="volunteer">
     <indexes>
-      <index name="a_ID" columns="a_ID"/>
+      <index name="admin_ID" columns="admin_ID"/>
     </indexes>
     <id name="id" type="integer" column="ID">
       <generator strategy="IDENTITY"/>
@@ -21,46 +21,46 @@
     <field name="facebook" type="string" column="facebook" nullable="true"/>
     <many-to-one field="a" target-entity="Admin">
       <join-columns>
-        <join-column name="a_ID" referenced-column-name="ID"/>
+        <join-column name="admin_ID" referenced-column-name="ID"/>
       </join-columns>
     </many-to-one>
     <many-to-many field="s" target-entity="Skill" inversed-by="v">
       <join-table name="volunteer_skill">
         <join-columns>
-          <join-column name="v_ID" referenced-column-name="ID"/>
+          <join-column name="volunteer_ID" referenced-column-name="ID"/>
         </join-columns>
         <inverse-join-columns>
-          <join-column name="s_ID" referenced-column-name="ID"/>
+          <join-column name="skill_ID" referenced-column-name="ID"/>
         </inverse-join-columns>
       </join-table>
     </many-to-many>
     <many-to-many field="p" target-entity="Project" inversed-by="v">
       <join-table name="volunteer_project">
         <join-columns>
-          <join-column name="v_ID" referenced-column-name="ID"/>
+          <join-column name="volunteer_ID" referenced-column-name="ID"/>
         </join-columns>
         <inverse-join-columns>
-          <join-column name="p_ID" referenced-column-name="ID"/>
+          <join-column name="project_ID" referenced-column-name="ID"/>
         </inverse-join-columns>
       </join-table>
     </many-to-many>
     <many-to-many field="t" target-entity="Type" inversed-by="v">
       <join-table name="volunteer_interested_area">
         <join-columns>
-          <join-column name="v_ID" referenced-column-name="ID"/>
+          <join-column name="volunteer_ID" referenced-column-name="ID"/>
         </join-columns>
         <inverse-join-columns>
-          <join-column name="t_ID" referenced-column-name="ID"/>
+          <join-column name="type_ID" referenced-column-name="ID"/>
         </inverse-join-columns>
       </join-table>
     </many-to-many>
     <many-to-many field="i" target-entity="Institute" inversed-by="v">
       <join-table name="volunteer_education">
         <join-columns>
-          <join-column name="v_ID" referenced-column-name="ID"/>
+          <join-column name="volunteer_ID" referenced-column-name="ID"/>
         </join-columns>
         <inverse-join-columns>
-          <join-column name="i_ID" referenced-column-name="ID"/>
+          <join-column name="institute_ID" referenced-column-name="ID"/>
         </inverse-join-columns>
       </join-table>
     </many-to-many>

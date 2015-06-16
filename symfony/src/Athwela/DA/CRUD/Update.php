@@ -28,7 +28,7 @@ class Update {
     }
 
     public static function getInstance() {
-        $instance = null;
+        static $instance = null;
         if ($instance === null) {
             $instance = new Update();
         }
@@ -55,12 +55,12 @@ class Update {
 
     public function updateSkills($skills, $id) {
         $conn = DBConnection::getInstance()->getConnection();
-        Delete::getInstance()->deleteRow('volunteer_skill', 'v_ID', $id);
+        Delete::getInstance()->deleteRow('volunteer_skill', 'volunteer_ID', $id);
         DBConnection::getInstance()->closeConnection($conn);
 
         for ($i = 0; $i < sizeof($skills); $i++) {
-            $s_ID = Read::getInstance()->readSpecific('ID', 'skill', 'name', $skills[$i]);
-            Create::getInstance()->insertMul('volunteer_skill', $id, $s_ID);
+            $skill_ID = Read::getInstance()->readSpecific('ID', 'skill', 'name', $skills[$i]);
+            Create::getInstance()->insertMul('volunteer_skill', $id, $skill_ID);
         }
     }
 

@@ -37,7 +37,7 @@ class VolProfileController extends ContainerAware {
 
         $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
 
-        $entitymobile = Read::getInstance()->readMul('v_ID', $entity->getId(), 'volunteer_mobile');
+        $entitymobile = Read::getInstance()->readMul('volunteer_ID', $entity->getId(), 'volunteer_mobile');
         $edu = $this->getEdu($entity);
         $skill = $this->getSkills($entity);
         $interest = $this->getInterestedAreas($entity);
@@ -67,7 +67,7 @@ class VolProfileController extends ContainerAware {
     public function getSkills($entity) {
         $j = 0;
         $temp = null;
-        $skills = CustomQuery::getInstance()->customQuery('Select s.name, s.description from skill as s, volunteer_skill as vs where s.ID = vs.s_ID and vs.v_ID = ' . $entity->getId());
+        $skills = CustomQuery::getInstance()->customQuery('Select s.name, s.description from skill as s, volunteer_skill as vs where s.ID = vs.skill_ID and vs.volunteer_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($skills)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$j][$index] = $row[$index];
@@ -79,7 +79,7 @@ class VolProfileController extends ContainerAware {
     public function getEdu($entity) {
         $i = 0;
         $temp = null;
-        $entityedu = CustomQuery::getInstance()->customQuery('Select i.name, vi.degree, vi.start_date, vi.end_date, i.city, i.country from institute as i, volunteer_education as vi where i.ID = vi.i_ID and vi.v_ID = ' . $entity->getId());
+        $entityedu = CustomQuery::getInstance()->customQuery('Select i.name, vi.degree, vi.start_date, vi.end_date, i.city, i.country from institute as i, volunteer_education as vi where i.ID = vi.institute_ID and vi.volunteer_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($entityedu)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
@@ -91,7 +91,7 @@ class VolProfileController extends ContainerAware {
     public function getInterestedAreas($entity) {
         $i = 0;
         $temp = null;
-        $intareas = CustomQuery::getInstance()->customQuery('select t.name, t.description from type as t, volunteer_interested_area as via where t.ID = via.t_ID and via.v_ID = ' . $entity->getId());
+        $intareas = CustomQuery::getInstance()->customQuery('select t.name, t.description from type as t, volunteer_interested_area as via where t.ID = via.type_ID and via.volunteer_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($intareas)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
@@ -103,12 +103,12 @@ class VolProfileController extends ContainerAware {
     public function getNotificationCount($entity) {
         $temp[] = 0;
 
-        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_vol_messages where msgStatus = "notRead" and v_ID = ' . $entity->getId());
+        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_vol_messages where msgStatus = "notRead" and volunteer_ID = ' . $entity->getId());
 
         while ($row = mysqli_fetch_row($notification1)) {
             $temp[0] = $row[0];
         }
-        $notification2 = CustomQuery::getInstance()->customQuery('SELECT count(distinct vp.accepted_at) FROM fos_user, volunteer, volunteer_project as vp where vp.v_ID = ' . $entity->getId() . ' and volunteer.email = fos_user.email and volunteer.ID = ' . $entity->getId() . ' and last_login <= vp.accepted_at and vp.status = "notSeen"');
+        $notification2 = CustomQuery::getInstance()->customQuery('SELECT count(distinct vp.accepted_at) FROM fos_user, volunteer, volunteer_project as vp where vp.volunteer_ID = ' . $entity->getId() . ' and volunteer.email = fos_user.email and volunteer.ID = ' . $entity->getId() . ' and last_login <= vp.accepted_at and vp.status = "notSeen"');
         while ($row = mysqli_fetch_row($notification2)) {
             $temp[1] = $row[0];
         }

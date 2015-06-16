@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Volunteer
  *
- * @ORM\Table(name="volunteer", indexes={@ORM\Index(name="a_ID", columns={"a_ID"})})
+ * @ORM\Table(name="volunteer", indexes={@ORM\Index(name="admin_ID", columns={"admin_ID"})})
  * @ORM\Entity
  */
 class Volunteer
@@ -89,7 +89,7 @@ class Volunteer
      *
      * @ORM\ManyToOne(targetEntity="Athwela\EntityBundle\Entity\Admin")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="a_ID", referencedColumnName="ID")
+     *   @ORM\JoinColumn(name="admin_ID", referencedColumnName="ID")
      * })
      */
     private $a;
@@ -100,10 +100,10 @@ class Volunteer
      * @ORM\ManyToMany(targetEntity="Athwela\EntityBundle\Entity\Skill", inversedBy="v")
      * @ORM\JoinTable(name="volunteer_skill",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="v_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="volunteer_ID", referencedColumnName="ID")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="s_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="skill_ID", referencedColumnName="ID")
      *   }
      * )
      */
@@ -115,10 +115,10 @@ class Volunteer
      * @ORM\ManyToMany(targetEntity="Athwela\EntityBundle\Entity\Project", inversedBy="v")
      * @ORM\JoinTable(name="volunteer_project",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="v_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="volunteer_ID", referencedColumnName="ID")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="p_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="project_ID", referencedColumnName="ID")
      *   }
      * )
      */
@@ -130,10 +130,10 @@ class Volunteer
      * @ORM\ManyToMany(targetEntity="Athwela\EntityBundle\Entity\Type", inversedBy="v")
      * @ORM\JoinTable(name="volunteer_interested_area",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="v_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="volunteer_ID", referencedColumnName="ID")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="t_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="type_ID", referencedColumnName="ID")
      *   }
      * )
      */
@@ -145,10 +145,10 @@ class Volunteer
      * @ORM\ManyToMany(targetEntity="Athwela\EntityBundle\Entity\Institute", inversedBy="v")
      * @ORM\JoinTable(name="volunteer_education",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="v_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="volunteer_ID", referencedColumnName="ID")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="i_ID", referencedColumnName="ID")
+     *     @ORM\JoinColumn(name="institute_ID", referencedColumnName="ID")
      *   }
      * )
      */

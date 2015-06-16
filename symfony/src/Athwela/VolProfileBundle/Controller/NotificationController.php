@@ -42,12 +42,12 @@ class NotificationController extends ContainerAware {
     public function getNotificationCount($entity) {
         $temp[] = 0;
 
-        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_vol_messages where msgStatus = "notRead" and v_ID = ' . $entity->getId());
+        $notification1 = CustomQuery::getInstance()->customQuery('SELECT count(*) FROM admin_vol_messages where msgStatus = "notRead" and volunteer_ID = ' . $entity->getId());
 
         while ($row = mysqli_fetch_row($notification1)) {
             $temp[0] = $row[0];
         }
-        $notification2 = CustomQuery::getInstance()->customQuery('SELECT count(distinct vp.accepted_at) FROM fos_user, volunteer, volunteer_project as vp where vp.v_ID = ' . $entity->getId() . ' and volunteer.email = fos_user.email and volunteer.ID = ' . $entity->getId() . ' and last_login <= vp.accepted_at and vp.status = "notSeen"');
+        $notification2 = CustomQuery::getInstance()->customQuery('SELECT count(distinct vp.accepted_at) FROM fos_user, volunteer, volunteer_project as vp where vp.volunteer_ID = ' . $entity->getId() . ' and volunteer.email = fos_user.email and volunteer.ID = ' . $entity->getId() . ' and last_login <= vp.accepted_at and vp.status = "notSeen"');
         while ($row = mysqli_fetch_row($notification2)) {
             $temp[1] = $row[0];
         }
@@ -57,12 +57,12 @@ class NotificationController extends ContainerAware {
     public function getNotification($entity) {
         $temp[][] = 0;
         $i = 0;
-        $notification = CustomQuery::getInstance()->customQuery('select vp.p_ID, p.o_ID, vp.accepted_at from fos_user fu, volunteer v, volunteer_project vp, project p where fu.email = v.email and v.ID = vp.v_ID and p.ID = vp.p_ID and vp.accepted_at >= fu.last_login and vp.status = "notSeen" and vp.v_ID = ' . $entity->getId());
+        $notification = CustomQuery::getInstance()->customQuery('select vp.project_ID, p.organization_ID, vp.accepted_at from fos_user fu, volunteer v, volunteer_project vp, project p where fu.email = v.email and v.ID = vp.volunteer_ID and p.ID = vp.project_ID and vp.accepted_at >= fu.last_login and vp.status = "notSeen" and vp.volunteer_ID = ' . $entity->getId());
         while ($row = mysqli_fetch_row($notification)) {
             for ($index = 0; $index < count($row); $index++) {
                 $temp[$i][$index] = $row[$index];
             }
-            CustomQuery::getInstance()->customQuery('Update volunteer_project set status = "Seen" where p_ID = ' . $row[0] . ' and v_ID = ' . $entity->getId() . ' and accepted_at = "' . $row[2] . '"');
+            CustomQuery::getInstance()->customQuery('Update volunteer_project set status = "Seen" where project_ID = ' . $row[0] . ' and volunteer_ID = ' . $entity->getId() . ' and accepted_at = "' . $row[2] . '"');
             $i++;
         }
         return $temp;
@@ -85,17 +85,13 @@ class NotificationController extends ContainerAware {
         $i = 0;
         $messages[][] = null;
 
-        $message = CustomQuery::getInstance()->customQuery('SELECT * FROM admin_vol_messages where msgStatus = "notRead" and v_ID = ' . $entity->getId());
-        $admin = null;
-
+        $message = CustomQuery::getInstance()->customQuery('SELECT * FROM admin_vol_messages where msgStatus = "notRead" and volunteer_ID = ' . $entity->getId());
+        
         while ($row = mysqli_fetch_row($message)) {
             for ($index = 0; $index < count($row); $index++) {
                 $messages[$i][$index] = $row[$index];
-            }
-
-            $admin = Read::getInstance()->read(new Admin(), 'admin', 'ID', $row[1]);
-            $messages[$i][1] = $admin->getFirstName() . ' ' . $admin->getLastName();
-            CustomQuery::getInstance()->customQuery('Update admin_vol_messages set msgStatus = "Read" where v_ID = ' . $entity->getId() . ' and sent_time = "' . $row[2] . '"');
+            }            
+            CustomQuery::getInstance()->customQuery('Update admin_vol_messages set msgStatus = "Read" where volunteer_ID = ' . $entity->getId() . ' and sent_time = "' . $row[2] . '"');
 
             $i++;
         }
@@ -104,38 +100,23 @@ class NotificationController extends ContainerAware {
 
     public function messageAction($email) {
         $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
-        $admins = $this->getAdmins();
         $sent = null;
         return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:message.html.twig', array(
                     'entity' => $entity,
-                    'sent' => $sent,
-                    'admins' => $admins
+                    'sent' => $sent
         ));
     }
 
     public function messagesendAction(Request $request, $email) {
         if ($request->getMethod() == "POST") {
             $entity = Read::getInstance()->read(new Volunteer(), 'volunteer', 'email', $email);
-            $admins = $this->getAdmins();
             $message[] = null;
             $message[0] = $entity->getId();
             $message[1] = $request->get('message');
             $message[2] = date('Y-m-d h:i:s');
             $message[3] = 'notRead';
             $sent = Create::getInstance()->create($message, 'vol_admin_msg');
-            return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:message.html.twig', array('entity' => $entity, 'sent' => $sent, 'admins' => $admins));
+            return $this->container->get('templating')->renderResponse('VolProfileBundle:VolProfile:message.html.twig', array('entity' => $entity, 'sent' => $sent));
         }
     }
-
-    public function getAdmins() {
-        $admin = CustomQuery::getInstance()->customQuery('SELECT concat(first_name, " ", last_name) as name from admin');
-        $admins[] = null;
-        $i = 0;
-        while ($row = mysqli_fetch_row($admin)) {
-            $admins[$i] = $row[0];
-            $i++;
-        }
-        return $admins;
-    }
-
 }

@@ -43,7 +43,10 @@
                         <li class="timeline-inverted">
                         {% endif %}
                         <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="This project was posted on: {{projects[i][4]}}" id=""></i></a></div>
-                        <div class="timeline-panel">                            
+                        <div class="timeline-panel">    
+                            <div class="timeline-heading">
+                                <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />
+                            </div>
                             <div class="timeline-body">
                                 <h4>{{ projects[i][0] }}</h4>
                                 <p>{{ projects[i][1]|length > 250 ? projects[i][1]|slice(0, 250) ~ '...' : projects[i][1] }}</p>
