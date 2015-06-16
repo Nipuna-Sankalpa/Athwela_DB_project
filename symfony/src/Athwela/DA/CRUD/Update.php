@@ -83,5 +83,20 @@ class Update {
             return $conn->error;
         }
     }
+    
+    public function updateEducation($table, $index1, $value1,$index2, $value2) {
+        $conn = DBConnection::getInstance()->getConnection();
+        Delete::getInstance()->deleteRow($table, $index1, $value1);
+        $query = "INSERT INTO $table($index1,$index2) VALUES('". $value1 ."','" . $value2 . "')";
+
+        //$query = "INSERT INTO volunteer_education(v_ID,i_ID) VALUES('34','1')";
+
+        if ($conn->query($query) === TRUE) {
+            return true;
+        } else {
+            return $conn->error;
+        }
+        
+    }
 
 }
