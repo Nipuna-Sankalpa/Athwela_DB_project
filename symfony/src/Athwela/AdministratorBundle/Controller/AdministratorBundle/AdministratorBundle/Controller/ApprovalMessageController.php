@@ -291,7 +291,6 @@ class ApprovalMessageController extends ContainerAware {
 
             $subject = $request->get('subjectOrg');
             $message = $request->get('messageOrg');
-
             $query = "INSERT INTO admin_org_messages (organization_ID,admin_ID,message,subject) VALUES ('$organization_ID', '$admin_ID','$message', '$subject')";
             CustomQuery::getInstance()->customQuery($query);
         } else {
@@ -327,7 +326,6 @@ class ApprovalMessageController extends ContainerAware {
 
             $subject = $request->get('subjectVol');
             $message = $request->get('messageVol');
-
             $query = "INSERT INTO admin_vol_messages (volunteer_ID,admin_ID,message,subject) VALUES ('$volunteer_ID', '$admin_ID','$message', '$subject')";
             CustomQuery::getInstance()->customQuery($query);
         } else {

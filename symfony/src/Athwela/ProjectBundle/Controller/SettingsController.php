@@ -45,8 +45,8 @@ class SettingsController extends Controller {
 
 
         if ($formProject->isValid()) {
-
             $query = "INSERT INTO project (`type_ID`,`organization_ID`,`title`,`description`,`start_date`,`end_date`,`volunteers_needed`) VALUES ('" . $entityProject->getType() . "','" . $user->getId() . "','" . $entityProject->getTitle() . "','" . $entityProject->getDescription() . "','" . $entityProject->getStartDate()->format('Y-m-d H:i:s') . "','" . $entityProject->getEndDate()->format('Y-m-d H:i:s') . "','" . $entityProject->getVolunteersNeeded() . "')";
+
             CustomQuery::getInstance()->customQuery($query);
             $resultID = CustomQuery::getInstance()->customQuery("SELECT ID FROM project ORDER BY ID DESC LIMIT 1");
 

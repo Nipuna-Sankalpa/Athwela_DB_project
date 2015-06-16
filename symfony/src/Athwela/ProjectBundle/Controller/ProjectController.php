@@ -29,6 +29,7 @@ class ProjectController extends ContainerAware {
         $project = Read::getInstance()->read(new Project(), 'project', 'ID', $ID);
         
         
+
         $querySkill = "SELECT * FROM `project_skill`,`skill` where project_skill.skill_ID=skill.ID and project_skill.project_ID='$ID'";
         $queryType = "SELECT project.type_ID as type_ID,project.ID as project_ID,type.name,type.description FROM type,project where type.ID=project.type_ID and project.ID='$ID'";
         $queryImg = "SELECT * FROM project_img where project_ID='$ID'";
