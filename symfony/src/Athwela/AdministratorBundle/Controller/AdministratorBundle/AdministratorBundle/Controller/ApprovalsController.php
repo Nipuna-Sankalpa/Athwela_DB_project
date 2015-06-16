@@ -61,7 +61,7 @@ class ApprovalsController extends ContainerAware {
 
     public function adminVolsAction(Request $request) {
 
-        $query = "SELECT CONCAT(first_name,' ',last_name) as name,email FROM volunteer WHERE availability=" . "'" . "pending" . "'";
+        $query = "SELECT CONCAT(first_name,' ',last_name) as name,ID FROM volunteer WHERE availability=" . "'" . "pending" . "'";
         $query1 = "SELECT name FROM skill";
         $result = CustomQuery::getInstance()->customQuery($query);
         $result1 = CustomQuery::getInstance()->customQuery($query1);

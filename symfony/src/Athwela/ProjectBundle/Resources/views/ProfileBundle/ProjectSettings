@@ -1,7 +1,0 @@
-{% extends "::base.html.twig" %}
-
-{% block title %}AthwelaProjectBundle:ProfileBundle:ProjectSettings:createProject{% endblock %}
-
-{% block body %}
-<h1>Welcome to the ProfileBundle:ProjectSettings:createProject page</h1>
-{% endblock %}

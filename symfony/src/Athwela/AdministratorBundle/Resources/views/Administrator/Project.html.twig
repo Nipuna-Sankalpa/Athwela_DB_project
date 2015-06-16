@@ -28,7 +28,7 @@
                                     {% for project in newProjects %}
                                         <div class="well well-sm col-sm-6" style="margin: 0.5em;">
                                             <div class="col-xs-4">
-                                                <li><a href="#">{{project.title}}</a></li>
+                                                <li><a href="{{path('show_project',{'ID':project.id})}}">{{project.title}}</a></li>
                                             </div>
                                             <div class="text-right col-xs-7 col-xs-offset-1">
                                                 <div class="btn-group btn-group-xs">

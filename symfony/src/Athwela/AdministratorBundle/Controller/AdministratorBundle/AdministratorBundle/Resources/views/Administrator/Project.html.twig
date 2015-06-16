@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Volunteers</h1>
+                    <h1 class="page-header">Projects</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -17,32 +17,35 @@
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    <span class="glyphicon glyphicon-plus"></span> New Volunteers
+                                    <span class="glyphicon glyphicon-plus"></span> New Projects
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
 
-                                {%if volunteers!= null%}
-                                    {% for vol in volunteers %}
-                                        <div class="well well-sm col-sm-5" style="margin: 0.5em;">
+                                {%if newProjects!= null%}
+                                    {% for project in newProjects %}
+                                        <div class="well well-sm col-sm-6" style="margin: 0.5em;">
                                             <div class="col-xs-4">
-                                                <li><a href="{{path('vol_profile_show',{'email':vol.email})}}">{{vol.firstName}}</a></li>
+                                                <li><a href="#">{{project.title}}</a></li>
                                             </div>
                                             <div class="text-right col-xs-7 col-xs-offset-1">
                                                 <div class="btn-group btn-group-xs">
-                                                    <a href="{{path('athwela_administrator_approve',{'email':vol.email})}}"><span class="glyphicon glyphicon-ok " data-toggle="tooltip" data-placement="bottom" title="Approve"></span></a>
-                                                    <a style="margin-left: 1em;" href="{{path('athwela_administrator_reject',{'email':vol.email})}}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject"></span></a>
+                                                    <a href="{{path('athwela_administrator_projectApprove',{'id':project.id})}}"><span class="glyphicon glyphicon-ok " data-toggle="tooltip" data-placement="bottom" title="Approve"></span></a>
+                                                    <a style="margin-left: 1em;" href="{{path('athwela_administrator_projectReject',{'id':project.id})}}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Reject"></span></a>
                                                 </div>
                                             </div>
                                         </div>
+                                                
                                     {% endfor %}
+                                    
                                 {% else %}
                                     <div>
-                                        <li><h4 class="text-center">No new volunteers !</h4></li>
+                                        <li><h4 class="text-center">No new Projects !</h4></li>
                                     </div>
                                 {% endif %}
+
 
                             </div>
                         </div>
@@ -58,33 +61,34 @@
                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
                                 <div>
-                                    <form action="{{path('athwela_administrator_search')}}" method="POST">
+                                    <form action="{{path('athwela_administrator_projectSearch')}}" method="POST">
                                         <div class="form-group row">
-                                            <div class="col-sm-6">
-                                                <label class="control-label"> Volunteer Name :</label>
-                                                <input  type="text" class="form-control" name="volName" placeholder="Enter volunteer name">
+                                            <div class="col-sm-4">
+                                                <label class="control-label"> Project name :</label>
+                                                <input type="text" name="projectName" class="form-control" placeholder="Enter Project name">
                                             </div>
-                                            <div class="col-sm-6" >
-                                                <label class="control-label"> Volunteer Skill :</label>
-                                                <input  list="skills" name="skill" class="form-control" placeholder="Select skill">
-                                                <datalist id="skills">
-                                                    {%if skills%}
-                                                        {%for skill in skills%}
-                                                            <option value="{{skill.name}}">
+                                            <div class="col-sm-4" >
+                                                <label class="control-label"> Project type :</label>
+                                                <input list="type" name="projectType" class="form-control" placeholder="Select type">
+                                                <datalist id="type">
+                                                    {%if types%}
+                                                        {%for type in types%}
+                                                            <option value="{{type.name}}">
                                                             {% endfor %}
                                                         {%else%}
                                                         <option value="No types has been defined">
                                                         {% endif %}
-
                                                 </datalist>
+                                            </div>
+                                            <div class="col-sm-4" >
+                                                <label class="control-label"> Organization name :</label>
+                                                <input type="text" name="orgName" class="form-control" placeholder="Enter Organization name">
                                             </div>
                                         </div>
 
                                         <button type="submit" class="btn btn-info">Search</button>
                                     </form>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>  
@@ -92,23 +96,23 @@
 
             </div>
 
-            <div><a href="{{path('athwela_administrator_volunteer',{'flag':TRUE})}}"><span class="glyphicon glyphicon-user"></span> View all volunteers</a></div>
-            <br />
+            <div><a href="{{path('athwela_administrator_project',{'flag':TRUE})}}"><i class="fa fa-tasks fa-fw"></i> View all projects</a></div>
+
 
             <div class="row">
-                {%if allVolunteers%}
+                {%if allProjects%}
                     <div class="panel panel-default">
                         <div class="panel-heading"><span class="fa fa-user"></span>  All Volunteers</div>
                         <div class="panel-body">
-                            {% for allVols in allVolunteers%}
+                            {% for project in allProjects%}
                                 <div class="col-sm-4">
-                                    <li class="text-center"><a href="{{path('vol_profile_show',{'email':allVols.email})}}">{{allVols.firstName}}</a></li>
+                                    <li class="text-center"><a href="#">{{project.title}}</a></li>
                                 </div >
                                 <div class="col-sm-4">
-                                    <a href="{{path('vol_profile_show',{'email':allVols.email})}}"><span class="fa fa-envelope"></span> {{allVols.email}}</a>
+                                    <a href="#"><span class="fa fa-envelope"></span> {{project.org_name}}</a>
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="{{path('vol_profile_show',{'email':allVols.email})}}"><span class="fa fa-th-large"></span> {{allVols.availability}}</a>
+                                    <a href="#"><span class="fa fa-th-large"></span> {{project.project_status}}</a>
                                 </div>
                             {% endfor%}
                         </div>
@@ -117,32 +121,29 @@
                 {% endif %}
             </div>
 
-<br />
+            <br >
             <div class="row">
-                {%if searchVols%}
+                {%if searchProjects%}
                     <div class="panel panel-default">
                         <div class="panel-heading"><span class="glyphicon glyphicon-search"></span> Search Results</div>
                         <div class="panel-body">
-                            {% for searchVol in searchVols%}
-                                <div class="col-sm-3">
-                                    <li><a href="{{path('vol_profile_show',{'email':searchVol.email})}}">{{searchVol.name}}</a></li>
+                            {% for searchProject in searchProjects%}
+                                <div class="col-sm-4">
+                                    <li><a href="#">{{searchProject.title}}</a></li>
                                 </div >
-                                <div class="col-sm-3">
-                                    <a href="{{path('vol_profile_show',{'email':searchVol.email})}}"><span class="fa fa-envelope"></span> {{searchVol.email}}</a>
+                                <div class="col-sm-4">
+                                    <a href="#"><span class="fa fa-envelope"></span> {{searchProject.org_name}}</a>
                                 </div>
-                                <div class="col-sm-3">
-                                    <a href="{{path('vol_profile_show',{'email':searchVol.email})}}"><span class="fa fa-envelope"></span> {{searchVol.status}}</a>
+                                <div class="col-sm-4">
+                                    <a href="#"><span class="fa fa-envelope"></span> {{searchProject.project_status}}</a>
                                 </div>
-                                <div class="col-sm-3">
-                                    <a href="{{path('vol_profile_show',{'email':searchVol.email})}}"><span class="fa fa-envelope"></span> {{searchVol.skill}}</a>
-                                </div>
+
                             {% endfor%}
                         </div>
                     </div>
 
                 {% endif %}
             </div>
-
 
         </div>
         <!-- /.container-fluid -->

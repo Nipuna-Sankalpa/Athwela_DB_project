@@ -27,6 +27,8 @@ class ProjectController extends ContainerAware {
 
 
         $project = Read::getInstance()->read(new Project(), 'project', 'ID', $ID);
+        
+        
         $querySkill = "SELECT * FROM `project_skill`,`skill` where project_skill.s_ID=skill.ID and project_skill.p_ID='$ID'";
         $queryType = "SELECT project.t_ID as t_ID,project.ID as p_ID,type.name,type.description FROM type,project where type.ID=project.t_ID and project.ID='$ID'";
         $queryImg = "SELECT * FROM project_img where p_ID='$ID'";
@@ -132,6 +134,12 @@ class ProjectController extends ContainerAware {
         ));
     }
 
+    public function updateVolAction($ID){
+        
+        
+        
+        
+    }
     
 
 }

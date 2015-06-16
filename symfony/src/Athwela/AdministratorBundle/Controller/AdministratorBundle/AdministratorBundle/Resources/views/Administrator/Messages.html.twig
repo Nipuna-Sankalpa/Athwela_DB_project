@@ -1,0 +1,356 @@
+{% extends 'AthwelaAdministratorBundle:Administrator:adminDashBoard.html.twig'%}
+{%block content%}
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Messages</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <span class="glyphicon glyphicon-plus"></span> New Messages
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        {%if newMsgsVol%}
+                                            <h4><i class="fa fa-user fa-fw"></i> Received from Volunteers</h4>
+                                            {% for newMsgVol in newMsgsVol %}
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <li ><a data-toggle="modal" href="#" data-target="#newmsgVol{{loop.index0}}">{{newMsgVol.name}}</a></li>
+                                                    </div >
+                                                    <div class="col-sm-4">
+                                                        <a href="#" ><i class="fa fa-calendar"></i> {{newMsgVol.timeStamp}}</a>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <a  href="{{path('athwela_administrator_approveVolMessage',{'timeStamp':newMsgVol.fakeTS})}}"><span class="glyphicon glyphicon-ok " data-toggle="tooltip" data-placement="bottom" title="Mark as read"></span></a>
+                                                        <a  style="margin-left: 1em;" href="{{path('athwela_administrator_rejectVolMessage',{'timeStamp':newMsgVol.fakeTS})}}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Delete"></span></a>
+                                                    </div>
+                                                </div>
+                                                {#--------------------------------------------#}
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="newmsgVol{{loop.index0}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myModalLabel">From :{{newMsgVol.name}}</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{newMsgVol.msg}}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {#--------------------------------------------#}
+                                            {% endfor %}
+
+                                        {% else %}
+                                            <div>
+                                                <h4 class="text-center">No new messages received from volunteers !!!!</h4>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {%if newMsgsOrg%}
+                                            <h4><i class="fa fa-table fa-fw"></i> Received from organizations</h4>
+                                            {% for newMsgOrg in newMsgsOrg %}
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <li><a data-toggle="collapse" href="#" data-target="#newmsgOrg{{loop.index0}}">{{newMsgOrg.name}}</a></li>
+                                                    </div >
+                                                    <div class="col-sm-4">
+                                                        <a href="#" ><i class="fa fa-calendar"></i> {{newMsgOrg.timeStamp}}</a>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <a  href="{{path('athwela_administrator_approveOrgMessage',{'timeStamp':newMsgOrg.fakeTS})}}"><span class="glyphicon glyphicon-ok " data-toggle="tooltip" data-placement="bottom" title="Mark as read"></span></a>
+                                                        <a style="margin-left:1em;" href="{{path('athwela_administrator_rejectOrgMessage',{'timeStamp':newMsgOrg.fakeTS})}}"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="bottom" title="Delete"></span></a>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="newmsgOrg{{loop.index0}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myModalLabel">From :{{newMsgOrg.name}}</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {{newMsgOrg.msg}}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-info" data-dismiss="modal">Close</button>   
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {#--------------------------------------------#}
+                                            {% endfor %}
+
+                                        {% else %}
+                                            <h4 class="text-center">No new messages received from organizations !!!!</h4>
+                                        {% endif %}
+                                    </div>
+
+                                </div>                           
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="glyphicon glyphicon-search"></span> Search
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <div>
+                                    <form action="{{path('athwela_administrator_searchMessage')}}" method="POST">
+                                        <div class="form-group row">
+
+                                            <div class="col-sm-3" >
+                                                <label class="control-label"> Volunteer name :</label>
+                                                <input type="text" name="volName" class="form-control" placeholder="Select type">
+
+                                            </div>
+                                            <div class="col-sm-3" >
+                                                <label class="control-label"> Organization name :</label>
+                                                <input type="text" name="orgName" class="form-control" placeholder="Select organization">
+
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <label class="control-label" data-toggle="tooltip" data-placement="right" title="Select second date of the range"> First date :</label>
+                                                <input type="date" class="form-control" name="fDate" data-toggle="tooltip" data-placement="bottom" title="Select first date of the range">
+
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <label class="control-label" data-toggle="tooltip" data-placement="right" title="Select second date of the range"> Second date :</label>
+                                                <input type="date" class="form-control" name="lDate" data-toggle="tooltip" data-placement="bottom" title="Select second date of the range">
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <p class="text-justify"><span class="fa fa-asterisk "style="color: red"></span> Here you can search your previous messages under certain categories.if you wish to enter 
+                                                    data into first date then you should fill the second date as well and vice versa.Because system expected to search messages using time period.
+                                                    otherwise you can leave both dates.
+                                                </p>
+                                            </div>
+                                            <div class="col-md-2"> 
+                                                <button type="submit" class="btn btn-info pull-right">Search</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <i class="fa fa-comments"></i> Send
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+                                <div class="form-group">
+
+                                    <div class="col-sm-6">
+                                        <h3>Send Volunteers</h3>
+                                        <form id="msgVol" action="{{path('athwela_administrator_sendVolMessage')}}" method="POST">
+
+                                            <input type="text" name="emailVol" id="msgRecieverVol" class="form-control" placeholder="Enter Recipient's Email"><br />
+                                            <input type="text" name="subjectVol" id="msgsubjectVol" class="form-control" placeholder="Enter Subject"><br />
+
+                                            <textarea name="messageVol" class="form-control" type="text" id="msgRecieverVol" placeholder="Enter message"></textarea>
+                                            <br />
+                                            <button class="btn btn-info pull-right" type="submit"> Send</button>
+
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <h3>Send Organization</h3>
+                                            <form id="msgOrg" action="{{path('athwela_administrator_sendOrgMessage')}}" method="POST">
+
+                                                <input type="text" name="emailOrg" id="msgRecieverOrg" class="form-control" placeholder="Enter Recipient's Email"><br />
+                                                <input type="text" name="subjectOrg" id="msgSubjectOrg" class="form-control" placeholder="Enter Subject"><br />
+
+                                                <textarea name="messageOrg" class="form-control" type="text" id="msgRecieverOrg" placeholder="Enter Message"></textarea>
+                                                <br />
+                                                <button class="btn btn-info pull-right" type="submit"> Send</button>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+            </div>
+            <div>
+                <a href="{{path('athwela_administrator_message',{'flag':TRUE})}}"><i class="fa fa-envelope fa-fw"></i> View all messages</a>
+
+            </div>
+            <br />
+
+            <div class="row">
+                <div>
+                    {%if searchMsgs%}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><i class="glyphicon glyphicon-search"></i> Search results</div>
+                            <div class="panel-body text-center">
+                                {% for searchMsg in searchMsgs%}
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <li ><a data-toggle="collapse" href="#searchMsg{{loop.index0}}" aria-expanded="false" aria-controls="searchMsg{{loop.index0}}">{{searchMsg.name}}</a></li>
+                                        </div >
+                                        <div class="col-sm-4">
+                                            <a href="#"><i class="fa fa-calendar"></i> {{searchMsg.timeStamp}}</a>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <a href="#"><span class="fa fa-th-large"></span> {{searchMsg.status}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row collapse" id="searchMsg{{loop.index0}}" style="margin-left: 0.3em;margin-top: 0.1em;margin-right:0.1em;">
+                                        <div class="well">
+                                            <p>{{searchMsg.msg}}</p>
+                                        </div>
+                                    </div>
+                                {% endfor%}
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    {%if allMsgsOrg%}
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><i class="fa fa-table fa-fw"></i> Received from organizations</div>
+                            <div class="panel-body">
+                                {% for allMsgOrg in allMsgsOrg%}
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <li class="text-center"><a data-toggle="collapse" href="#allMsgOrg{{loop.index0}}" aria-expanded="false" aria-controls="allMsgOrg{{loop.index0}}">{{allMsgOrg.name}}</a></li>
+                                        </div >
+                                        <div class="col-sm-6">
+                                            <a href="#"><span class="fa fa-calendar"></span> {{allMsgOrg.timeStamp}}</a>
+                                        </div>   
+                                    </div>
+                                    <div class="row collapse" id="allMsgOrg{{loop.index0}}" style="margin-left: 0.3em;margin-top: 0.1em;margin-right:0.1em;">
+                                        <div class="well">
+                                            <p>{{allMsgOrg.msg}}</p>
+                                        </div>
+                                    </div>
+                                {% endfor%}
+                            {% else %}
+
+                            </div>
+                        </div>
+
+                    {% endif %}    
+                </div>
+
+                <div class="col-sm-6">
+                    {%if allMsgsVol%}
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><i class="fa fa-table fa-fw"></i> Received from volunteers</div>
+                            <div class="panel-body">
+                                {% for allMsgVol in allMsgsVol%}
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <li class="text-center"><a data-toggle="collapse" href="#allMsgVol{{loop.index0}}" aria-expanded="false" aria-controls="allMsgVol{{loop.index0}}">{{allMsgVol.name}}</a></li>
+                                        </div >
+                                        <div class="col-sm-6">
+                                            <a href="#"><span class="fa fa-calendar"></span> {{allMsgVol.timeStamp}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row collapse" id="allMsgVol{{loop.index0}}" style="margin-left: 0.3em;margin-top: 0.1em;margin-right:0.1em;">
+                                        <div class="well">
+                                            <p>{{allMsgVol.msg}}</p>
+                                        </div>
+                                    </div>
+                                {% endfor%}
+
+                            {% else %}
+
+                            </div>
+                        </div>
+
+                    {% endif %}
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div>
+                    {# {%if Msg%}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><i class="glyphicon glyphicon-search"></i> From :{{Msg.name}}</div>
+                            <div class="panel-body text-center">
+                                <p class="text-justify">
+                                    {{Msg.msg}}
+                                </p>
+                            </div>
+                        </div>
+    
+                    {% endif %} #}
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+
+
+
+{%endblock content%}
+{% block script%}
+
+{%endblock script%}

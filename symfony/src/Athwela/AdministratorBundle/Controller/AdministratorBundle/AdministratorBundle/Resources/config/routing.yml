@@ -114,6 +114,11 @@ athwela_administrator_adminSet:
     path:     /adminSettings
     defaults: { _controller: AthwelaAdministratorBundle:AdminSettings:index }  
 
+athwela_administrator_adminUpdate:
+    path:     /adminUpdate
+    defaults: { _controller: AthwelaAdministratorBundle:AdminSettings:updates} 
+    requirements: { _method: post|get }
+    
 athwela_administrator_confirm:
     path:     /registerConfirm/{token}
     defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:confirm }  
@@ -134,8 +139,4 @@ athwela_administrator_regMore:
     path:     /register123
     defaults: { _controller: AthwelaAdministratorBundle:ApprovalAdmin:sendDatabase }  
 
-athwela_administrator_adminUpdate:
-    path:     /adminUpdate
-    defaults: { _controller: AthwelaAdministratorBundle:AdminSettings:updates} 
-    requirements: { _method: post|get }
 #----------------------------------------------------------------------------------------#

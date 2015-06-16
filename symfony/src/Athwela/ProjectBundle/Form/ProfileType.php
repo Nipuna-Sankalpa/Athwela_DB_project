@@ -6,11 +6,12 @@
  * and open the template in the editor.
  */
 
-namespace Athwela\ProjectBundle\Type\Form;
+namespace Athwela\ProjectBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\AbstractType;
+
 
 /**
  * Description of OrganizationType
@@ -19,11 +20,10 @@ use Symfony\Component\Form\AbstractType;
  */
 class ProfileType extends AbstractType {
 
-    public function buidForm(FormBuiderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('title', 'text', array(
                     'label' => 'Project Title',
-                    'plcaeholder' => 'Enter Project Title',
                     'required' => TRUE,
         ));
         $builder
@@ -41,7 +41,6 @@ class ProfileType extends AbstractType {
         $builder
                 ->add('description', 'textarea', array(
                     'label' => 'Description',
-                    'placeholder' => 'Plase project description here',
                     'required' => TRUE
         ));
     }

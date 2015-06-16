@@ -67,7 +67,7 @@ class VolunteerController extends Controller {
 
         /*         * ****** change password ********** */
 
-        $form = $form = $this->container->get('fos_user.change_password.form');
+        $form = $this->container->get('fos_user.change_password.form');
 
 
         /*         * **************** */

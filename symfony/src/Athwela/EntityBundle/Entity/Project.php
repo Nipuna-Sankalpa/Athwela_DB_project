@@ -14,7 +14,17 @@ class Project {
      */
     private $title;
     private $skill;
+    private $type;
+    
+    function getType() {
+        return $this->type;
+    }
 
+    function setType($type) {
+        $this->type = $type;
+    }
+
+    
     function getSkill() {
         return $this->skill;
     }
